@@ -68,8 +68,6 @@ contractor varchar(20) not null,
 date_of_employment date not null,
 mobile_no char(10));
 
-show tables;
-
 create table if not exists voting(
 property_no varchar(20) primary key,
 decision varchar(500));
