@@ -1,10 +1,10 @@
 # Simply Home - Society Management System
 
 ### Tech Stacks
-React
-CSS
-MySQL
-Django
+1. React
+2. CSS
+3. MySQL
+4. Django
 
 ### Motivation
 Housing Societies consist of massive manual work. The documentation of this work is neither correct nor transparent to other residents, often causing unusual struggles among the residents.
@@ -19,4 +19,4 @@ Why this Tech Stack?
 We wanted to expand our tech stack and explore different frameworks to differentiate amongst them and use them according to our needs in the future.
 
 ### Acknowledgement
-This project was created during Sep-Oct 2021, for the course, CS-257 Database Management System, under the guidance of Dr.Nagendra Kumar , Assistant Professor in the Department of Computer Science and Engineering at IIT Indore. We are grateful towards IIT Indore and him for providing us the opportunity to build this amazing project.
+This project was created during Sep-Oct 2021, for the course, CS-257 Database Management System, under the guidance of Dr.Nagendra Kumar, Assistant Professor in the Department of Computer Science and Engineering at IIT Indore. We are grateful towards IIT Indore and him for providing us the opportunity to build this amazing project.
