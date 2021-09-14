@@ -19,4 +19,4 @@ Why this Tech Stack?
 We wanted to expand our tech stack and explore different frameworks to differentiate amongst them and use them according to our needs in the future.
 
 ### Acknowledgement
-This project was created during Sep-Oct 2021, for the course, CS-257 Database Management System, under the guidance of Dr.Nagendra Kumar, Assistant Professor in the Department of Computer Science and Engineering at IIT Indore. We are grateful towards IIT Indore and him for providing us the opportunity to build this amazing project.
+This project was created during Sep-Oct 2021, for the course, CS-257 Database Management System, under the guidance of Dr. Nagendra Kumar, Assistant Professor in the Department of Computer Science and Engineering at IIT Indore. We are grateful towards IIT Indore and him for providing us the opportunity to build this amazing project.
