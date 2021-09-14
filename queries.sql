@@ -74,6 +74,10 @@ create table if not exists voting(
 property_no varchar(20) primary key,
 decision varchar(500));
 
+create table if not exists inventory(
+item_name varchar(20),
+quantity int);
+
 alter table members
 add foreign key(property_type) references property_info(type);
 
