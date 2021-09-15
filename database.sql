@@ -1,3 +1,9 @@
+
+CREATE TABLE property_info (
+property_type varchar(50) PRIMARY KEY, 
+maintenance int NOT NULL, 
+covered_area int NOT NULL);
+
 CREATE TABLE members (
 property_no varchar(15) PRIMARY KEY, 
 property_type varchar(50) NOT NULL, 
@@ -6,18 +12,14 @@ member_type varchar(20) NOT NULL,
 name varchar(50) NOT NULL, 
 mobile_no char(10) NOT NULL, 
 tenant_name varchar(50), 
-tenant_mobile char(10));
+tenant_mobile char(10),
+CONSTRAINT fk_property_type FOREIGN KEY (property_type) REFERENCES property_info(property_type));
 
 CREATE TABLE parking (
 parking_id varchar(25) PRIMARY KEY, 
 filled bit NOT NULL, 
 property_no varchar(15), 
 CONSTRAINT fk FOREIGN KEY (property_no) REFERENCES members(property_no));
-
-CREATE TABLE property_info (
-property_type varchar(50) PRIMARY KEY, 
-maintenance int NOT NULL, 
-covered_are int NOT NULL);
 
 CREATE TABLE maintenance (
 property_no varchar(15), 
