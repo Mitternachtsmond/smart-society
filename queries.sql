@@ -1,101 +1,98 @@
-create database if not exists sms_db;
-use sms_db;
-create table if not exists members (
-property_no varchar(20) primary key,
-property_type varchar(20) not null,
-password varchar(20) not null,
-member_type varchar(20) not null, 
-mobile_no char(10) not null,
-name varchar(20) not null,
+CREATE DATABASE IF NOT EXISTS sms_db;
+
+USE sms_db;
+
+CREATE TABLE IF NOT EXISTS members (
+property_no varchar(20) PRIMARY KEY,
+property_type varchar(20) NOT NULL,
+password varchar(20) NOT NULL,
+member_type varchar(20) NOT NULL, 
+mobile_no char(10) NOT NULL,
+name varchar(20) NOT NULL,
 tenant_name varchar(20),
 tenant_mobile char(10));
 
-create table if not exists property_info (
-type varchar(20) primary key,
-maintenance int not null,
-carpet_area int not null);
+CREATE TABLE IF NOT EXISTS property_info (
+property_type varchar(20) PRIMARY KEY,
+maintenance int NOT NULL,
+carpet_area int NOT NULL);
 
-create table if not exists maintenance (
-property_no varchar(20) primary key,
-gen_month date not null,
-amount_basic int not null,
-amount_due int not null,
-amount_paid int not null,
-penalty int not null default 0,
-payment_date date);
+CREATE TABLE IF NOT EXISTS maintenance (
+property_no varchar(20),
+gen_month date NOT NULL,
+amount_basic int NOT NULL,
+amount_due int NOT NULL,
+amount_paid int NOT NULL,
+penalty int NOT NULL DEFAULT 0,
+payment_date date,
+PRIMARY KEY(property_no, gen_month));
 
-create table if not exists gate_log (
-sr_no int primary key auto_increment,
-visitor_name varchar(20) not null,
-property_no varchar(20) not null,
-entry_time datetime not null,
-exit_time datetime not null,
+CREATE TABLE IF NOT EXISTS gate_log (
+sr_no int PRIMARY KEY AUTO_INCREMENT,
+visitor_name varchar(20) NOT NULL,
+property_no varchar(20) NOT NULL,
+entry_time datetime NOT NULL,
+exit_time datetime NOT NULL,
 vehicle_type varchar(20),
 vehicle_no varchar(8),
-parking_id varchar(20) not null);
+parking_id varchar(20));
 
-create table if not exists transactions (
-sr_no int primary key auto_increment, 
-amount int not null,
-transaction_date date not null,
-sent_to varchar(20) not null,
-received_from varchar(20) not null,
-description  varchar(100));
+CREATE TABLE IF NOT EXISTS transactions (
+sr_no int PRIMARY KEY AUTO_INCREMENT, 
+amount int NOT NULL,
+transaction_date date NOT NULL,
+sent_to varchar(20) NOT NULL,
+received_from varchar(20) NOT NULL,
+description varchar(250));
 
-create table if not exists announcements (
-sr_no int primary key not null auto_increment,
-author varchar(20) not null,
-category varchar(20) not null,
-date datetime not null,
-description varchar(100));
+CREATE TABLE IF NOT EXISTS announcements (
+sr_no int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+author varchar(20) NOT NULL,
+category varchar(20) NOT NULL,
+date datetime NOT NULL,
+description varchar(500) NOT NULL);
 
-create table if not exists parking(
-parking_id varchar(20) primary key, 
-filled bit not null, 
+CREATE TABLE IF NOT EXISTS parking(
+parking_id varchar(20) PRIMARY KEY, 
+filled bit NOT NULL, 
 property_no varchar(20));
 
-create table if not exists personal_staff(
-sr_no int primary key auto_increment,
+CREATE TABLE IF NOT EXISTS personal_staff(
+sr_no int PRIMARY KEY AUTO_INCREMENT,
 staff_name varchar(20),
 occupation_type varchar(20));
 
-create table if not exists society_staff(
-aadhar_no varchar(12) primary key not null,
-staff_name varchar(20) not null,
-occupation_type varchar(20) not null,
-salary int not null,
-contractor varchar(20) not null,
-date_of_employment date not null,
+CREATE TABLE IF NOT EXISTS society_staff(
+aadhar_no varchar(12) PRIMARY KEY NOT NULL,
+staff_name varchar(20) NOT NULL,
+occupation_type varchar(20) NOT NULL,
+salary int NOT NULL,
+contractor varchar(20) NOT NULL,
+date_of_employment date NOT NULL,
 mobile_no char(10));
 
-create table if not exists voting(
-property_no varchar(20) primary key,
+CREATE TABLE IF NOT EXISTS voting(
+property_no varchar(20) PRIMARY KEY,
 decision varchar(500));
 
-create table if not exists inventory(
-item_name varchar(20),
+CREATE TABLE IF NOT EXISTS inventory(
+item_name varchar(20) PRIMARY KEY,
 quantity int);
 
-alter table members
-add foreign key(property_type) references property_info(type);
+ALTER TABLE members
+ADD FOREIGN KEY(property_type) REFERENCES property_info(property_type);
 
-alter table maintenance
-drop primary key;
+ALTER TABLE maintenance
+ADD FOREIGN KEY(property_no) REFERENCES members(property_no);
 
-alter table maintenance
-add constraint primary key(property_no, gen_month);
+ALTER TABLE gate_log
+ADD FOREIGN KEY(parking_id) REFERENCES parking(parking_id);
 
-alter table maintenance
-add foreign key(property_no) references members(property_no);
+ALTER TABLE parking
+ADD FOREIGN KEY(property_no) REFERENCES members(property_no);
 
-alter table gate_log
-add foreign key(parking_id) references parking(parking_id);
+ALTER TABLE gate_log
+ADD FOREIGN KEY(property_no) REFERENCES members(property_no);
 
-alter table parking
-add foreign key(property_no) references members(property_no);
-
-alter table gate_log
-add foreign key(property_no) references members(property_no);
-
-alter table voting
-add foreign key(property_no) references members(property_no);
+ALTER TABLE voting
+ADD FOREIGN KEY(property_no) REFERENCES members(property_no);
