@@ -33,8 +33,6 @@ class parking(models.Model):
     id = models.CharField("Parking Slot id", primary_key=True,max_length=10)
     property = models.ForeignKey(member, on_delete=SET_NULL, null=True, blank=True)
     filled = models.CharField("Status",choices=Choices,max_length=10)
-    def delete(self):
-        super(parking, self).delete()
     def __str__(self):
         return str(self.id)
 
