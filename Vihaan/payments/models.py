@@ -19,7 +19,7 @@ class Transaction(models.Model):
 
 class Maintenance(models.Model): # Django will create a primary key id no matter
     property = models.CharField('property number', max_length=16) # change to foreign key  
-    date = models.DateField()           # Extract month, years
+    date = models.DateField(auto_now_add=True)           # Extract month, years
     basic = models.IntegerField('amount basic')        # change to foreign key  
     due = models.IntegerField('amount due')          # refers to the total due of a person  
     paid = models.IntegerField('amount paid', default=0) #refers to the amount paid in the given month

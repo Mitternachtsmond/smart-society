@@ -12,13 +12,13 @@ from django.db.utils import IntegrityError
 # Create your views here.
 rate = 5
 
-class MaintenanceViewSet(viewsets.ModelViewSet):
-    serializer_class = MaintenanceSerializer
-    queryset = Maintenance.objects.all()
+# class MaintenanceViewSet(viewsets.ModelViewSet):
+#     serializer_class = MaintenanceSerializer
+#     queryset = Maintenance.objects.all()
 
-class TransactionViewSet(viewsets.ModelViewSet):
-    serializer_class = TransactionSerializer
-    queryset = Transaction.objects.all()
+# class TransactionViewSet(viewsets.ModelViewSet):
+#     serializer_class = TransactionSerializer
+#     queryset = Transaction.objects.all()
 
 def totalFunds():
     transactions = Transaction.objects.all().values('amount', 'choices')
@@ -79,6 +79,10 @@ def pay(request):
         lastrow = Maintenance.objects.filter(id=id)
         lastrow.update(paid=(paid+amount))
         lastrow.update(due=(due-amount))
+
+
+        # To add transaction entry
+
         return HttpResponse("payment done")
 
 @csrf_exempt
@@ -89,6 +93,7 @@ def penaltyRate(request):
 
     if request.method == 'POST':
         rate = request.POST['penaltyRate']
+        # Should be announced
         return HttpResponse(f'Current penalty rate has been changed to {rate}')
 
 def funds(request):
@@ -109,6 +114,7 @@ def transactions(request):
         description = request.POST['description']
         funds = totalFunds()
         if choice == 'send':
+            #should be announced
             if funds<amount:
                 return HttpResponse('Insufficient Funds')
         row = Transaction(amount = amount, choices = choice, to_from = to_from, description = description)
@@ -117,13 +123,15 @@ def transactions(request):
 
 def addMaintenance():
     print('hello, this is getting printed from the scheduler call')
-    # members = Members.objects.all().values('property', 'property_type')
-    # properties = {}
-    # for member in members:
-    #   properties[member['property']] = member['property_type']
-    # for property in properties:
-    #    property_info = properties['property'].property_info_set.all()
-    #    
-    # # now apply same logic as post request and use the basic value as obtained from property_info
-    #
-    #
+    members = Members.objects.all().values('property', 'property_type')
+    properties = {}
+    for member in members:
+      properties[member['property']] = member['property_type']
+    for property in properties:
+       property_info = properties['property'].property_info_set.all()
+
+    property=members["property"]
+
+
+    # now apply same logic as post request and use the basic value as obtained from property_info
+    

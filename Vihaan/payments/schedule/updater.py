@@ -5,3 +5,4 @@ def start():
     scheduler = BackgroundScheduler()
     scheduler.add_job(addMaintenance, 'cron', day='1', hour='0', id="monthly_trigger", replace_existing=True)
     scheduler.start() 
+# to use --noreload with runserver
