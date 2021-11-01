@@ -14,9 +14,9 @@ class Society_Staff(models.Model):
     # mobile_regex = RegexValidator(regex=r'^\+?0?\d{10,11}$')
     # mobile = models.CharField(validators=[phone_regex], max_length=11)
     
-    Aadhar=models.CharField("Aadhar Card",max_length=12,primary_key=True)
+    Aadhar=models.CharField("Aadhar Card",max_length=12)
     # aadharimage=models.ImageField(null=True,blank=True,default="default.jpg")
-    name=models.CharField("Name",max_length=50)
+    name=models.CharField("Name",max_length=50,primary_key=True)
     occupation=models.CharField("Occupation",max_length=50)
     salary=models.DecimalField("Salary",max_digits=8,decimal_places=2)
     workplace=models.CharField("Workplace",max_length=50)
