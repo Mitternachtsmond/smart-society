@@ -44,8 +44,7 @@ def Admin_Group():
     admin_body.permissions.add(Permission.objects.get(codename="add_question"))
     admin_body.permissions.add(Permission.objects.get(codename="delete_question"))
     admin_body.permissions.add(Permission.objects.get(codename="view_question"))
-    admin_body.permissions.add(Permission.objects.get(codename="view_vote"))
-    admin_body.permissions.add(Permission.objects.get(codename="add_vote"))
+    admin_body.permissions.add(Permission.objects.get(codename="add_voting"))
 
 
 def Member_Group():
@@ -62,8 +61,7 @@ def Member_Group():
     member_body.permissions.add(Permission.objects.get(codename="view_account"))
     member_body.permissions.add(Permission.objects.get(codename="view_member"))
     member_body.permissions.add(Permission.objects.get(codename="view_question"))
-    member_body.permissions.add(Permission.objects.get(codename="view_vote"))
-    member_body.permissions.add(Permission.objects.get(codename="add_vote"))
+    member_body.permissions.add(Permission.objects.get(codename="add_voting"))
 
 
 def Security_Group():

@@ -19,7 +19,11 @@ class Question(models.Model):
 class Voting(models.Model):
     s_no = models.AutoField(primary_key=True)
     property_no = models.ForeignKey(
-        Member, on_delete=models.CASCADE, verbose_name=_("Property No.")
+        Member,
+        on_delete=models.CASCADE,
+        verbose_name=_("Property No."),
+        null=True,
+        blank=True,
     )
     question = models.ForeignKey(
         Question,
