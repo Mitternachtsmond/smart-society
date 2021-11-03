@@ -14,6 +14,7 @@ class Question(models.Model):
 
     class Meta:
         unique_together = (("title", "question", "options"),)
+        ordering = ["-s_no"]
 
 
 class Voting(models.Model):

@@ -26,7 +26,8 @@ class Voting_Admin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.property_no:
-            obj.property_no = Member.objects.filter(property_no=request.user).first()
+            obj.property_no = Member.objects.filter(
+                property_no=request.user).first()
         obj.save()
 
 

@@ -57,6 +57,7 @@ class Penalty_Rate(generics.GenericAPIView):
         Announcement.objects.create(
             author="Admin",
             category="Notification",
-            description="The Penalty Rate has been changed to %d" % (PENALTY_RATE),
+            description="The Penalty Rate has been changed to %d" % (
+                PENALTY_RATE),
         )
         return JsonResponse({"penalty rate": PENALTY_RATE})

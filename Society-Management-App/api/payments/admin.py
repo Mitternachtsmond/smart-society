@@ -11,7 +11,8 @@ class Transaction_Admin(admin.ModelAdmin):
     list_filter = ("option",)
     filter_horizontal = ()
 
-    fieldsets = ((None, {"fields": ("date", "amount", "option", "to", "description")}),)
+    fieldsets = (
+        (None, {"fields": ("date", "amount", "option", "to", "description")}),)
 
 
 class Maintenance_Admin(admin.ModelAdmin):
@@ -43,6 +44,7 @@ class Maintenance_Admin(admin.ModelAdmin):
             },
         ),
     )
+
 
 admin.site.register(Transaction, Transaction_Admin)
 admin.site.register(Maintenance, Maintenance_Admin)

@@ -6,7 +6,6 @@ from .models import Question, Voting
 from .serializers import Question_Serializer, Voting_Serializer
 
 
-
 class Polls(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = Question_Serializer
@@ -28,7 +27,8 @@ class Vote(generics.CreateAPIView):
         request.data["property_no"] = (
             Member.objects.filter(property_no=request.user).first().property_no
         )
-        request.data["question"] = Question.objects.filter(s_no=poll_id).first().s_no
+        request.data["question"] = Question.objects.filter(
+            s_no=poll_id).first().s_no
         request.data._mutable = False
 
         return super(Vote, self).post(request)

@@ -1,5 +1,4 @@
 import datetime
-
 from apscheduler.schedulers.background import BackgroundScheduler
 from payments.models import Maintenance
 from society_info.models import Announcement
@@ -23,6 +22,7 @@ def monthly_maintenance():
 
 
 def start_scheduler():
-    sched = BackgroundScheduler(daemon=True, timezone="Asia/Kolkata")
-    sched.add_job(monthly_maintenance, "cron", day=1, hour=10, minute=0, second=0)
+    sched = BackgroundScheduler(timezone="Asia/Kolkata")
+    sched.add_job(monthly_maintenance, "cron",
+                  day=1, hour=10, minute=0, second=0)
     sched.start()

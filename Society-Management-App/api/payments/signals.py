@@ -1,3 +1,4 @@
+from datetime import datetime
 import pytz
 from django.conf import settings
 from django.db.models.signals import post_save, pre_save
@@ -10,29 +11,29 @@ from .models import Maintenance, Transaction
 @receiver(pre_save, sender=Maintenance)
 def save_maintenance(sender, instance, **kwargs):
     if not instance._state.adding:
-        description = "Maintenance was updated to.\nProperty No = %s\nMonth = %s\nBasic Amount = %s\nPaid = %s\nPenalty = %s\nDue Amount = %s\nPayment Date = %s" % (
+        description = "Maintenance was updated to.\nProperty No = %s\nMonth = %s\nBasic Amount = %s\nPaid = %s\nPenalty = %s\nDue Amount = %s" % (
             instance.property_no,
             instance.month,
             instance.amount_basic,
             instance.amount_paid,
             instance.amount_penalty,
             instance.amount_due,
-            instance.payment_date,
         )
-        net_amount_paid = (
+        net_amount_paid = instance.amount_paid - (
             Maintenance.objects.filter(
                 property_no=instance.property_no,
                 month=instance.month,
             )
             .first()
             .amount_paid
-            - instance.amount_paid
+
         )
         Transaction.objects.create(
             option="received",
             to=instance.property_no,
             amount=net_amount_paid,
             description=description,
+            date=datetime.now()
         )
 
 
