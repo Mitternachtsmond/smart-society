@@ -16,9 +16,9 @@ def ParkingFilling(queryset, property_no):
 
     for i in queryset:
         if i.parking_id[1] == "V":
-            queryset[i].filled = True
-            queryset[i].save()
-            return queryset[i]
+            i.filled = True
+            i.save()
+            return i
 
 
 class Parking(models.Model):
