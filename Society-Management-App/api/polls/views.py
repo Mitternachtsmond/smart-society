@@ -23,13 +23,13 @@ class Polls_Result(generics.RetrieveDestroyAPIView):
 
 class Vote(generics.CreateAPIView):
     def post(self, request, poll_id):
-        request.data._mutable = True
+#         request.data._mutable = True
         request.data["property_no"] = (
             Member.objects.filter(property_no=request.user).first().property_no
         )
         request.data["question"] = Question.objects.filter(
             s_no=poll_id).first().s_no
-        request.data._mutable = False
+#         request.data._mutable = False
 
         return super(Vote, self).post(request)
 
