@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- {% load static %} -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="styles.css" rel="stylesheet" />
+    <title>Simply Home</title>
+  </head>
+  <body>
+    <nav class="bg-white dark:bg-gray-900 shadow-md sticky top-0">
+      <div class="px-4">
+        <div class="flex justify-between">
+          <div class="flex space-x-7">
+            <div>
+              <a href="/">
+                <h2 class="text-green-500 text-2xl md:text-3xl font-bold p-4">
+                  Simply
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="
+                      h-7
+                      w-7
+                      md:h-8 md:w-8
+                      inline
+                      align-top
+                      md:align-text-top
+                    "
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                    />
+                  </svg>
+                </h2>
+              </a>
+            </div>
+            <!-- Primary Navbar items -->
+            <div class="hidden md:flex items-center space-x-1">
+              <a
+                href=""
+                class="
+                  py-4
+                  px-2
+                  text-green-500
+                  border-b-4 border-green-500
+                  font-semibold
+                "
+                >Homes</a
+              >
+              <a
+                href=""
+                class="
+                  py-4
+                  px-2
+                  text-gray-500
+                  dark:text-gray-50
+                  font-semibold
+                  hover:text-green-500
+                  transition
+                  duration-300
+                "
+                >Services</a
+              >
+              <a
+                href=""
+                class="
+                  py-4
+                  px-2
+                  text-gray-500
+                  dark:text-gray-50
+                  font-semibold
+                  hover:text-green-500
+                  transition
+                  duration-300
+                "
+                >About</a
+              >
+              <a
+                href=""
+                class="
+                  py-4
+                  px-2
+                  text-gray-500
+                  dark:text-gray-50
+                  font-semibold
+                  hover:text-green-500
+                  transition
+                  duration-300
+                "
+                >Contact Us</a
+              >
+            </div>
+          </div>
+          <!-- Secondary Navbar items -->
+          <div class="hidden md:flex items-center space-x-3">
+            <a
+              href=""
+              class="
+                py-2
+                px-2
+                font-medium
+                text-white
+                dark:text-gray-900
+                bg-green-500
+                rounded
+                hover:bg-green-400
+                transition
+                duration-300
+              "
+              >Log in</a
+            >
+          </div>
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center">
+            <button
+              class="outline-none mobile-menu-button z-20"
+              id="menu-button"
+            >
+              <svg
+                class="w-6 h-6 text-gray-500 hover:text-green-500"
+                x-show="!showMenu"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="
+        h-screen
+        w-screen
+        z-10
+        bg-gray-900
+        fixed
+        top-0
+        opacity-30
+        md:hidden
+        hidden
+      "
+      id="backdrop"
+    ></div>
+    <div
+      class="
+        md:hidden
+        hidden
+        w-48
+        py-2
+        mt-2
+        bg-white
+        dark:bg-gray-900
+        fixed
+        right-0
+        top-10
+        rounded-md
+        font-semibold
+        shadow-md
+        mobile-menu
+        z-20
+      "
+    >
+      <a href="#" class="block px-4 py-2 text-sm text-white bg-green-500">
+        Home
+      </a>
+      <a
+        href="#"
+        class="
+          block
+          px-4
+          py-2
+          text-sm text-gray-700
+          dark:text-white
+          hover:bg-green-500 hover:text-white
+        "
+      >
+        Services
+      </a>
+      <a
+        href="#"
+        class="
+          block
+          px-4
+          py-2
+          text-sm text-gray-700
+          dark:text-white
+          hover:bg-green-500 hover:text-white
+        "
+      >
+        About Us
+      </a>
+    </div>
+
+    <div
+      class="
+        pb-10
+        pt-4
+        px-5
+        sm:px-10
+        md:px-20
+        bg-green-100
+        lg:px-40
+        dark:bg-gray-800
+      "
+    >
+      <h1
+        class="text-xl md:text-4xl font-bold text-center md:p-5 dark:text-white"
+      >
+        Announcements
+      </h1>
+      <div
+        class="
+          bg-yellow-50
+          p-6
+          rounded-lg
+          shadow-md
+          divide-y-2 divide-yellow-600 divide-solid
+          my-5
+          md:my-10
+        "
+      >
+        <div class="flex justify-between font-semibold text-gray-800">
+          <h2 class="md:text-2xl mb-2">Notification</h2>
+          <h3 class="md:text-xl">18-09-2021</h3>
+        </div>
+        <p class="text-gray-700 py-4">This is my cool new card!</p>
+      </div>
+      <div
+        class="
+          bg-red-100
+          p-6
+          rounded-lg
+          shadow-md
+          divide-y-2 divide-red-600 divide-solid
+          my-5
+          md:my-10
+        "
+      >
+        <div class="flex justify-between font-semibold text-gray-800">
+          <h2 class="md:text-2xl mb-2">Complaint</h2>
+          <h3 class="md:text-xl">18-09-2021</h3>
+        </div>
+        <p class="text-gray-700 py-4">
+          is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum is that it has a more-or-less normal distribution of
+          letters, as opposed to using 'Content here, content here', making it
+          look like readable English
+        </p>
+        <p class="py-2">By: Author</p>
+      </div>
+      <div
+        class="
+          bg-blue-50
+          p-6
+          rounded-lg
+          shadow-md
+          divide-y-2 divide-blue-600 divide-solid
+          my-5
+          md:my-10
+        "
+      >
+        <div class="flex justify-between font-semibold text-gray-800">
+          <h2 class="md:text-2xl mb-2">Voting Result</h2>
+          <h3 class="md:text-xl">18-09-2021</h3>
+        </div>
+        <p class="text-gray-700 py-4">This is my cool new card!</p>
+      </div>
+    </div>
+
+    <script>
+      const btn = document.querySelector("#menu-button");
+      const backdrop = document.querySelector("#backdrop");
+      const menu = document.querySelector(".mobile-menu");
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+        backdrop.classList.toggle("hidden");
+      });
+
+      document.addEventListener("click", function (event) {
+        var isClickInsideElement = btn.contains(event.target);
+        if (!isClickInsideElement) {
+          if (!menu.classList.contains("hidden")) {
+            menu.classList.add("hidden");
+            backdrop.classList.add("hidden");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
