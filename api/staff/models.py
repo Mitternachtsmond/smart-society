@@ -28,7 +28,8 @@ class Personal_Staff(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Personal_Staff"
+        verbose_name="Personal"
+        verbose_name_plural = "Personal Staff"
         ordering = ["s_no"]
 
     @property
@@ -68,7 +69,8 @@ class Society_Staff(models.Model):
         super(Society_Staff, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = "Society_Staff"
+        verbose_name="Society"
+        verbose_name_plural = "Society Staff"
         ordering = ["occupation"]
 
     @property
