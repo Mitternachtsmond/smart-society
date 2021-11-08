@@ -32,7 +32,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -167,7 +167,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "media")]
+STATICFILES_DIRS = [os.path.join(
+    BASE_DIR, "static"), os.path.join(BASE_DIR, "media")]
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn")
@@ -178,4 +179,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_cdn")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Variables
-TOKEN_EXPIRED_AFTER_MINUTES = 6000
+TOKEN_EXPIRED_AFTER_MINUTES = 60000

@@ -84,7 +84,7 @@ def Staff_Group():
 
 
 class Command(BaseCommand):
-    help = "This command is used to generate monthly maintenance bills"
+    help = "This command is used to apply permissions to different groups"
 
     def handle(self, *args, **options):
         Admin_Group()

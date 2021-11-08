@@ -12,7 +12,7 @@ function Maintenance() {
       try {
         const response = await fetch(url, {
           headers:{
-            "authorization": "Token da23af938d92b82b766f2085b57ae037c4b29851"
+            "authorization": "Token 62466cb3721792673088f4ac75187f89e31e1686"
           }
         });
         const array = await response.json()
