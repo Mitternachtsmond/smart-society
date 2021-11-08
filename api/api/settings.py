@@ -32,13 +32,13 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -178,4 +178,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_cdn")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Variables
-TOKEN_EXPIRED_AFTER_MINUTES = 60
+TOKEN_EXPIRED_AFTER_MINUTES = 6000

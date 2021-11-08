@@ -7,12 +7,12 @@ import TableHeader from "./TableHeader";
 function Maintenance() {
   const [maintenance, setmaintenance] = useState([])
   useEffect(() => {
-    const url = "/api/society_info/maintenance";
+    const url = "http://127.0.0.1:8000/api/payments/maintenance/";
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
           headers:{
-            "authorization": "Token 9b59fbe245d08aea91a1e6c6813d954831612c6e"
+            "authorization": "Token da23af938d92b82b766f2085b57ae037c4b29851"
           }
         });
         const array = await response.json()

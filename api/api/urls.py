@@ -61,6 +61,6 @@ if settings.DEBUG:
     urlpatterns += (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)[0],)
     urlpatterns += (static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)[0],)
 
-admin.site.site_header = "Simply Home Admin"
-admin.site.site_title = "Simply Home Admin Portal"
+admin.site.site_header = "Smart Society Admin"
+admin.site.site_title = "Smart Society Admin Portal"
 admin.site.index_title = "Welcome to Portal"

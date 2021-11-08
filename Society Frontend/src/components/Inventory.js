@@ -7,12 +7,12 @@ function Inventory() {
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    const url = "/api/society_info/inventory";
+    const url = "http://127.0.0.1:8000/api/society_info/inventory/";
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
           headers: {
-            authorization: "Token 9b59fbe245d08aea91a1e6c6813d954831612c6e",
+            authorization: "Token 62466cb3721792673088f4ac75187f89e31e1686",
           },
         });
         const array = await response.json();
@@ -76,7 +76,7 @@ function Inventory() {
           <div className="text-center font-semibold text-xl dark:text-white">
             Inventory
           </div>
-          {inventory.map((element) => {
+          {inventory && inventory.map((element) => {
             return (
               <div key={element.item}>
                 <InventoryMobileTable

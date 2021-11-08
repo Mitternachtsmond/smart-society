@@ -5,12 +5,12 @@ function Dashboard() {
   const [announcement, setAnnouncement] = useState([]);
 
   useEffect(() => {
-    const url = "http://localhost:8000/api/society_info/announcements";
+    const url = "http://127.0.0.1:8000/api/society_info/announcements/";
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
           headers: {
-            authorization: "Token 9b59fbe245d08aea91a1e6c6813d954831612c6e",
+            authorization: "Token 62466cb3721792673088f4ac75187f89e31e1686",
           },
         });
         const array = await response.json();
@@ -40,7 +40,7 @@ function Dashboard() {
         <h1 className="text-xl uppercase md:text-4xl font-bold text-center md:p-5 dark:text-white">
           Announcements
         </h1>
-        {announcement.map((element) => {
+        {announcement && announcement.map((element) => {
           return (
             <Announcement
               key={element.s_no}
