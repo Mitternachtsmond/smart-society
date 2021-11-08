@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import MaintenanceMobileTable from "./MaintenanceMobileTable";
+import TransactionsMobileTable from "./TransactionsMobileTable";
 import TableCell from "./TableCell";
 import TableHeader from "./TableHeader";
 
-function Maintenance() {
-  const [maintenance, setmaintenance] = useState([]);
+function Transactions() {
+  const [Transactions, setTransactions] = useState([]);
   useEffect(() => {
-    const url = "http://127.0.0.1:8000/api/payments/maintenance/";
+    const url = "http://127.0.0.1:8000/api/payments/transactions/";
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
@@ -15,7 +15,7 @@ function Maintenance() {
           },
         });
         const array = await response.json();
-        setmaintenance(array.results);
+        setTransactions(array.results);
       } catch (err) {
         console.log(err);
       }
@@ -27,7 +27,7 @@ function Maintenance() {
       <div className="flex-col hidden sm:flex">
         <div className="overflow-x-auto py-5">
           <div className="text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
-            Maintenance
+            Transactions
           </div>
           <div
             className="
@@ -47,32 +47,31 @@ function Maintenance() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-white ">
                   <tr>
-                    <TableHeader title="Property" />
-                    <TableHeader title="Month" />
-                    <TableHeader title="Basic" />
-                    <TableHeader title="Paid" />
-                    <TableHeader title="Penalty" />
-                    <TableHeader title="Due" />
+                    <TableHeader title="To/From" />
+                    <TableHeader title="Date and Time" />
+                    <TableHeader title="Paid/Received" />
+                    <TableHeader title="Amount" />
+                    <TableHeader title="Description" />
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {maintenance.map((element) => {
+                  {Transactions.map((element) => {
                     return (
                       <tr
-                        key={element.property_no + element.month}
+                        key={element.s_no}
                         className="divide-x-2 divide-gray-200 even:bg-gray-100"
                       >
-                        <TableCell value={element.property_no} />
+                        <TableCell value={element.to} />
                         <TableCell
-                          value={new Date(element.month).toLocaleString(
-                            "en-in",
-                            { year: "numeric", month: "long" }
-                          )}
+                          value={new Date(element.date).toLocaleString("en-in")}
                         />
-                        <TableCell value={element.amount_basic.toString()} />
-                        <TableCell value={element.amount_paid.toString()} />
-                        <TableCell value={element.amount_penalty.toString()} />
-                        <TableCell value={element.amount_due.toString()} />
+                        <TableCell value={element.option} />
+                        <TableCell value={element.amount.toString()} />
+                        <TableCell
+                          value={
+                            element.description ? element.description : "Null"
+                          }
+                        />
                       </tr>
                     );
                   })}
@@ -85,21 +84,19 @@ function Maintenance() {
       <div className="flex-col flex sm:hidden">
         <div className="overflow-x-auto py-5">
           <div className="text-center uppercase font-semibold text-xl dark:text-white">
-            Maintenance
+            Transactions
           </div>
-          {maintenance.map((element) => {
+          {Transactions.map((element) => {
             return (
-              <div key={element.property_no + element.month}>
-                <MaintenanceMobileTable
-                  property={element.property_no}
-                  month={new Date(element.month).toLocaleString("en-in", {
-                    year: "numeric",
-                    month: "long",
-                  })}
-                  basic={element.amount_basic.toString()}
-                  paid={element.amount_paid.toString()}
-                  penalty={element.amount_penalty.toString()}
-                  due={element.amount_due.toString()}
+              <div key={element.s_no}>
+                <TransactionsMobileTable
+                  to={element.to}
+                  date={new Date(element.date).toLocaleString("en-in")}
+                  option={element.option}
+                  amount={element.amount.toString()}
+                  description={
+                    element.description ? element.description : "Null"
+                  }
                 />
               </div>
             );
@@ -110,4 +107,4 @@ function Maintenance() {
   );
 }
 
-export default Maintenance;
+export default Transactions;

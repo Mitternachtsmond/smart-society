@@ -3,6 +3,7 @@ import Inventory from "./components/Inventory";
 import Maintenance from "./components/Maintenance";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
+import Transactions from "./components/Transaction";
 import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // eslint-disable-next-line
@@ -25,6 +26,7 @@ function App() {
           </Route>
           <Route exact path="/transactions">
             <Navbar />
+            <Transactions />
           </Route>
           <Route exact path="/">
             <Navbar />

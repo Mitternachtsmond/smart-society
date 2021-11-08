@@ -1,6 +1,4 @@
 from datetime import datetime
-import pytz
-from django.conf import settings
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from society_info.models import Announcement
@@ -11,7 +9,7 @@ from .models import Maintenance, Transaction
 @receiver(pre_save, sender=Maintenance)
 def save_maintenance(sender, instance, **kwargs):
     if not instance._state.adding:
-        description = "Maintenance was updated to.\nProperty No = %s\nMonth = %s\nBasic Amount = %s\nPaid = %s\nPenalty = %s\nDue Amount = %s" % (
+        description = "Maintenance Payment Received:\nProperty No = %s\nMonth = %s\nBasic Amount = %s\nPaid = %s\nPenalty = %s\nDue Amount = %s" % (
             instance.property_no,
             instance.month,
             instance.amount_basic,
@@ -39,21 +37,17 @@ def save_maintenance(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Transaction)
 def save_transaction(sender, instance, created, **kwargs):
-    # if instance.to.split()[0] != "Maintenance":
     if instance.option == "paid":
-        timezone = pytz.timezone(settings.TIME_ZONE)
-        local_time = instance.date.astimezone(timezone)
+        local_time = instance.date.strftime("%b %d %Y %H:%M:%S")
         if created:
-            description = "Transaction of amount %s was %s to/from %s on %s" % (
+            description = "New Transaction: Amount %s paid to %s on %s" % (
                 instance.amount,
-                instance.option.lower(),
                 instance.to,
-                str(local_time),
+                local_time,
             )
         else:
-            description = "Transaction record was updated.\nDate = %s\n%s To/From = %s\nAmount = %s" % (
-                str(local_time),
-                instance.option.capitalize(),
+            description = "Transaction Update:\nDate = %s\nPaid To = %s\nAmount = %s" % (
+                local_time,
                 instance.to,
                 instance.amount,
             )
