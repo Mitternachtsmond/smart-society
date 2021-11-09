@@ -1,5 +1,5 @@
-import TableMobileCell from "./TableMobileCell";
-import TableMobileHeader from "./TableMobileHeader";
+import TableMobileCell from "../TableMobileCell";
+import TableMobileHeader from "../TableMobileHeader";
 import PropTypes from "prop-types";
 
 function MaintenanceMobileTable(props) {

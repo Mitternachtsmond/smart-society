@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TransactionsMobileTable from "./TransactionsMobileTable";
-import TableCell from "./TableCell";
-import TableHeader from "./TableHeader";
+import TableCell from "../TableCell";
+import TableHeader from "../TableHeader";
 
 function Transactions() {
   const [Transactions, setTransactions] = useState([]);
@@ -22,6 +22,7 @@ function Transactions() {
     };
     fetchData();
   }, []);
+
   return (
     <div>
       <div className="flex-col hidden sm:flex">
@@ -69,7 +70,14 @@ function Transactions() {
                         <TableCell value={element.amount.toString()} />
                         <TableCell
                           value={
-                            element.description ? element.description : "Null"
+                            element.description
+                              ? element.description &&
+                                element.description
+                                  .split("\n")
+                                  .map((i, index) => {
+                                    return <p key={index}>{i}</p>;
+                                  })
+                              : "None"
                           }
                         />
                       </tr>
@@ -95,7 +103,12 @@ function Transactions() {
                   option={element.option}
                   amount={element.amount.toString()}
                   description={
-                    element.description ? element.description : "Null"
+                    element.description
+                      ? element.description &&
+                        element.description.split("\n").map((i, index) => {
+                          return <p key={index}>{i}</p>;
+                        })
+                      : "None"
                   }
                 />
               </div>

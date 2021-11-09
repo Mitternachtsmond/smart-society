@@ -1,13 +1,15 @@
 import Dashboard from "./components/Dashboard";
 import Inventory from "./components/Inventory";
-import Maintenance from "./components/Maintenance";
+import Maintenance from "./components/payments/Maintenance";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
-import Transactions from "./components/Transaction";
+import Transactions from "./components/payments/Transaction";
+import PayMaintenance from "./components/payments/PayMaintenance";
 import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PersonalStaff from "./components/PersonalStaff";
 import SocietyStaff from "./components/SocietyStaff";
+import Funds from "./components/payments/Funds";
 // eslint-disable-next-line
 
 function App() {
@@ -34,9 +36,17 @@ function App() {
             <Navbar />
             <Maintenance />
           </Route>
+          <Route exact path="/pay">
+            <Navbar />
+            <PayMaintenance />
+          </Route>
           <Route exact path="/transactions">
             <Navbar />
             <Transactions />
+          </Route>
+          <Route exact path="/funds">
+            <Navbar />
+            <Funds />
           </Route>
           <Route exact path="/">
             <Navbar />

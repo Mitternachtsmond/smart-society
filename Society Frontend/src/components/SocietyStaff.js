@@ -1,21 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import SocietyStaffMobileTable from "./SocietyStaffMobileTable";
 import TableCell from "./TableCell";
 import TableHeader from "./TableHeader";
 
-
 function SocietyStaff() {
-  const [societyStaff, setsocietyStaff] = useState([])
+  const [societyStaff, setsocietyStaff] = useState([]);
   useEffect(() => {
     const url = "http://127.0.0.1:8000/api/staff/society_staff/";
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
-          headers:{
-            "authorization": "Token da23af938d92b82b766f2085b57ae037c4b29851"
-          }
+          headers: {
+            authorization: "Token da23af938d92b82b766f2085b57ae037c4b29851",
+          },
         });
-        const array = await response.json()
+        const array = await response.json();
         setsocietyStaff(array.results);
       } catch (err) {
         console.log(err);
@@ -52,34 +51,35 @@ function SocietyStaff() {
                     <TableHeader title="Occupation" />
                     <TableHeader title="Salary" />
                     <TableHeader title="Aadhar Number" />
-                    <TableHeader title="WorksIn" />
+                    <TableHeader title="Works In" />
                     {/* <TableHeader title="ComesFrom" /> */}
                     <TableHeader title="Mobile No." />
                     <TableHeader title="Photo" />
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {societyStaff && societyStaff.map((element) => {
-                    let src=element.image
-                    // console.log(src);
-                    return (
-                      <tr
-                        key={element.aadhar}
-                        className="divide-x-2 divide-gray-200 even:bg-gray-100"
-                      >
-                        <TableCell value={element.name} />
-                        <TableCell value={element.occupation} />
-                        <TableCell value={element.salary.toString()} />
-                        <TableCell value={element.aadhaar} />
-                        <TableCell value={element.work_place} />
-                        {/* <TableCell value={element.from_place} /> */}
-                        <TableCell value={element.mobile_no} /> 
-                        <td className="px-3 py-3 md:py-4 whitespace-normal">
-                          <img src={src} alt="Personal Image" />    
-                        </td>              
-                      </tr>
-                    );
-                  })}
+                  {societyStaff &&
+                    societyStaff.map((element) => {
+                      let src = element.image;
+                      // console.log(src);
+                      return (
+                        <tr
+                          key={element.aadhar}
+                          className="divide-x-2 divide-gray-200 even:bg-gray-100"
+                        >
+                          <TableCell value={element.name} />
+                          <TableCell value={element.occupation} />
+                          <TableCell value={element.salary.toString()} />
+                          <TableCell value={element.aadhaar} />
+                          <TableCell value={element.work_place} />
+                          {/* <TableCell value={element.from_place} /> */}
+                          <TableCell value={element.mobile_no} />
+                          <td className="px-3 py-3 md:py-4 whitespace-normal">
+                            <img src={src} alt="Personal Image" />
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -88,23 +88,26 @@ function SocietyStaff() {
       </div>
       <div className="flex-col flex sm:hidden">
         <div className="overflow-x-auto py-5">
-          <div className="text-center uppercase font-semibold text-xl dark:text-white">Society Staff</div>
-          {societyStaff && societyStaff.map((element) => {
-            return (
-              <div key={element.aadhaar}>
-                <SocietyStaffMobileTable
-                  name={element.name}
-                  occupation={element.occupation}
-                  aadhar={element.aadhaar}
-                  salary={element.salary.toString()}
-                  worksIn={element.work_place}
-                  // comesFrom={element.from_place} 
-                  mobileNo={element.mobile_no}
-                  image={element.image}
-                />
-              </div>
-            );
-          })}
+          <div className="text-center uppercase font-semibold text-xl dark:text-white">
+            Society Staff
+          </div>
+          {societyStaff &&
+            societyStaff.map((element) => {
+              return (
+                <div key={element.aadhaar}>
+                  <SocietyStaffMobileTable
+                    name={element.name}
+                    occupation={element.occupation}
+                    aadhar={element.aadhaar}
+                    salary={element.salary.toString()}
+                    worksIn={element.work_place}
+                    // comesFrom={element.from_place}
+                    mobileNo={element.mobile_no}
+                    image={element.image}
+                  />
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

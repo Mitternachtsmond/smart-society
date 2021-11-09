@@ -38,7 +38,9 @@ function Announcement(props) {
         </div>
         <div>
           <div className="text-gray-700 py-3">{text}</div>
-          <p className="py-2">By: {authorName}</p>
+          <p className="py-2">
+            <i>- {authorName}</i>
+          </p>
         </div>
       </div>
     </div>

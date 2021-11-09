@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MaintenanceMobileTable from "./MaintenanceMobileTable";
-import TableCell from "./TableCell";
-import TableHeader from "./TableHeader";
+import TableCell from "../TableCell";
+import TableHeader from "../TableHeader";
+import { Link } from "react-router-dom";
 
 function Maintenance() {
   const [maintenance, setmaintenance] = useState([]);
@@ -78,6 +79,26 @@ function Maintenance() {
                   })}
                 </tbody>
               </table>
+            </div>
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                to="/pay"
+                className="
+                m-2
+                py-2
+                px-2
+                font-medium
+                text-white
+                dark:text-gray-900
+                bg-green-500
+                rounded
+                hover:bg-green-400
+                transition
+                duration-300
+              "
+              >
+                Add Payment
+              </Link>
             </div>
           </div>
         </div>

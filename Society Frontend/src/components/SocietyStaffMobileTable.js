@@ -16,7 +16,7 @@ function SocietyStaffMobileTable(props) {
             <tr className="even:bg-gray-100">
               <TableMobileHeader value="Occupation" />
               <TableMobileCell value={props.occupation} />
-              </tr>
+            </tr>
             <tr className="even:bg-gray-100">
               <TableMobileHeader value="Salary" />
               <TableMobileCell value={props.salary} />
@@ -25,9 +25,9 @@ function SocietyStaffMobileTable(props) {
               <TableMobileHeader value="AadharNumber" />
               <TableMobileCell value={props.aadhaar} />
             </tr>
- 
+
             <tr className="even:bg-gray-100">
-              <TableMobileHeader value="WorkPlace" />
+              <TableMobileHeader value="Works In" />
               <TableMobileCell value={props.work_place} />
             </tr>
 
@@ -40,13 +40,11 @@ function SocietyStaffMobileTable(props) {
               <TableMobileCell value={props.mobile_no} />
             </tr>
             <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Photo" />              
+              <TableMobileHeader value="Photo" />
               <td className="px-3 py-3 md:py-4 whitespace-normal">
-                <img src={props.image} alt="Person Image" />    
-              </td> 
+                <img src={props.image} alt="Person Image" />
+              </td>
             </tr>
-            
-            
           </tbody>
         </table>
       </div>
@@ -57,12 +55,11 @@ function SocietyStaffMobileTable(props) {
 SocietyStaffMobileTable.propTypes = {
   name: PropTypes.string.isRequired,
   occupation: PropTypes.string.isRequired,
-  aadhar:PropTypes.string.isRequired,
-  salary:PropTypes.string.isRequired,
-  worksIn:PropTypes.string.isRequired,
+  aadhar: PropTypes.string.isRequired,
+  salary: PropTypes.string.isRequired,
+  worksIn: PropTypes.string.isRequired,
   // comesFrom:PropTypes.string.isRequired,
-  mobileNo:PropTypes.string.isRequired,
+  mobileNo: PropTypes.string.isRequired,
 };
-
 
 export default SocietyStaffMobileTable;
