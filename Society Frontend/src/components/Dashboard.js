@@ -40,17 +40,18 @@ function Dashboard() {
         <h1 className="text-xl uppercase md:text-4xl font-bold text-center md:p-5 dark:text-white">
           Announcements
         </h1>
-        {announcement && announcement.map((element) => {
-          return (
-            <Announcement
-              key={element.s_no}
-              category={element.category}
-              description={element.description}
-              date={element.date.toString().slice(0, 10)}
-              author={element.author}
-            />
-          );
-        })}
+        {announcement &&
+          announcement.map((element) => {
+            return (
+              <Announcement
+                key={element.s_no}
+                category={element.category}
+                description={element.description}
+                date={new Date(element.date).toLocaleString("en-in")}
+                author={element.author}
+              />
+            );
+          })}
       </div>
     </div>
   );

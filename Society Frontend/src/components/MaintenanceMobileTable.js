@@ -32,10 +32,6 @@ function MaintenanceMobileTable(props) {
               <TableMobileHeader value="Due" />
               <TableMobileCell value={props.due} />
             </tr>
-            <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Paid On" />
-              <TableMobileCell value={props.paidOn} />
-            </tr>
           </tbody>
         </table>
       </div>
@@ -49,7 +45,6 @@ MaintenanceMobileTable.propTypes = {
   paid: PropTypes.string.isRequired,
   penalty: PropTypes.string.isRequired,
   due: PropTypes.string.isRequired,
-  paidOn: PropTypes.string.isRequired,
 };
 
 export default MaintenanceMobileTable;
