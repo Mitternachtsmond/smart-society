@@ -15,7 +15,7 @@ function Login() {
       >
         <Link to="/">
           <h1 className="font-bold text-center text-4xl text-green-500">
-            Simply
+            Smart Society
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-10 w-10 inline align-text-top"

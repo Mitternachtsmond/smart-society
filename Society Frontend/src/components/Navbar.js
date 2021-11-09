@@ -12,21 +12,21 @@ function Navbar(props) {
 
   // let otherDisplay = "hidden";
   const toggleMenu = () => {
-    if (menuDisplay.current === "hidden"){
+    if (menuDisplay.current === "hidden") {
       menuDisplay.current = ""
     }
-    else{
+    else {
       menuDisplay.current = "hidden"
     }
   };
 
   const toggleDropdown = () => {
-    let a=otherLink.current.classList
+    let a = otherLink.current.classList
     console.log(a);
-    if (a.contains("md:hidden")){
+    if (a.contains("md:hidden")) {
       a.replace("md:hidden", "md:block")
     }
-    else{
+    else {
       a.replace("md:block", "md:hidden")
     }
   };
@@ -129,9 +129,14 @@ function Navbar(props) {
                     slug="property_info"
                   />
                   <NavbarMobileLink
-                    activeState={location.pathname !== "/societystaff"}
+                    activeState={location.pathname !== "/societyStaff"}
                     title="Society Staff"
-                    slug="society_staff"
+                    slug="societyStaff"
+                  />
+                  <NavbarMobileLink
+                    activeState={location.pathname === "/personalStaff"}
+                    title="Personal Staff"
+                    slug="personalStaff"
                   />
                 </div>
               </div>
@@ -239,9 +244,14 @@ function Navbar(props) {
           slug="property_info"
         />
         <NavbarMobileLink
-          activeState={location.pathname !== "/societystaff"}
+          activeState={location.pathname !== "/societyStaff"}
           title="Society Staff"
-          slug="society_staff"
+          slug="societyStaff"
+        />
+        <NavbarMobileLink
+          activeState={location.pathname === "/personalStaff"}
+          title="Personal Staff"
+          slug="personalStaff"
         />
       </div>
     </div>
