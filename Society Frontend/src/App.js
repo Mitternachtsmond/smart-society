@@ -5,6 +5,8 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PersonalStaff from "./components/PersonalStaff";
+import SocietyStaff from "./components/SocietyStaff";
 // eslint-disable-next-line
 
 function App() {
@@ -15,6 +17,14 @@ function App() {
           <Route exact path="/inventory">
             <Navbar />
             <Inventory />
+          </Route>
+          <Route exact path="/personalStaff">
+            <Navbar />
+            <PersonalStaff />
+          </Route>
+          <Route exact path="/societyStaff">
+            <Navbar />
+            <SocietyStaff />
           </Route>
           <Route exact path="/login">
             <Login />

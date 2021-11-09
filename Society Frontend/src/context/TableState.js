@@ -2,7 +2,7 @@ import TableContext from "./TableContext";
 
 const TableState = (props) => {
   const state = {
-    name: "harry",
+    name: "Nishit",
   };
 
   return (
