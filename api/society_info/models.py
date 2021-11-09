@@ -21,7 +21,8 @@ class Property_Info(models.Model):
 
 
 class Inventory(models.Model):
-    item = models.CharField(_("Inventory Item"), max_length=50, primary_key=True)
+    item = models.CharField(_("Inventory Item"),
+                            max_length=50, primary_key=True)
     quantity = models.IntegerField(
         _("Quantity"),
     )
@@ -44,7 +45,8 @@ class Announcement(models.Model):
     s_no = models.AutoField(primary_key=True)
     date = models.DateTimeField(_("Date and Time"), auto_now_add=True)
     author = models.CharField(_("Announcement Made by"), max_length=25)
-    category = models.CharField(_("Category"), max_length=25, choices=categories)
+    category = models.CharField(
+        _("Category"), max_length=25, choices=categories)
     description = models.TextField(_("Description"), null=True, blank=True)
 
     def save(self, *args, **kwargs):

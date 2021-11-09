@@ -1,9 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import serializers, viewsets
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
 
 from .models import Announcement, Inventory, Property_Info
 from .serializers import (
+    Announcement_PartialSerializer,
     Announcement_Serializer,
     Inventory_Serializer,
     Property_Info_Serializer,
@@ -38,3 +40,21 @@ class Announcement_Viewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Announcement.objects.all()
+
+    def create(self, request):
+        if request.user.groups.first() and request.user.groups.first().id < 3:
+            category = "Complaint"
+            if request.user.groups.first().id == 1:
+                category = "Notification"
+            serializer = Announcement_PartialSerializer(
+                data=request.data)
+            if serializer.is_valid():
+                serializer.save(category=category,
+                                author=request.user.username)
+                return Response(serializer.data)
+            return Response({'status': 'error'})
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return Announcement_Serializer
+        return Announcement_PartialSerializer

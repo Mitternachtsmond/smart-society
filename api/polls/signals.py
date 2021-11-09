@@ -14,8 +14,8 @@ def delete_question(sender, instance, **kwargs):
     for option in options:
         result += "%s: %d\n" % (option, votes.filter(decision=option).count())
 
-    description = "Decision: %s\n" % (instance.question)
-    description += "Results:\n" + result
+    description = "Poll: %s\n" % (instance.question)
+    description += "Result:\n" + result
     Announcement.objects.create(
         author="Admin",
         category="Voting Result",

@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 class Question(models.Model):
     s_no = models.AutoField(primary_key=True)
     title = models.CharField(_("Title"), max_length=50)
-    question = models.TextField(_("Decision"))
+    question = models.TextField(_("Description"))
     options = models.TextField(_("Options"))
 
     def __str__(self):

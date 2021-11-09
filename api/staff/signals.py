@@ -7,7 +7,7 @@ from .models import Personal_Staff, Society_Staff
 @receiver(pre_save, sender=Personal_Staff)
 def update_personal(sender, instance, **kwargs):
     if not instance._state.adding:
-        Personal_Staff.objects.filter(s_no=instance.s_no).first().image.delete(False)
+        Personal_Staff.objects.get(s_no=instance.s_no).image.delete(False)
 
 
 @receiver(post_delete, sender=Personal_Staff)
@@ -18,7 +18,7 @@ def delete_personal(sender, instance, **kwargs):
 @receiver(pre_save, sender=Society_Staff)
 def update_society(sender, instance, **kwargs):
     if not instance._state.adding:
-        Society_Staff.objects.filter(s_no=instance.s_no).first().image.delete(False)
+        Society_Staff.objects.get(s_no=instance.s_no).image.delete(False)
 
 
 @receiver(post_delete, sender=Society_Staff)

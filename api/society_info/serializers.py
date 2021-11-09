@@ -19,3 +19,9 @@ class Announcement_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Announcement
         fields = "__all__"
+
+
+class Announcement_PartialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Announcement
+        fields = ['description']

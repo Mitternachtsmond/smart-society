@@ -11,4 +11,4 @@ class Question_Serializer(serializers.ModelSerializer):
 class Voting_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Voting
-        fields = "__all__"
+        fields = ['decision']

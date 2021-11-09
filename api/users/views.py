@@ -96,7 +96,7 @@ def login(request):
 def logout(request):
     token = request.headers["Authorization"].split()[1]
     user = Token.objects.get(key=token).user
-    Token.objects.filter(key=token).first().delete()
+    Token.objects.get(key=token).delete()
     Token.objects.create(user=user)
 
     return Response("Logged Out successfully")
@@ -120,7 +120,8 @@ class Change_Password_View(generics.UpdateAPIView):
                 serializer.validated_data.get("old_password")
             ):
                 return Response(
-                    {"old_password": ["Wrong password. Enter Correct Password"]},
+                    {"old_password": [
+                        "Wrong password. Enter Correct Password"]},
                     status=HTTP_400_BAD_REQUEST,
                 )
             new_password = serializer.validated_data.get("new_password1")

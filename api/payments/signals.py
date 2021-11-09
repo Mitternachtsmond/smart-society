@@ -9,7 +9,7 @@ from .models import Maintenance, Transaction
 @receiver(pre_save, sender=Maintenance)
 def save_maintenance(sender, instance, **kwargs):
     if not instance._state.adding:
-        description = "Maintenance Payment Received:\nProperty No = %s\nMonth = %s\nBasic Amount = %s\nPaid = %s\nPenalty = %s\nDue Amount = %s" % (
+        description = "Payment Received:\nProperty No = %s\nMonth = %s\nBasic Amount = %s\nPaid = %s\nPenalty = %s\nDue Amount = %s" % (
             instance.property_no,
             instance.month,
             instance.amount_basic,
@@ -18,39 +18,30 @@ def save_maintenance(sender, instance, **kwargs):
             instance.amount_due,
         )
         net_amount_paid = instance.amount_paid - (
-            Maintenance.objects.filter(
+            Maintenance.objects.get(
                 property_no=instance.property_no,
                 month=instance.month,
-            )
-            .first()
-            .amount_paid
+            ).amount_paid
 
         )
-        Transaction.objects.create(
-            option="received",
-            to=instance.property_no,
-            amount=net_amount_paid,
-            description=description,
-            date=datetime.now()
-        )
+
+        if net_amount_paid > 0:
+            Transaction.objects.create(
+                option="received",
+                to=instance.property_no,
+                amount=net_amount_paid,
+                description=description,
+                date=datetime.now()
+            )
 
 
 @receiver(post_save, sender=Transaction)
 def save_transaction(sender, instance, created, **kwargs):
     if instance.option == "paid":
-        local_time = instance.date.strftime("%b %d %Y %H:%M:%S")
-        if created:
-            description = "New Transaction: Amount %s paid to %s on %s" % (
-                instance.amount,
-                instance.to,
-                local_time,
-            )
-        else:
-            description = "Transaction Update:\nDate = %s\nPaid To = %s\nAmount = %s" % (
-                local_time,
-                instance.to,
-                instance.amount,
-            )
+        description = "New Transaction: Amount %s paid to %s" % (
+            instance.amount,
+            instance.to,
+        )
         Announcement.objects.create(
             author="Admin",
             category="Notification",
