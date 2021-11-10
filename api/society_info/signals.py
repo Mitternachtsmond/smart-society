@@ -8,12 +8,12 @@ from .models import Announcement, Inventory, Property_Info
 def save_property_info(sender, instance, created, **kwargs):
     if created:
         description = (
-            "New Property Information record was created.\nProperty Type = %s\nMaintenance = %s\nCovered_Area = %s"
+            "Property Information Created:\nProperty Type = %s\nMaintenance = %s\nCovered_Area = %s"
             % (instance.property_type, instance.maintenance, instance.covered_area)
         )
     else:
         description = (
-            "Property Information record updated to.\nProperty Type = %s\nMaintenance = %s\nCovered_Area = %s"
+            "Property Information Updated:\nProperty Type = %s\nMaintenance = %s\nCovered_Area = %s"
             % (instance.property_type, instance.maintenance, instance.covered_area)
         )
     Announcement.objects.create(
@@ -26,7 +26,7 @@ def save_property_info(sender, instance, created, **kwargs):
 @receiver(pre_delete, sender=Property_Info)
 def delete_property_info(sender, instance, **kwargs):
     description = (
-        "Property Information record was deleted.\nProperty Type = %s\nMaintenance = %s\nCovered_Area = %s"
+        "Property Information Deleted:\nProperty Type = %s\nMaintenance = %s\nCovered_Area = %s"
         % (instance.property_type, instance.maintenance, instance.covered_area)
     )
 
@@ -40,12 +40,12 @@ def delete_property_info(sender, instance, **kwargs):
 @receiver(post_save, sender=Inventory)
 def save_inventory(sender, instance, created, **kwargs):
     if created:
-        description = "New Inventory record was created.\nItem = %s\nQuantity = %s" % (
+        description = "Inventory Item Created:\nItem = %s\nQuantity = %s" % (
             instance.item,
             instance.quantity,
         )
     else:
-        description = "Inventory record was updated to.\nItem = %s\nQuantity = %s" % (
+        description = "Inventory Item Updated:\nItem = %s\nQuantity = %s" % (
             instance.item,
             instance.quantity,
         )
@@ -58,7 +58,7 @@ def save_inventory(sender, instance, created, **kwargs):
 
 @receiver(pre_delete, sender=Inventory)
 def delete_inventory(sender, instance, **kwargs):
-    description = "Inventory record was deleted.\nItem = %s\nQuantity = %s" % (
+    description = "Inventory Item Deleted:\nItem = %s\nQuantity = %s" % (
         instance.item,
         instance.quantity,
     )

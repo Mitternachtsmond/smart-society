@@ -5,7 +5,7 @@ import TableHeader from "../TableHeader";
 import { Link } from "react-router-dom";
 
 function Maintenance() {
-  const [maintenance, setmaintenance] = useState([]);
+  const [maintenance, setMaintenance] = useState([]);
   useEffect(() => {
     const url = "http://127.0.0.1:8000/api/payments/maintenance/";
     const fetchData = async () => {
@@ -16,7 +16,7 @@ function Maintenance() {
           },
         });
         const array = await response.json();
-        setmaintenance(array.results);
+        setMaintenance(array.results);
       } catch (err) {
         console.log(err);
       }
@@ -84,7 +84,7 @@ function Maintenance() {
               <Link
                 to="/pay"
                 className="
-                m-2
+                mt-4
                 py-2
                 px-2
                 font-medium

@@ -1,11 +1,12 @@
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponse
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from society_info.models import Announcement
-
+from rest_framework.response import Response
+from django.utils import timezone
 from .models import PENALTY_RATE, Maintenance, Transaction
 from .serializers import Maintenance_Serializer, Transaction_Serializer
 
@@ -24,7 +25,7 @@ class Maintenance_Viewset(viewsets.ModelViewSet):
     serializer_class = Maintenance_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["month", "property_no"]
+    search_fields = ["month", "property_no_id__property_no_id__username"]
 
     def get_queryset(self):
         return Maintenance.objects.all()
@@ -41,6 +42,19 @@ def total_funds(request):
             funds += transaction.amount
     response = {"funds": funds}
     return JsonResponse(response)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def payMaintenance(request):
+    month = timezone.now().month
+    year = timezone.now().year
+    if request.method == 'POST':
+        row = Maintenance.objects.get(
+            property_no=request.data['property_no'], month__month=month, month__year=year)
+        row.amount_paid += int(request.data['amount'])
+        row.save()
+        return Response({'status': 'Payment Done'})
 
 
 class Penalty_Rate(generics.GenericAPIView):
