@@ -36,7 +36,7 @@ class Announcement_Viewset(viewsets.ModelViewSet):
     serializer_class = Announcement_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["s_no", "author", "category"]
+    search_fields = ["date","author", "category","description"]
 
     def get_queryset(self):
         return Announcement.objects.all()
