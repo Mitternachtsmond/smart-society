@@ -1,9 +1,9 @@
-from django.http.response import JsonResponse, HttpResponse
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from society_info.models import Announcement
 from rest_framework.response import Response
 from django.utils import timezone
@@ -25,7 +25,7 @@ class Maintenance_Viewset(viewsets.ModelViewSet):
     serializer_class = Maintenance_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["month", "property_no_id__property_no_id__username"]
+    search_fields = ["month", "property_no__property_no__username"]
 
     def get_queryset(self):
         return Maintenance.objects.all()
@@ -41,7 +41,7 @@ def total_funds(request):
         else:
             funds += transaction.amount
     response = {"funds": funds}
-    return JsonResponse(response)
+    return Response(response)
 
 
 @api_view(["POST"])
@@ -64,7 +64,7 @@ class Penalty_Rate(generics.GenericAPIView):
     global PENALTY_RATE
 
     def get(self, request):
-        return JsonResponse({"penalty rate": PENALTY_RATE})
+        return Response({"penalty rate": PENALTY_RATE})
 
     def put(self, request):
         PENALTY_RATE = request.data["penalty rate"]
@@ -74,4 +74,4 @@ class Penalty_Rate(generics.GenericAPIView):
             description="The Penalty Rate has been changed to %d" % (
                 PENALTY_RATE),
         )
-        return JsonResponse({"penalty rate": PENALTY_RATE})
+        return Response({"penalty rate": PENALTY_RATE})

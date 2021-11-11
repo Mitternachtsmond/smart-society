@@ -14,6 +14,10 @@ import PersonalStaff from "./views/PersonalStaff";
 import SocietyStaff from "./views/SocietyStaff";
 import Profile from "./views/Profile";
 import Inventory from "./views/Inventory";
+import Polls from "./views/Polls";
+import Vote from "./views/Vote";
+import CreatePoll from "./views/CreatePoll";
+
 function App() {
   return (
     <Router>
@@ -105,6 +109,33 @@ function App() {
             element={<ResetPassword />}
           />
           <Route path="/changepassword" element={<ChangePassword />} />
+          <Route 
+            path="/polls/"
+            element={
+              <>
+                <Navbar />
+                <Polls />
+              </>
+            }
+          />
+          <Route 
+            path="polls/vote/:id"
+            element={
+              <>
+                <Navbar />
+                <Vote />
+              </>
+            }
+          />
+          <Route 
+            path="polls/create"
+            element={
+              <>
+                <Navbar />
+                <CreatePoll />
+              </>
+            }
+          />
         </Routes>
       </div>
     </Router>
