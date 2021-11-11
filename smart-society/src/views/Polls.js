@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Poll from "../components/polls/Poll";
+import Poll from "../components/Poll";
 import Contents from "../components/Contents";
 import SearchBar from "../components/SearchBar";
 
