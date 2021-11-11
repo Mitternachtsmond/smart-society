@@ -24,5 +24,13 @@ We wanted to expand our tech stack and explore different frameworks to different
 ### Database Schema
  https://drawsql.app/society-management/diagrams/diagram-1#
 
+### Members
+1. Mukul Jain (200001050)
+2. Gaurav Khushpat Jain (200001023)
+3. Vankayalapati Sai Venkata Satwik (200001077)
+4. Nishit Sushil Singh (200001056)
+5. Vihaan Thora (200001079)
 
+### Documentation
+link
 
