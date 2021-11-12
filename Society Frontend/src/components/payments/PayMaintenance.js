@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import SelectSearch from "react-select-search";
 import { fuzzySearch } from "react-select-search";
 import { useHistory } from "react-router-dom"; // version 5.2.0
@@ -13,22 +12,31 @@ function PayMaintenance() {
   function handleChange(event) {
     choices.amount = event.target.value;
   }
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
     console.log(choices);
-    const rawResponse = await fetch("http://localhost:8000/api/payments/pay/", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        authorization: "Token 697c3b24ed911595b2158df62b2d5ab2381ae474",
-      },
-      body: JSON.stringify(choices),
-    });
-    const content = await rawResponse.json();
-    console.log(content);
-    alert(content.status);
-    history.push("/maintenance");
+    if (choices.amount === 0) {
+      alert("Please enter an amount");
+    } else if (choices.property_no === "None") {
+      alert("Please select a property");
+    } else {
+      const rawResponse = await fetch(
+        "http://localhost:8000/api/payments/maintenance/",
+        {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: "Token 697c3b24ed911595b2158df62b2d5ab2381ae474",
+          },
+          body: JSON.stringify(choices),
+        }
+      );
+      const content = await rawResponse.json();
+      console.log(content);
+      alert(content.status);
+      history.push("/maintenance");
+    }
   }
   const [members, setMembers] = useState([]);
   useEffect(() => {
@@ -64,13 +72,9 @@ function PayMaintenance() {
           Pay Maintenance
         </div>
         <form className="w-full max-w-lg" onSubmit={handleSubmit}>
-          <div className="flex flex-wrap -mx-3 mb-6"></div>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Property Number
               </label>
               {members.forEach((element) => {
@@ -83,14 +87,14 @@ function PayMaintenance() {
                 options={options}
                 name="property"
                 placeholder="Choose a property"
-                search="true"
+                search
                 id="property"
                 onChange={(value) => {
                   choices.property_no = value;
                 }}
                 emptyMessage={() => (
                   <div style={{ textAlign: "center", fontSize: "0.8em" }}>
-                    Not found
+                    Not Found
                   </div>
                 )}
                 filterOptions={fuzzySearch}
@@ -98,16 +102,15 @@ function PayMaintenance() {
             </div>
           </div>
           <div className="w-full md:w-1/3 mt-2">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold"
-              for="grid-zip"
-            >
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Amount
             </label>
             <input
-              className="appearance-none block h-1 mt-2 w-full bg-white-200 text-gray-700 border border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block h-1 mt-2 w-32 bg-white-200 text-gray-700 border border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="amount"
               type="number"
+              min="1"
+              required
               onChange={handleChange}
             />
             <input

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Maintenance, Transaction
+from .models import Maintenance, Transaction, Penalty
 
 
 class Transaction_Admin(admin.ModelAdmin):
@@ -48,3 +48,4 @@ class Maintenance_Admin(admin.ModelAdmin):
 
 admin.site.register(Transaction, Transaction_Admin)
 admin.site.register(Maintenance, Maintenance_Admin)
+admin.site.register(Penalty)

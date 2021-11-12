@@ -141,6 +141,11 @@ function Navbar(props) {
                     title="Funds"
                     slug="funds"
                   />
+                  <NavbarMobileLink
+                    activeState={location.pathname === "/penalty"}
+                    title="Penalty Rate"
+                    slug="penalty"
+                  />
                 </div>
               </div>
             </div>

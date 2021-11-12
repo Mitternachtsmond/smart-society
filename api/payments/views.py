@@ -1,14 +1,12 @@
-from django.http.response import JsonResponse, HttpResponse
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
-from society_info.models import Announcement
 from rest_framework.response import Response
 from django.utils import timezone
-from .models import PENALTY_RATE, Maintenance, Transaction
-from .serializers import Maintenance_Serializer, Transaction_Serializer
+from .models import Maintenance, Transaction, Penalty
+from .serializers import Maintenance_Serializer, Penalty_Serializer, Transaction_Serializer
 
 
 class Transaction_Viewset(viewsets.ModelViewSet):
@@ -30,6 +28,15 @@ class Maintenance_Viewset(viewsets.ModelViewSet):
     def get_queryset(self):
         return Maintenance.objects.all()
 
+    def put(self, request, *args, **kwargs):
+        month = timezone.now().month
+        year = timezone.now().year
+        row = Maintenance.objects.get(
+            property_no=request.data['property_no'], month__month=month, month__year=year)
+        row.amount_paid += int(request.data['amount'])
+        row.save()
+        return Response({'status': 'Payment Done'})
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -40,38 +47,23 @@ def total_funds(request):
             funds -= transaction.amount
         else:
             funds += transaction.amount
-    response = {"funds": funds}
-    return JsonResponse(response)
+    return Response({"funds": funds})
 
 
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def payMaintenance(request):
-    month = timezone.now().month
-    year = timezone.now().year
-    if request.method == 'POST':
-        row = Maintenance.objects.get(
-            property_no=request.data['property_no'], month__month=month, month__year=year)
-        row.amount_paid += int(request.data['amount'])
-        row.save()
-        return Response({'status': 'Payment Done'})
-
-
-class Penalty_Rate(generics.GenericAPIView):
+class PenaltyAPI(generics.GenericAPIView):
     def get_queryset(self):
-        return Maintenance.objects.all()
+        return Penalty.objects.all()
 
-    global PENALTY_RATE
+    def get_serializer_class(self):
+        return Penalty_Serializer
 
     def get(self, request):
-        return JsonResponse({"penalty rate": PENALTY_RATE})
+        penalty = Penalty.objects.get().penalty
+        return Response({"penalty": penalty})
 
     def put(self, request):
-        PENALTY_RATE = request.data["penalty rate"]
-        Announcement.objects.create(
-            author="Admin",
-            category="Notification",
-            description="The Penalty Rate has been changed to %d" % (
-                PENALTY_RATE),
-        )
-        return JsonResponse({"penalty rate": PENALTY_RATE})
+        row = Penalty.objects.get()
+        if row.penalty != int(request.data["penalty"]):
+            row.penalty = request.data["penalty"]
+            row.save()
+        return Response({"penalty": row.penalty})

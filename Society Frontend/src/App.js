@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PersonalStaff from "./components/PersonalStaff";
 import SocietyStaff from "./components/SocietyStaff";
 import Funds from "./components/payments/Funds";
+import PenaltyRate from "./components/payments/PenaltyRate";
+import AddTransaction from "./components/payments/AddTransaction";
 // eslint-disable-next-line
 
 function App() {
@@ -44,9 +46,17 @@ function App() {
             <Navbar />
             <Transactions />
           </Route>
+          <Route exact path="/addTransaction">
+            <Navbar />
+            <AddTransaction />
+          </Route>
           <Route exact path="/funds">
             <Navbar />
             <Funds />
+          </Route>
+          <Route exact path="/penalty">
+            <Navbar />
+            <PenaltyRate />
           </Route>
           <Route exact path="/">
             <Navbar />
