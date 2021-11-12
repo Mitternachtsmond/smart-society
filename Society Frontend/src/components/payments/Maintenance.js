@@ -44,6 +44,26 @@ function Maintenance() {
               md:py-5
             "
           >
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                to="/pay"
+                className="
+                mb-4
+                py-2
+                px-2
+                font-medium
+                text-white
+                dark:text-gray-900
+                bg-green-500
+                rounded
+                hover:bg-green-400
+                transition
+                duration-300
+              "
+              >
+                Add Payment
+              </Link>
+            </div>
             <div className="shadow overflow-hidden border-b border-gray-200 rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-white ">
@@ -79,26 +99,6 @@ function Maintenance() {
                   })}
                 </tbody>
               </table>
-            </div>
-            <div className="hidden md:flex items-center space-x-3">
-              <Link
-                to="/pay"
-                className="
-                mt-4
-                py-2
-                px-2
-                font-medium
-                text-white
-                dark:text-gray-900
-                bg-green-500
-                rounded
-                hover:bg-green-400
-                transition
-                duration-300
-              "
-              >
-                Add Payment
-              </Link>
             </div>
           </div>
         </div>

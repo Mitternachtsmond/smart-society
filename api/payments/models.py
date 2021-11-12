@@ -4,7 +4,17 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from users.models import Member
 
-PENALTY_RATE = 5
+
+class Penalty(models.Model):
+    s_no = models.AutoField(primary_key=True)
+    penalty = models.IntegerField(_("Penalty Rate"))
+
+    def __str__(self):
+        return f"Penalty is set to {self.penalty}% per month"
+
+    class Meta:
+        verbose_name = "Penalty"
+        verbose_name_plural = "Penalty"
 
 
 class Transaction(models.Model):
@@ -69,8 +79,8 @@ class Maintenance(models.Model):
             or self.month.year < datetime.date.today().year
         ):
             return
-
-        self.amount_penalty = PENALTY_RATE * prev_due(self) / 100
+        penalty = Penalty.objects.get().penalty
+        self.amount_penalty = penalty * prev_due(self) / 100
         self.amount_penalty = max(self.amount_penalty, 0)
         self.amount_due = (
             self.amount_basic - self.amount_paid +

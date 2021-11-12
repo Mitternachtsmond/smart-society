@@ -31,6 +31,10 @@ def Admin():
     admin_body.permissions.add(
         Permission.objects.get(codename="view_maintenance"))
     admin_body.permissions.add(
+        Permission.objects.get(codename="view_penalty"))
+    admin_body.permissions.add(
+        Permission.objects.get(codename="change_maintenance"))
+    admin_body.permissions.add(
         Permission.objects.get(codename="add_property_info"))
     admin_body.permissions.add(
         Permission.objects.get(codename="change_property_info"))
@@ -95,6 +99,8 @@ def Member():
     member_body.permissions.add(
         Permission.objects.get(codename="view_transaction"))
     member_body.permissions.add(
+        Permission.objects.get(codename="view_penalty"))
+    member_body.permissions.add(
         Permission.objects.get(codename="view_personal_staff"))
     member_body.permissions.add(
         Permission.objects.get(codename="view_society_staff"))
@@ -125,13 +131,6 @@ def Security():
         Permission.objects.get(codename="view_account"))
 
 
-def Staff():
-    staff_body, created = Group.objects.get_or_create(name="Staff_Body")
-    staff_body.permissions.add(
-        Permission.objects.get(codename="view_society_staff"))
-    staff_body.permissions.add(Permission.objects.get(codename="view_account"))
-
-
 class Command(BaseCommand):
     help = "This command is used to apply permissions to different groups"
 
@@ -139,5 +138,4 @@ class Command(BaseCommand):
         Admin()
         Member()
         Security()
-        Staff()
-        self.stdout.write("Admin, Member, Security and Staff Groups Created")
+        self.stdout.write("Admin, Member and Security Groups Created")

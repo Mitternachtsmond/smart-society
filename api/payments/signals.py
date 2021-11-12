@@ -1,9 +1,19 @@
 from datetime import datetime
+from typing import Sequence
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from society_info.models import Announcement
 
-from .models import Maintenance, Transaction
+from .models import Maintenance, Transaction, Penalty
+
+
+@receiver(post_save, sender=Penalty)
+def save_penalty(sender, instance, **kwargs):
+    Announcement.objects.create(
+        author="Admin",
+        category="Notification",
+        description=f"The penalty has been changed to {instance.penalty}% per month."
+    )
 
 
 @receiver(pre_save, sender=Maintenance)

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TransactionsMobileTable from "./TransactionsMobileTable";
 import TableCell from "../TableCell";
 import TableHeader from "../TableHeader";
+import { Link } from "react-router-dom";
 
 function Transactions() {
   const [Transactions, setTransactions] = useState([]);
@@ -44,6 +45,26 @@ function Transactions() {
               md:py-5
             "
           >
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                to="/addTransaction"
+                className="
+                mb-4
+                py-2
+                px-2
+                font-medium
+                text-white
+                dark:text-gray-900
+                bg-green-500
+                rounded
+                hover:bg-green-400
+                transition
+                duration-300
+              "
+              >
+                Add Transaction
+              </Link>
+            </div>
             <div className="shadow overflow-hidden border-b border-gray-200 rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-white ">
@@ -71,8 +92,7 @@ function Transactions() {
                         <TableCell
                           value={
                             element.description
-                              ? element.description &&
-                                element.description
+                              ? element.description
                                   .split("\n")
                                   .map((i, index) => {
                                     return <p key={index}>{i}</p>;
@@ -104,8 +124,7 @@ function Transactions() {
                   amount={element.amount.toString()}
                   description={
                     element.description
-                      ? element.description &&
-                        element.description.split("\n").map((i, index) => {
+                      ? element.description.split("\n").map((i, index) => {
                           return <p key={index}>{i}</p>;
                         })
                       : "None"
