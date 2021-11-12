@@ -18,6 +18,10 @@ function SocietyStaffMobileTable(props) {
               <TableMobileCell value={props.occupation} />
             </tr>
             <tr className="even:bg-gray-100">
+              <TableMobileHeader value="Aadhar" />
+              <TableMobileCell value={props.aadhaar} />
+            </tr>
+            <tr className="even:bg-gray-100">
               <TableMobileHeader value="Salary" />
               <TableMobileCell value={props.salary} />
             </tr>
@@ -46,6 +50,7 @@ function SocietyStaffMobileTable(props) {
 SocietyStaffMobileTable.propTypes = {
   name: PropTypes.string.isRequired,
   occupation: PropTypes.string.isRequired,
+  aadhaar: PropTypes.string.isRequired,
   salary: PropTypes.string.isRequired,
   worksIn: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,

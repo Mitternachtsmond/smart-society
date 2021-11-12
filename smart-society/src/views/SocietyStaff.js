@@ -59,7 +59,30 @@ function SocietyStaff() {
       }
     };
     fetchData();
-  }, [navigate]);
+  }, [navigate])
+  async function deleteitem(id) {
+    const url = "http://127.0.0.1:8000/api/staff/society_staff/";
+    // console.log("1deleteps");
+    await fetch(`${url}${id}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Token ${localStorage.getItem("token")}`,
+      },
+    });
+    // console.log("2deleteps");
+    fetchData();
+  }
+  const fetchData = async () => {
+    const url = "http://127.0.0.1:8000/api/staff/society_staff/";
+    const response = await fetch(url, {
+      headers: {
+        authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    });
+    const array = await response.json();
+    setSocietyStaff(array.results);
+  }
   return (
     <div className="h-screen flex">
       <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
@@ -118,9 +141,11 @@ function SocietyStaff() {
                       <tr>
                         <TableHeader title="Name" />
                         <TableHeader title="Occupation" />
+                        <TableHeader title="Aadhar" />
                         <TableHeader title="Salary" />
                         <TableHeader title="Works In" />
                         <TableHeader title="Photo" />
+                        <TableHeader title="Delete" />
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -128,15 +153,21 @@ function SocietyStaff() {
                         societyStaff.map((element) => {
                           return (
                             <tr
-                              key={element.aadhar}
+                              key={element.occupation}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
                               <TableCell value={element.name} />
                               <TableCell value={element.occupation} />
+                              <TableCell value={element.aadhaar} />
                               <TableCell value={element.salary.toString()} />
                               <TableCell value={element.work_place} />
                               <td className="px-3 py-3 md:py-4 whitespace-normal">
-                                <img src={element.image} alt="Society Staff" className="h-20 w-20 mx-auto"/>
+                                <img src={element.image} alt="Society Staff" className="h-20 w-20 mx-auto" />
+                              </td>
+                              <td className="px-3 py-3 md:py-4 whitespace-normal">
+                                <div className="text-base font-medium text-gray-900 tracking-wide text-center">
+                                  <button onClick={() => deleteitem(element.occupation)} className="rounded-lg px-4 py-2 bg-red-600 text-red-100">Delete</button>
+                                </div>
                               </td>
                             </tr>
                           );
@@ -189,10 +220,12 @@ function SocietyStaff() {
                       <SocietyStaffMobileTable
                         name={element.name}
                         occupation={element.occupation}
+                        aadhaar={element.aadhaar}
                         salary={element.salary.toString()}
                         worksIn={element.work_place}
                         image={element.image}
                       />
+                      <button onClick={() => deleteitem(element.occupation)} className="rounded-lg px-4 py-2 bg-red-600 text-red-100">Delete</button>
                     </div>
                   );
                 })}

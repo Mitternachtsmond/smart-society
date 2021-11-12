@@ -9,6 +9,10 @@ function PersonalStaffMobileTable(props) {
         <table className="min-w-full">
           <tbody className="bg-white ">
             <tr className="even:bg-gray-100">
+              <TableMobileHeader value="SNo" />
+              <TableMobileCell value={props.s_no} />
+            </tr>
+            <tr className="even:bg-gray-100">
               <TableMobileHeader value="Name" />
               <TableMobileCell value={props.name} />
             </tr>
@@ -35,7 +39,8 @@ function PersonalStaffMobileTable(props) {
 }
 
 PersonalStaffMobileTable.propTypes = {
-  Name: PropTypes.string.isRequired,
-  Occupation: PropTypes.string.isRequired,
+  s_no: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  occupation: PropTypes.string.isRequired,
 };
 export default PersonalStaffMobileTable;
