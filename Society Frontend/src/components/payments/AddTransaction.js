@@ -56,7 +56,7 @@ function AddTransaction() {
         "
       >
         <div className="text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
-          Pay Maintenance
+          Add Transaction
         </div>
         <form className="w-full max-w-lg" onSubmit={handleSubmit} id="form">
           <div className="flex flex-wrap -mx-3 mb-6">

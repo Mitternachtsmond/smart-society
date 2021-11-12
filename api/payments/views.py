@@ -23,7 +23,7 @@ class Maintenance_Viewset(viewsets.ModelViewSet):
     serializer_class = Maintenance_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["month", "property_no_id__property_no_id__username"]
+    search_fields = ["month", "property_no__property_no__username"]
 
     def get_queryset(self):
         return Maintenance.objects.all()
