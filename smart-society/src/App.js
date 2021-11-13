@@ -1,22 +1,31 @@
-import Navbar from "./views/Navbar";
+import Navbar from "./navigation/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./views/Dashboard";
-import Complaint from "./views/Complaint";
-import Login from "./views/Login";
-import Logout from "./views/Logout";
-import ForgotPassword from "./views/ForgotPassword";
-import ResetPassword from "./views/ResetPassword";
-import ChangePassword from "./views/ChangePassword";
-import Maintenance from "./views/Maintenance";
-import Transaction from "./views/Transaction";
-import PayMaintenance from "./views/PayMaintenance";
-import PersonalStaff from "./views/PersonalStaff";
-import SocietyStaff from "./views/SocietyStaff";
-import Profile from "./views/Profile";
-import Inventory from "./views/Inventory";
-import Polls from "./views/Polls";
-import Vote from "./views/Vote";
-import CreatePoll from "./views/CreatePoll";
+import Dashboard from "./societyInfo/Dashboard";
+import Complaint from "./societyInfo/Complaint";
+import Login from "./users/Login";
+import Logout from "./users/Logout";
+import ForgotPassword from "./users/ForgotPassword";
+import ResetPassword from "./users/ResetPassword";
+import ChangePassword from "./users/ChangePassword";
+import Maintenance from "./payments/Maintenance";
+import Transaction from "./payments/Transaction";
+import PayMaintenance from "./payments/PayMaintenance";
+import PersonalStaff from "./staff/PersonalStaff";
+import SocietyStaff from "./staff/SocietyStaff";
+import Profile from "./users/Profile";
+import Inventory from "./societyInfo/Inventory";
+import Account from "./users/Account";
+import Member from "./users/Member";
+import Property from "./societyInfo/Property";
+import Register from "./users/Register";
+import AccountUpdate from "./users/UpdateAccount";
+import AddInventory from "./societyInfo/AddInventory";
+import UpdateInventory from "./societyInfo/UpdateInventory";
+import AddProperty from "./societyInfo/AddProperty";
+import UpdateProperty from "./societyInfo/UpdateProperty";
+import AddMember from "./users/AddMember";
+import UpdateMember from "./users/UpdateMember";
+import AddPersonalStaff from "./staff/AddPersonalStaff";
 
 function App() {
   return (
@@ -32,14 +41,111 @@ function App() {
               </>
             }
           />
-          <Route path="/members" element={<Navbar />} />
-          <Route path="/properties" element={<Navbar />} />
+          <Route
+            path="/accounts"
+            element={
+              <>
+                <Navbar />
+                <Account />
+              </>
+            }
+          />
+          <Route
+            path="/accounts/:username"
+            element={
+              <>
+                <Navbar />
+                <AccountUpdate />
+              </>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <>
+                <Navbar />
+                <Register />
+              </>
+            }
+          />
+          <Route
+            path="/members"
+            element={
+              <>
+                <Navbar />
+                <Member />
+              </>
+            }
+          />
+          <Route
+            path="/members/add"
+            element={
+              <>
+                <Navbar />
+                <AddMember />
+              </>
+            }
+          />
+          <Route
+            path="/members/change/:propertyNo"
+            element={
+              <>
+                <Navbar />
+                <UpdateMember />
+              </>
+            }
+          />
+          <Route
+            path="/properties"
+            element={
+              <>
+                <Navbar />
+                <Property />
+              </>
+            }
+          />
+          <Route
+            path="/properties/add"
+            element={
+              <>
+                <Navbar />
+                <AddProperty />
+              </>
+            }
+          />
+          <Route
+            path="/properties/change/:propertyType"
+            element={
+              <>
+                <Navbar />
+                <UpdateProperty />
+              </>
+            }
+          />
           <Route
             path="/inventory"
             element={
               <>
                 <Navbar />
                 <Inventory />
+              </>
+            }
+          />
+          <Route
+            path="/inventory/add"
+            element={
+              <>
+                <Navbar />
+                <AddInventory />
+              </>
+            }
+          />
+          <Route
+            path="/inventory/change/:item"
+            element={
+              <>
+                <Navbar />
+                <UpdateInventory />
               </>
             }
           />
@@ -82,6 +188,15 @@ function App() {
               </>
             }
           />
+          <Route
+            path="/personalstaff/add"
+            element={
+              <>
+                <Navbar />
+                <AddPersonalStaff />
+              </>
+            }
+          />
           <Route path="/polls" element={<Navbar />} />
           <Route
             path="/complaint"
@@ -109,33 +224,6 @@ function App() {
             element={<ResetPassword />}
           />
           <Route path="/changepassword" element={<ChangePassword />} />
-          <Route 
-            path="/polls/"
-            element={
-              <>
-                <Navbar />
-                <Polls />
-              </>
-            }
-          />
-          <Route 
-            path="polls/vote/:id"
-            element={
-              <>
-                <Navbar />
-                <Vote />
-              </>
-            }
-          />
-          <Route 
-            path="polls/create"
-            element={
-              <>
-                <Navbar />
-                <CreatePoll />
-              </>
-            }
-          />
         </Routes>
       </div>
     </Router>
