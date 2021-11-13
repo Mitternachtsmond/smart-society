@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 function Transaction() {
   const [transaction, setTransaction] = useState([]);
-  
+
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -148,7 +148,7 @@ function Transaction() {
                                   "en-in"
                                 )}
                               />
-                              <TableCell value={element.option} />
+                              <TableCell value={element.option.toUpperCase()} />
                               <TableCell value={element.amount.toString()} />
                             </tr>
                           );
@@ -163,7 +163,7 @@ function Transaction() {
             <div className="overflow-x-auto py-5">
               <div className="flex px-5">
                 <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                + Add
+                  + Add
                 </div>
                 <div className="flex-grow px-2 text-center uppercase font-semibold text-xl dark:text-white">
                   Transactions

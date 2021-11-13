@@ -1,9 +1,7 @@
-from datetime import datetime
-from typing import Sequence
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from society_info.models import Announcement
-
+from django.utils import timezone
 from .models import Maintenance, Transaction, Penalty
 
 
@@ -41,7 +39,7 @@ def save_maintenance(sender, instance, **kwargs):
                 to=instance.property_no,
                 amount=net_amount_paid,
                 description=description,
-                date=datetime.now()
+                date=timezone.now()
             )
 
 

@@ -78,7 +78,7 @@ function AddPersonalStaff() {
             <form>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">Name*</label>
                   <input
                     type="text"
                     name="name"
@@ -92,10 +92,11 @@ function AddPersonalStaff() {
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter Name"
                     required
                   />
                   <label htmlFor="occupation" className="pt-4">
-                    Occupation
+                    Occupation*
                   </label>
                   <input
                     type="text"
@@ -110,10 +111,11 @@ function AddPersonalStaff() {
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={(e) => setOccupation(e.target.value)}
+                    placeholder="Enter Occupation"
                     required
                   />
                   <label htmlFor="image" className="pt-4">
-                    Staff Image
+                    Staff Image*
                   </label>
                   <input
                     type="file"

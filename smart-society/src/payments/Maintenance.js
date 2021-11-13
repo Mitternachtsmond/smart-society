@@ -65,7 +65,7 @@ function Maintenance() {
     };
     fetchData();
 
-    url = "http://127.0.0.1:8000/api/payments/penalty_rate/";
+    url = "http://127.0.0.1:8000/api/payments/penalty/";
     const fetchPenalty = async () => {
       const response = await fetch(url, {
         headers: {
@@ -74,7 +74,7 @@ function Maintenance() {
       });
       const result = await response.json();
       if (response.ok) {
-        setPenalty(result["penalty rate"]);
+        setPenalty(result["penalty"]);
       } else {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
@@ -95,7 +95,9 @@ function Maintenance() {
             <div className="overflow-x-auto py-5">
               <div className="flex px-5">
                 <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  Penalty Rate: {penalty}
+                  <Link to="/maintenance/penalty">
+                    Monthly Penalty: {penalty}%
+                  </Link>
                 </div>
                 <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Maintenance
@@ -181,7 +183,12 @@ function Maintenance() {
                                 value={element.amount_penalty.toString()}
                               />
                               <TableCell
-                                value={element.amount_due.toString()}
+                                value={
+                                  element.amount_due >= 0
+                                    ? element.amount_due.toString()
+                                    : "Advance Paid: " +
+                                      Math.abs(element.amount_due).toString()
+                                }
                               />
                             </tr>
                           );

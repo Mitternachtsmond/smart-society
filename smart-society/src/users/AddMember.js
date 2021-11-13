@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
+import Select from "react-select";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 
@@ -8,7 +9,8 @@ function AddMember() {
   const [msg, setMsg] = useState("");
   const [accounts, setAccounts] = useState([]);
   const [properties, setProperties] = useState([]);
-
+  const accountOptions = [];
+  const propertyOptions = [];
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
@@ -87,16 +89,17 @@ function AddMember() {
           resetForm({ values: "" });
           navigate("/members");
         } else {
+          const values = Object.values(result);
           if (
-            Object.values(result)[0] === "Invalid Token" ||
-            Object.values(result)[0] === "The Token is expired"
+            values[0] === "Invalid Token" ||
+            values[0] === "The Token is expired"
           ) {
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             localStorage.setItem("isLoggedIn", "false");
             navigate("/login");
           }
-          setMsg(Object.values(result)[0].join(" "));
+          setMsg(values[0]);
         }
       };
       fetchData();
@@ -120,62 +123,49 @@ function AddMember() {
                   <form onSubmit={formik.handleSubmit}>
                     <div className="grid gap-4 gap-y-4 grid-cols-1 md:grid-cols-2">
                       <div className="md:col-span-1">
-                        <label htmlFor="propertyNo">Property No.</label>
-                        <select
-                          name="propertyNo"
-                          id="propertyNo"
-                          placeholder=""
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          onChange={formik.handleChange}
-                          value={formik.values.propertyNo}
-                          required
-                        >
-                          <option value=""></option>
-                          {accounts &&
-                            accounts.map((element) => (
-                              <option
-                                value={element.username}
-                                key={element.username}
-                              >
-                                {element.username}
-                              </option>
-                            ))}
-                        </select>
+                        <label htmlFor="propertyNo">Property No.*</label>
+                        {accounts &&
+                          accounts.forEach((element) => {
+                            accountOptions.push({
+                              label: element.username,
+                              value: element.username,
+                            });
+                          })}
+                        <Select
+                          options={accountOptions}
+                          onChange={(element) => {
+                            formik.values.propertyNo = element.value;
+                          }}
+                          placeholder="Select Property Number"
+                        />
                       </div>
 
                       <div className="md:col-span-1">
-                        <label htmlFor="propertyType">Property Type</label>
-                        <select
-                          name="propertyType"
-                          id="propertyType"
-                          placeholder=""
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          onChange={formik.handleChange}
-                          value={formik.values.propertyType}
-                          required
-                        >
-                          <option value=""></option>
-
-                          {properties &&
-                            properties.map((element) => (
-                              <option
-                                value={element.property_type}
-                                key={element.property_type}
-                              >
-                                {element.property_type}
-                              </option>
-                            ))}
-                        </select>
+                        <label htmlFor="propertyType">Property Type*</label>
+                        {properties &&
+                          properties.forEach((element) => {
+                            propertyOptions.push({
+                              label: element.property_type,
+                              value: element.property_type,
+                            });
+                          })}
+                        <Select
+                          options={propertyOptions}
+                          onChange={(element) => {
+                            formik.values.propertyType = element.value;
+                          }}
+                          placeholder="Select Property Type"
+                        />
                       </div>
 
                       <div className="md:col-span-1">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Name*</label>
                         <input
                           type="text"
                           name="name"
                           id="name"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder=""
+                          placeholder="Enter Name"
                           onChange={formik.handleChange}
                           value={formik.values.name}
                           required
@@ -183,13 +173,15 @@ function AddMember() {
                       </div>
 
                       <div className="md:col-span-1">
-                        <label htmlFor="mobile">Mobile No.</label>
+                        <label htmlFor="mobile">Mobile No.*</label>
                         <input
-                          type="text"
+                          type="tel"
+                          pattern="[0-9]{10}"
+                          title="Enter 10 digits"
                           name="mobile"
                           id="mobile"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder=""
+                          placeholder="Enter Mobile No."
                           onChange={formik.handleChange}
                           value={formik.values.mobile}
                           required
@@ -202,7 +194,7 @@ function AddMember() {
                           name="tenantName"
                           id="tenantName"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder=""
+                          placeholder="Enter Name"
                           onChange={formik.handleChange}
                           value={formik.values.tenantName}
                         />
@@ -210,11 +202,13 @@ function AddMember() {
                       <div className="md:col-span-1">
                         <label htmlFor="tenantMobile">Tenant Mobile No.</label>
                         <input
-                          type="text"
+                          type="tel"
+                          pattern="[0-9]{10}"
+                          title="Enter 10 digits"
                           name="tenantMobile"
                           id="tenantMobile"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder=""
+                          placeholder="Enter Mobile No."
                           onChange={formik.handleChange}
                           value={formik.values.tenantMobile}
                         />

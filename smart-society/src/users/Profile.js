@@ -26,8 +26,6 @@ function Profile() {
         return "Member";
       case 3:
         return "Security";
-      case 4:
-        return "Staff";
       default:
         return "Member";
     }
@@ -157,11 +155,9 @@ function Profile() {
                 "
             >
               <div>
-              <div className="px-3 text-lg py-2 flex place-content-end lg:hidden">
+                <div className="px-3 text-lg py-2 flex place-content-end lg:hidden">
                   <Link to="/logout">
-                    <button
-                      className="px-3 py-2 border rounded font-bold text-white bg-red-500 "
-                    >
+                    <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
                       Logout
                     </button>
                   </Link>
@@ -183,7 +179,7 @@ function Profile() {
                     Change Password
                   </div>
                 </Link>
-                {profile.maintenance === 0 ? (
+                {profile.maintenance <= 0 ? (
                   <div className="text-center mt-5 bg-green-100 text-xl rounded-lg px-3 py-4">
                     <div className="font-semibold text-green-400">
                       Maintenance
@@ -247,9 +243,7 @@ function Profile() {
                 </div>
                 <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
                   <Link to="/logout">
-                    <button
-                      className="px-3 py-2 border rounded font-bold text-white bg-red-500 "
-                    >
+                    <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
                       Logout
                     </button>
                   </Link>

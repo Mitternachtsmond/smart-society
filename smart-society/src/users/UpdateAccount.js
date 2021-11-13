@@ -69,8 +69,6 @@ function UpdateAccount() {
         return 2;
       case "Security":
         return 3;
-      case "Staff":
-        return 4;
       default:
         return 2;
     }
@@ -83,8 +81,6 @@ function UpdateAccount() {
         return "Member";
       case 3:
         return "Security";
-      case 4:
-        return "Staff";
       default:
         return "Member";
     }
@@ -160,7 +156,7 @@ function UpdateAccount() {
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="username">
-                    Property Address or Staff Occupation
+                    Property Address or Staff Occupation*
                   </label>
                   <input
                     type="text"
@@ -176,10 +172,11 @@ function UpdateAccount() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.username}
+                    placeholder="Enter Username"
                     required
                   />
                   <label htmlFor="email" className="pt-4">
-                    Email
+                    Email*
                   </label>
                   <input
                     type="text"
@@ -195,16 +192,17 @@ function UpdateAccount() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.email}
+                    placeholder="email@domain.com"
                     required
                   />
                 </div>
 
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="group">Category</label>
+                  <label htmlFor="group">Category*</label>
                   <select
                     name="group"
                     id="group"
-                    placeholder="Category"
+                    placeholder="Enter Category"
                     className="
                     bg-gray-50
                     border-2
@@ -220,7 +218,6 @@ function UpdateAccount() {
                     <option value="Member">Member</option>
                     <option value="Admin">Admin</option>
                     <option value="Security">Security</option>
-                    <option value="Staff">Staff</option>
                   </select>
                 </div>
                 <div className="text-red-500 text-center">{msg}</div>

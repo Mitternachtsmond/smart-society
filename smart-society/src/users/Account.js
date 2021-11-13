@@ -16,8 +16,6 @@ function Account() {
         return "Member";
       case 3:
         return "Security";
-      case 4:
-        return "Staff";
       default:
         return "Member";
     }

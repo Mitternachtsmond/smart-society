@@ -3,7 +3,7 @@ import Contents from "../navigation/Contents";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 
-function AddInventory() {
+function PenaltyRate() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   useEffect(() => {
@@ -14,17 +14,15 @@ function AddInventory() {
 
   const formik = useFormik({
     initialValues: {
-      item: "",
-      quantity: "",
+      penalty: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/society_info/inventory/`;
+      const url = `http://127.0.0.1:8000/api/payments/penalty/`;
       const fetchData = async () => {
         const response = await fetch(url, {
-          method: "POST",
+          method: "PUT",
           body: JSON.stringify({
-            item: values.item,
-            quantity: values.quantity,
+            penalty: values.penalty,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -34,7 +32,7 @@ function AddInventory() {
         const result = await response.json();
         if (response.ok) {
           resetForm({ values: "" });
-          navigate("/inventory");
+          navigate("/maintenance");
         } else {
           if (
             Object.values(result)[0] === "Invalid Token" ||
@@ -45,7 +43,7 @@ function AddInventory() {
             localStorage.setItem("isLoggedIn", "false");
             navigate("/login");
           }
-          setMsg(Object.values(result)[0].join(" "));
+          setMsg(Object.values(result)[0]);
         }
       };
       fetchData();
@@ -60,7 +58,7 @@ function AddInventory() {
       <div className="flex-1 flex overflow-hidden">
         <div className="flex-1 overflow-y-scroll">
           <div className="md:py-5 flex-grow py-3 text-center dark:text-white uppercase tracking-wider font-semibold text-xl md:text-3xl">
-            Add Item
+            Change Penalty
           </div>
           <div
             className="
@@ -78,31 +76,11 @@ function AddInventory() {
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="item">Item*</label>
-                  <input
-                    type="text"
-                    name="item"
-                    id="item"
-                    className="
-                    bg-gray-50
-                      border-2
-                      rounded
-                      px-3
-                      py-2
-                      w-full
-                      focus:outline-none focus:border-blue-400 focus:shadow"
-                    onChange={formik.handleChange}
-                    value={formik.values.item}
-                    placeholder="Enter Item"
-                    required
-                  />
-                  <label htmlFor="quantity" className="pt-4">
-                    Quantity*
-                  </label>
+                  <label htmlFor="item">Penalty Rate*</label>
                   <input
                     type="number"
-                    name="quantity"
-                    id="quantity"
+                    name="penalty"
+                    id="penalty"
                     className="
                     bg-gray-50
                       border-2
@@ -111,9 +89,9 @@ function AddInventory() {
                       py-2
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
+                    placeholder="Enter Penalty Rate"
                     onChange={formik.handleChange}
-                    value={formik.values.quantity}
-                    placeholder="Enter Quantity"
+                    value={formik.values.penalty}
                     required
                   />
                 </div>
@@ -135,4 +113,4 @@ function AddInventory() {
   );
 }
 
-export default AddInventory;
+export default PenaltyRate;
