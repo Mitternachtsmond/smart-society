@@ -7,11 +7,12 @@ from .models import Maintenance, Transaction, Penalty
 
 @receiver(post_save, sender=Penalty)
 def save_penalty(sender, instance, **kwargs):
-    if instance.penalty != instance._Penalty__original_penalty:
+    changed_penalty = instance.penalty != instance._Penalty__original_penalty
+    if changed_penalty:
         Announcement.objects.create(
             author="Admin",
             category="Notification",
-            description=f"The penalty has been changed to {instance.penalty}% per month."
+            description=f"The penalty has been changed to {instance.penalty}% per month.",
         )
 
 
