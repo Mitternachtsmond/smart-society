@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import GateLogForm from "./GateLogForm"
 import ExitCard from "./ExitCard"
+import {Link} from "react-router-dom"
 
 function GateLogs(){
     const [ logs , setLogs] = useState([])
@@ -13,7 +13,12 @@ function GateLogs(){
           },
         });
         const array = await response.json();
-        setLogs(array.results);
+        const notExited = []
+        array.results.forEach((log)=>{
+            if(!log.exited)
+            notExited.push(log)
+        })
+        setLogs(notExited);
         console.log(array);
       } catch (err) {
         console.log(err);
@@ -23,20 +28,32 @@ function GateLogs(){
     useEffect(()=>{
           fetchData();
     },[])
-    console.log(logs)
-
-    const notExited = []
-    logs.forEach((log)=>{
-        if(!log.exited)
-        notExited.push(log)
-    })
-    console.log(notExited)
+    const UpdateExit = ()=>fetchData()
 
     return(
         <div>
-            <GateLogForm refresh={fetchData}/>
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                to="/gate_form"
+                className="
+                mt-4
+                py-2
+                px-2
+                font-medium
+                text-white
+                dark:text-gray-900
+                bg-green-500
+                rounded
+                hover:bg-green-400
+                transition
+                duration-300
+              "
+              >
+                Register Entry
+              </Link>
+            </div>
             <div className = "flex">
-                {notExited.map((log) => <ExitCard data={log}/>)}
+                {logs.map((log) => <ExitCard data={log} clickhandler={UpdateExit}/>)}
             </div>
         </div>   
     )
