@@ -142,13 +142,14 @@ function Transaction() {
                               key={element.s_no}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
-                              <TableCell value={element.to} />
                               <TableCell
                                 value={new Date(element.date).toLocaleString(
                                   "en-in"
                                 )}
+                                link={`/transactions/view/${element.s_no}`}
                               />
                               <TableCell value={element.option.toUpperCase()} />
+                              <TableCell value={element.to} />
                               <TableCell value={element.amount.toString()} />
                             </tr>
                           );
@@ -207,8 +208,9 @@ function Transaction() {
                   return (
                     <div key={element.s_no}>
                       <TransactionsMobileTable
-                        to={element.to}
+                        s_no={element.s_no.toString()}
                         date={new Date(element.date).toLocaleString("en-in")}
+                        to={element.to}
                         option={element.option}
                         amount={element.amount.toString()}
                       />

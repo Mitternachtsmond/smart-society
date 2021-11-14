@@ -29,6 +29,7 @@ import AddMember from "./users/AddMember";
 import UpdateMember from "./users/UpdateMember";
 import AddPersonalStaff from "./staff/AddPersonalStaff";
 import Error from "./basicComponents/Error";
+import ViewTransaction from "./payments/ViewTransaction";
 
 function App() {
   return (
@@ -202,6 +203,15 @@ function App() {
               <>
                 <Navbar />
                 <AddTransaction />
+              </>
+            }
+          />
+          <Route
+            path="/transactions/view/:sno"
+            element={
+              <>
+                <Navbar />
+                <ViewTransaction />
               </>
             }
           />
