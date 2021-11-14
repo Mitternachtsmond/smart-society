@@ -6,6 +6,10 @@ from users.models import Member
 
 
 class Penalty(models.Model):
+    def __init__(self, *args, **kwargs):
+        super(Penalty, self).__init__(*args, **kwargs)
+        self.__original_penalty = self.penalty
+
     s_no = models.AutoField(primary_key=True)
     penalty = models.IntegerField(_("Penalty Rate"))
 
@@ -26,8 +30,7 @@ class Transaction(models.Model):
     amount = models.IntegerField(
         _("Transaction Amount"),
     )
-    option = models.CharField(
-        _("Paid/Recieved"), max_length=15, choices=options)
+    option = models.CharField(_("Paid/Recieved"), max_length=15, choices=options)
     to = models.CharField(_("To/From"), max_length=50)
     description = models.TextField(_("Description"), null=True, blank=True)
 
@@ -60,8 +63,7 @@ class Maintenance(models.Model):
 
     def save(self, *args, **kwargs):
         def prev_due(self):
-            prev_month = self.month + \
-                dateutil.relativedelta.relativedelta(months=-1)
+            prev_month = self.month + dateutil.relativedelta.relativedelta(months=-1)
             queryset = Maintenance.objects.filter(
                 month=prev_month, property_no=self.property_no
             )
@@ -83,8 +85,7 @@ class Maintenance(models.Model):
         self.amount_penalty = penalty * prev_due(self) / 100
         self.amount_penalty = max(self.amount_penalty, 0)
         self.amount_due = (
-            self.amount_basic - self.amount_paid +
-            self.amount_penalty + prev_due(self)
+            self.amount_basic - self.amount_paid + self.amount_penalty + prev_due(self)
         )
 
         super(Maintenance, self).save(*args, **kwargs)

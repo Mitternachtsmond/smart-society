@@ -45,7 +45,7 @@ class Registration_Serializer(serializers.ModelSerializer):
 class Account_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = "__all__"
+        fields = ["username", "email", "groups"]
 
 
 class Member_Serializer(serializers.ModelSerializer):
