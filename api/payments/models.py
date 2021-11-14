@@ -13,6 +13,10 @@ class Penalty(models.Model):
     s_no = models.AutoField(primary_key=True)
     penalty = models.IntegerField(_("Penalty Rate"))
 
+    def __init__(self, *args, **kwargs) -> None:
+        super(Penalty, self).__init__(*args, **kwargs)
+        self.__original_penalty = self.penalty
+
     def __str__(self):
         return f"Penalty is set to {self.penalty}% per month"
 
