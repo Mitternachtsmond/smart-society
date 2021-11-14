@@ -8,7 +8,9 @@ function AddPersonalStaff() {
   const [name, setName] = useState("");
   const [occupation, setOccupation] = useState("");
   const [image, setImage] = useState("");
-
+  const isFormInvalid = () => {
+    return !(name && occupation && image);
+  };
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
@@ -16,6 +18,10 @@ function AddPersonalStaff() {
   }, [navigate]);
 
   const handleSubmit = () => {
+    if (isFormInvalid()) {
+      console.log(isFormInvalid)
+      return;
+    }
     const formData = new FormData();
 
     formData.append("image", image, image.name);

@@ -5,17 +5,43 @@ import { useFormik } from "formik";
 
 function PenaltyRate() {
   const navigate = useNavigate();
+  const [penalty, setPenalty] = useState(0);
   const [msg, setMsg] = useState("");
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
+    const url = `http://127.0.0.1:8000/api/payments/penalty/`;
+    const fetchData = async () => {
+      const response = await fetch(url, {
+        headers: {
+          authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setPenalty(result.penalty);
+      } else {
+        if (
+          Object.values(result)[0] === "Invalid Token" ||
+          Object.values(result)[0] === "The Token is expired"
+        ) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.setItem("isLoggedIn", "false");
+          navigate("/login");
+        }
+        setMsg(Object.values(result)[0]);
+      }
+    };
+    fetchData();
   }, [navigate]);
 
   const formik = useFormik({
     initialValues: {
-      penalty: "",
+      penalty: `${penalty}`,
     },
+    enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
       const url = `http://127.0.0.1:8000/api/payments/penalty/`;
       const fetchData = async () => {
@@ -76,7 +102,7 @@ function PenaltyRate() {
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="item">Penalty Rate*</label>
+                  <label htmlFor="penalty">Penalty Rate*</label>
                   <input
                     type="number"
                     name="penalty"
@@ -101,7 +127,7 @@ function PenaltyRate() {
                     type="submit"
                     className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
                   >
-                    Submit
+                    Save
                   </button>
                 </div>
               </div>

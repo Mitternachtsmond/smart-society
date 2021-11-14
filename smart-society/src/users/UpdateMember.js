@@ -211,17 +211,19 @@ function UpdateMember() {
                               value: element.property_type,
                             });
                           })}
-                        <Select
-                          options={propertyOptions}
-                          onChange={(element) => {
-                            formik.values.propertyType = element.value;
-                          }}
-                          defaultValue={{
-                            value: propertyType,
-                            label: propertyType,
-                          }}
-                          placeholder="Select Property Type"
-                        />
+                        {propertyType && (
+                          <Select
+                            options={propertyOptions}
+                            onChange={(element) => {
+                              formik.values.propertyType = element.value;
+                            }}
+                            defaultValue={{
+                              value: propertyType,
+                              label: propertyType,
+                            }}
+                            placeholder="Select Property Type"
+                          />
+                        )}
                       </div>
 
                       <div className="md:col-span-1">

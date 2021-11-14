@@ -203,7 +203,7 @@ function Maintenance() {
             <div className="overflow-x-auto py-5">
               <div className="flex px-5">
                 <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  Penalty: {penalty}
+                  <Link to="/maintenance/penalty">Penalty: {penalty}%</Link>
                 </div>
                 <div className="flex-grow px-3 text-center dark:text-white uppercase font-semibold text-xl">
                   Maintenance
