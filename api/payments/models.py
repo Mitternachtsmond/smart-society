@@ -53,7 +53,7 @@ class Maintenance(models.Model):
         verbose_name=_("Property No."),
     )
     month = models.DateField(_("For the Month"), editable=False)
-    amount_basic = models.IntegerField(_("Basic"), blank=True)
+    amount_basic = models.IntegerField(_("Basic"), blank=True, editable=False)
     amount_paid = models.IntegerField(_("Paid"), default=0)
     amount_penalty = models.IntegerField(_("Penalty"), editable=False)
     amount_due = models.IntegerField(_("Due"), editable=False)

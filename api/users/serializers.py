@@ -1,6 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.utils.encoding import force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import serializers
@@ -29,6 +29,11 @@ class Registration_Serializer(serializers.ModelSerializer):
 
         if password1 != password2:
             raise serializers.ValidationError({"password": "Passwords should match"})
+
+        try:
+            validate_password(password1)
+        except ValidationError as e:
+            raise serializers.ValidationError({"error": list(e)})
 
         account.set_password(password1)
         account.save()
@@ -78,7 +83,7 @@ class Change_Password_Serializer(serializers.Serializer):
             password2 = self.validated_data["new_password2"]
             if password1 != password2:
                 raise serializers.ValidationError(
-                    {"password": "Passwords should match"}
+                    {"error": "Passwords should match"}
                 )
         return validity
 

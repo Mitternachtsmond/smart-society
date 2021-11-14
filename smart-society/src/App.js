@@ -28,12 +28,21 @@ import UpdateProperty from "./societyInfo/UpdateProperty";
 import AddMember from "./users/AddMember";
 import UpdateMember from "./users/UpdateMember";
 import AddPersonalStaff from "./staff/AddPersonalStaff";
+import Error from "./basicComponents/Error";
 
 function App() {
   return (
     <Router>
       <div className="bg-green-300 dark:bg-gray-800 min-h-screen font-sans">
         <Routes>
+          <Route
+            path="/404"
+            element={
+              <>
+                <Error />
+              </>
+            }
+          />
           <Route
             path="/"
             element={

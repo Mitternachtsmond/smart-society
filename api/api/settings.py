@@ -179,4 +179,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_cdn")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Variables
-TOKEN_EXPIRED_AFTER_MINUTES = 60000
+TOKEN_EXPIRED_AFTER_MINUTES = 60

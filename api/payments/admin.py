@@ -11,8 +11,7 @@ class Transaction_Admin(admin.ModelAdmin):
     list_filter = ("option",)
     filter_horizontal = ()
 
-    fieldsets = (
-        (None, {"fields": ("date", "amount", "option", "to", "description")}),)
+    fieldsets = ((None, {"fields": ("date", "amount", "option", "to", "description")}),)
 
 
 class Maintenance_Admin(admin.ModelAdmin):
@@ -29,7 +28,7 @@ class Maintenance_Admin(admin.ModelAdmin):
     )
     list_filter = ("month",)
     filter_horizontal = ()
-    readonly_fields = ("property_no", "amount_penalty", "amount_due")
+    readonly_fields = ("property_no", "amount_penalty", "amount_due", "amount_basic")
     fieldsets = (
         (
             None,
