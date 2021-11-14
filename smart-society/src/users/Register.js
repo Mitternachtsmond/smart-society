@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
+import Select from "react-select";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 
 function Register() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const categoryOptions = [
+    { value: "Member", label: "Member" },
+    { value: "Admin", label: "Admin" },
+    { value: "Security", label: "Security" },
+  ];
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
@@ -156,19 +162,13 @@ function Register() {
                       </div>
                       <div className="md:col-span-1 md:row-start-4">
                         <label htmlFor="group">Category*</label>
-                        <select
-                          name="group"
-                          id="group"
-                          placeholder="Category"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          onChange={formik.handleChange}
-                          value={formik.values.group}
-                          required
-                        >
-                          <option value="Member">Member</option>
-                          <option value="Admin">Admin</option>
-                          <option value="Security">Security</option>
-                        </select>
+                        <Select
+                          options={categoryOptions}
+                          onChange={(element) => {
+                            formik.values.group = element.value;
+                          }}
+                          placeholder="Select Category"
+                        />
                       </div>
 
                       <div className="md:col-span-2 text-center md:row-start-5 text-red-500">

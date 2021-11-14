@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
+import Select from "react-select";
 import { useNavigate, useParams } from "react-router";
 import { useFormik } from "formik";
 
@@ -10,7 +11,11 @@ function UpdateAccount() {
   const [email, setEmail] = useState("");
   const [group, setGroup] = useState(2);
   const [count, setCount] = useState(0);
-
+  const categoryOptions = [
+    { value: "Member", label: "Member" },
+    { value: "Admin", label: "Admin" },
+    { value: "Security", label: "Security" },
+  ];
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
@@ -199,26 +204,13 @@ function UpdateAccount() {
 
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="group">Category*</label>
-                  <select
-                    name="group"
-                    id="group"
-                    placeholder="Enter Category"
-                    className="
-                    bg-gray-50
-                    border-2
-                    rounded
-                    px-3
-                    py-2
-                    w-full
-                    focus:outline-none focus:border-blue-400 focus:shadow"
-                    onChange={formik.handleChange}
-                    value={formik.values.group}
-                    required
-                  >
-                    <option value="Member">Member</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Security">Security</option>
-                  </select>
+                  <Select
+                    options={categoryOptions}
+                    onChange={(element) => {
+                      formik.values.group = element.value;
+                    }}
+                    placeholder="Select Category"
+                  />
                 </div>
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row justify-between">
