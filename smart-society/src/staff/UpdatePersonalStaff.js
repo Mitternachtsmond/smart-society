@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
 import { useNavigate, useParams } from "react-router";
-import { useFormik } from "formik";
+// import { useFormik } from "formik";
 
-function UpdateSocietyStaff() {
+function UpdatePersonalStaff() {
   const { s_no } = useParams();
   const navigate = useNavigate();
+  const [data,setData]=useState([])
   const [msg, setMsg] = useState("");
   const [name, setName] = useState("");
   const [occupation, setOccupation] = useState("");
   const [image, setImage] = useState("");
   const [count, setCount] = useState(0);
+  const isFormInvalid = () => {
+    return !(name && occupation && image);
+  };
 
   const deleteRecord = () => {
     if (count === 0) {
@@ -18,7 +22,6 @@ function UpdateSocietyStaff() {
       setMsg("Are you sure you want to delete this record permanently?");
     } else {
       const url = `http://127.0.0.1:8000/api/staff/personal_staff/${s_no}/`;
-      // const url = `http://127.0.0.1:8000/api/staff/personal_staff/4/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "DELETE",
@@ -32,8 +35,7 @@ function UpdateSocietyStaff() {
           localStorage.removeItem("token");
           localStorage.removeItem("username");
           localStorage.setItem("isLoggedIn", "false");
-          console.log("fraud");
-          // navigate("/login");
+          navigate("/login");
         }
       };
       fetchData();
@@ -44,7 +46,6 @@ function UpdateSocietyStaff() {
       navigate("/login");
     }
     const url = `http://127.0.0.1:8000/api/staff/personal_staff/${s_no}/`;
-    // const url = `http://127.0.0.1:8000/api/staff/personal_staff/4/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -52,12 +53,12 @@ function UpdateSocietyStaff() {
         },
       });
       const result = await response.json();
-      console.log(`${s_no}`);
+      setData(result);
       if (response.ok) {
+        console.log(`${s_no}`);
         setName(result.name);
         setOccupation(result.occupation);
         setImage(result.image);
-
       } else {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
@@ -66,51 +67,91 @@ function UpdateSocietyStaff() {
       }
     };
     fetchData();
-  }, [navigate, s_no]);
+  }, [navigate]);
+  const handleSubmit = () => {
+    // console.log("hello?");
+    console.log(isFormInvalid());
+    if (isFormInvalid()) {
+      return;
+    }
+    const formData = new FormData();
 
-  const formik = useFormik({
-    initialValues: {
-      name: `${name}`,
-      occupation: `${occupation}`,
-      image: `${image}`
-    },
-    enableReinitialize: true,
-    onSubmit: (values, { resetForm }) => {
-      // const url = `http://127.0.0.1:8000/api/staff/personal_staff/4/`;
-      const url = `http://127.0.0.1:8000/api/staff/personal_staff/${s_no}/`;
-      const fetchData = async () => {
-        const response = await fetch(url, {
-          method: "PUT",
-          body: JSON.stringify({
-            name: values.name,
-            occupation: values.occupation,
-            image:values.image.name,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        });
-        const result = await response.json();
-        if (response.ok) {
-          resetForm({ values: "" });
-          navigate("/personalstaff");
-        } else {
-          if (
-            Object.values(result)[0] === "Invalid Token" ||
-            Object.values(result)[0] === "The Token is expired"
-          ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
-          }
-          setMsg(Object.values(result)[0]);
+    formData.append("image", image);
+    formData.append("name", name);
+    formData.append("occupation", occupation);
+
+    const url = `http://127.0.0.1:8000/api/staff/personal_staff/${s_no}`;
+
+    const fetchData = async () => {
+      const response = await fetch(url, {
+        method: "PUT",
+        body: formData,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      const result = await response.json();
+      console.log(response.ok);
+      if (response.ok) {
+        navigate("/personalstaff");
+      } else {
+        if (
+          Object.values(result)[0] === "Invalid Token" ||
+          Object.values(result)[0] === "The Token is expired"
+        ) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.setItem("isLoggedIn", "false");
+          navigate("/login");
         }
-      };
-      fetchData();
-    },
-  });
+        setMsg(Object.values(result)[0].join(" "));
+      }
+    };
+    fetchData();
+  };
+  // const formik = useFormik({
+  //   initialValues: {
+  //     name: `${name}`,
+  //     occupation: `${occupation}`,
+  //   },
+  //   enableReinitialize: true,
+  //   onSubmit: (values, { resetForm }) => {
+  //     const url = `http://127.0.0.1:8000/api/staff/personal_staff/${s_no}/`;
+  //     const fetchData = async () => {
+  //       const response = await fetch(url, {
+  //         method: "PATCH",
+  //         body: JSON.stringify({
+  //           name: values.name,
+  //           occupation: values.occupation,
+  //           // image:values.image.name,
+  //         }),
+  //         headers: {
+  //           "Content-type": "application/json; charset=UTF-8",
+  //           authorization: `Token ${localStorage.getItem("token")}`,
+  //         },
+  //       });
+  //       const result = await response.json();
+  //       if (response.ok) {
+  //         resetForm({ values: "" });
+  //         navigate("/personalstaff");
+  //       } else {
+  //         // console.log("jere")
+  //         if (
+  //           Object.values(result)[0] === "Invalid Token" ||
+  //           Object.values(result)[0] === "The Token is expired"
+  //         ) {
+  //           localStorage.removeItem("token");
+  //           localStorage.removeItem("username");
+  //           localStorage.setItem("isLoggedIn", "false");
+  //           navigate("/login");
+  //         }
+  //         setMsg(Object.values(result)[0]);
+  //       }
+  //     };
+  //     fetchData();
+  //   },
+  // });
 
   return (
     <div className="h-screen flex">
@@ -135,7 +176,8 @@ function UpdateSocietyStaff() {
               space-y-8
             "
           >
-            <form onSubmit={formik.handleSubmit}>
+            {/* <form onSubmit={formik.handleSubmit}> */}
+            <form>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="name">Name</label>
@@ -151,8 +193,9 @@ function UpdateSocietyStaff() {
                       py-2
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
-                    onChange={formik.handleChange}
-                    value={formik.values.name}
+                    onChange={(e) => setName(e.target.value)}
+                    defaultValue={data.name}
+                    // value={formik.values.name}
                     required
                   />
                   <label htmlFor="occupation" className="pt-4">
@@ -170,11 +213,12 @@ function UpdateSocietyStaff() {
                       py-2
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
-                    onChange={formik.handleChange}
-                    value={formik.values.occupation}
+                    onChange={(e) => setOccupation(e.target.value)}
+                    defaultValue={data.occupation}
+                    // value={formik.values.occupation}
                     required
                   />
-                  <label htmlFor="image" className="pt-4">
+                   <label htmlFor="image" className="pt-4">
                     Person Image
                   </label>
                   <input
@@ -190,11 +234,12 @@ function UpdateSocietyStaff() {
                       py-2
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
-                    onChange={formik.handleChange}
-                    value={formik.values.image}
+                    onChange={(e) => setImage(e.target.files[0])}
+                    // defaultValue={data.image}
+                    // value={formik.values.image}
                     required
-                  />
-                </div>
+                   />
+                </div> 
 
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row justify-between">
@@ -207,6 +252,7 @@ function UpdateSocietyStaff() {
                   </button>
                   <button
                     type="submit"
+                    onClick={handleSubmit}
                     className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
                   >
                     Save
@@ -221,4 +267,4 @@ function UpdateSocietyStaff() {
   );
 }
 
-export default UpdateSocietyStaff;
+export default UpdatePersonalStaff;

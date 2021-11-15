@@ -29,8 +29,8 @@ import AddMember from "./users/AddMember";
 import UpdateMember from "./users/UpdateMember";
 import AddPersonalStaff from "./staff/AddPersonalStaff";
 import AddSocietyStaff from "./staff/AddSocietyStaff";
-import UpdateSocietyStaff from "./staff/UpdatePersonalStaff";
-import UpdatePersonalStaff from "./staff/UpdateSocietyStaff";
+import UpdateSocietyStaff from "./staff/UpdateSocietyStaff";
+import UpdatePersonalStaff from "./staff/UpdatePersonalStaff";
 import Error from "./basicComponents/Error";
 import ViewTransaction from "./payments/ViewTransaction";
 
@@ -239,7 +239,7 @@ function App() {
               }
             />
             <Route
-              path="/societystaff/change/:occupation"
+              path="/societystaff/change/:occu"
               element={
                 <>
                   <Navbar />

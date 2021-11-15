@@ -57,9 +57,9 @@ function AddPersonalStaff() {
     };
     fetchData();
   };
-  const isFormInValid = () => {
-    return !(name && occupation && image)
-}
+//   const isFormInValid = () => {
+//     return !(name && occupation && image)
+// }
 
   return (
     <div className="h-screen flex">
