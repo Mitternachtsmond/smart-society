@@ -16,6 +16,9 @@ function AddPersonalStaff() {
   }, [navigate]);
 
   const handleSubmit = () => {
+    if (isFormInValid()){
+      return;
+    }
     const formData = new FormData();
 
     formData.append("image", image, image.name);
@@ -46,11 +49,14 @@ function AddPersonalStaff() {
           localStorage.setItem("isLoggedIn", "false");
           navigate("/login");
         }
-        setMsg(Object.values(result)[0]);
+        setMsg(Object.values(result)[0].join(" "));
       }
     };
     fetchData();
   };
+  const isFormInValid = () => {
+    return !(name && occupation && image)
+}
 
   return (
     <div className="h-screen flex">

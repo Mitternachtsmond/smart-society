@@ -49,7 +49,7 @@ class Society_Staff(models.Model):
         verbose_name=_("Occupation"),
     )
     aadhaar = models.CharField(
-        _("Aadhaar No."), max_length=12, unique=True, blank=True, null=True
+        _("Aadhaar No."), max_length=14, unique=True, blank=True, null=True
     )
     name = models.CharField(_("Name"), max_length=50)
     salary = models.IntegerField(

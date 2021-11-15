@@ -26,6 +26,9 @@ import UpdateProperty from "./societyInfo/UpdateProperty";
 import AddMember from "./users/AddMember";
 import UpdateMember from "./users/UpdateMember";
 import AddPersonalStaff from "./staff/AddPersonalStaff";
+import AddSocietyStaff from "./staff/AddSocietyStaff";
+import UpdateSocietyStaff from "./staff/UpdatePersonalStaff";
+import UpdatePersonalStaff from "./staff/UpdateSocietyStaff";
 
 function App() {
   return (
@@ -179,6 +182,24 @@ function App() {
               </>
             }
           />
+            <Route
+              path="/societystaff/add"
+              element={
+                <>
+                  <Navbar />
+                  <AddSocietyStaff />
+                </>
+              }
+            />
+            <Route
+              path="/societystaff/change/:occupation"
+              element={
+                <>
+                  <Navbar />
+                  <UpdateSocietyStaff />
+                </>
+              }
+            />
           <Route
             path="/personalstaff"
             element={
@@ -194,6 +215,15 @@ function App() {
               <>
                 <Navbar />
                 <AddPersonalStaff />
+              </>
+            }
+          />
+          <Route
+            path="/personalstaff/change/:s_no"
+            element={
+              <>
+                <Navbar />
+                <UpdatePersonalStaff />
               </>
             }
           />

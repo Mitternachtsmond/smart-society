@@ -127,8 +127,11 @@ function SocietyStaff() {
                       <tr>
                         <TableHeader title="Name" />
                         <TableHeader title="Occupation" />
-                        <TableHeader title="Salary" />
+                        {/* <TableHeader title="Salary" /> */}
+                        {/* <TableHeader title="Aadhar" /> */}
                         <TableHeader title="Works In" />
+                        {/* <TableHeader title="Comes From" /> */}
+                        <TableHeader title="Mobile No" />
                         <TableHeader title="Photo" />
                       </tr>
                     </thead>
@@ -140,10 +143,14 @@ function SocietyStaff() {
                               key={element.occupation}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
-                              <TableCell value={element.name} />
+                              <TableCell value={element.name} 
+                                link={`/societystaff/change/${element.occupation}`}/>
                               <TableCell value={element.occupation} />
-                              <TableCell value={element.salary.toString()} />
+                              {/* <TableCell value={element.salary.toString()} /> */}
+                              {/* <TableCell value={element.aadhaar} /> */}
                               <TableCell value={element.work_place} />
+                              {/* <TableCell value={element.from_place} /> */}
+                              <TableCell value={element.mobile_no} />
                               <td className="px-3 py-3 md:py-4 whitespace-normal">
                                 <img
                                   src={element.image}
@@ -210,8 +217,11 @@ function SocietyStaff() {
                       <SocietyStaffMobileTable
                         name={element.name}
                         occupation={element.occupation}
-                        salary={element.salary.toString()}
-                        worksIn={element.work_place}
+                        // salary={element.salary.toString()}
+                        // aadhaar={element.aadhaar}
+                        comesFrom={element.from_place}
+                        // worksIn={element.work_place}
+                        number={element.mobile}
                         image={element.image}
                       />
                     </div>

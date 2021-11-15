@@ -35,7 +35,7 @@ function PersonalStaffMobileTable({name, occupation, image}) {
 }
 
 PersonalStaffMobileTable.propTypes = {
-  Name: PropTypes.string.isRequired,
-  Occupation: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  occupation: PropTypes.string.isRequired,
 };
 export default PersonalStaffMobileTable;

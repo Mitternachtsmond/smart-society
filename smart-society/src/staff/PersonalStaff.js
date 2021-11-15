@@ -136,10 +136,11 @@ function PersonalStaff() {
                         personalStaff.map((element) => {
                           return (
                             <tr
-                              key={element.occupation}
+                              key={element.s_no}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
-                              <TableCell value={element.name} />
+                              <TableCell value={element.s_no} 
+                              link={`/societystaff/change/${element.s_no}`}/>
                               <TableCell value={element.occupation} />
                               <td className="px-3 py-3 md:py-4 whitespace-normal">
                                 <img
@@ -203,7 +204,7 @@ function PersonalStaff() {
               {personalStaff &&
                 personalStaff.map((element) => {
                   return (
-                    <div key={element.occupation}>
+                    <div key={element.s_no}>
                       <PersonalStaffMobileTable
                         name={element.name}
                         occupation={element.occupation}
