@@ -1,6 +1,7 @@
 import Navbar from "./navigation/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./societyInfo/Dashboard";
+import AddAnnouncement from "./societyInfo/AddAnouncement"
 import Complaint from "./societyInfo/Complaint";
 import Login from "./users/Login";
 import Logout from "./users/Logout";
@@ -33,6 +34,9 @@ import UpdateSocietyStaff from "./staff/UpdatePersonalStaff";
 import UpdatePersonalStaff from "./staff/UpdateSocietyStaff";
 import Error from "./basicComponents/Error";
 import ViewTransaction from "./payments/ViewTransaction";
+import Polls from "./polls/Polls";
+import AddPoll from "./polls/AddPoll";
+import Vote from "./polls/Vote";
 
 function App() {
   return (
@@ -53,6 +57,15 @@ function App() {
               <>
                 <Navbar />
                 <Dashboard />
+              </>
+            }
+          />
+          <Route
+            path="/announcements/add"
+            element={
+              <>
+                <Navbar />
+                <AddAnnouncement />
               </>
             }
           />
@@ -229,24 +242,24 @@ function App() {
               </>
             }
           />
-            <Route
-              path="/societystaff/add"
-              element={
-                <>
-                  <Navbar />
-                  <AddSocietyStaff />
-                </>
-              }
-            />
-            <Route
-              path="/societystaff/change/:occupation"
-              element={
-                <>
-                  <Navbar />
-                  <UpdateSocietyStaff />
-                </>
-              }
-            />
+          <Route
+            path="/societystaff/add"
+            element={
+              <>
+                <Navbar />
+                <AddSocietyStaff />
+              </>
+            }
+          />
+          <Route
+            path="/societystaff/change/:occupation"
+            element={
+              <>
+                <Navbar />
+                <UpdateSocietyStaff />
+              </>
+            }
+          />
           <Route
             path="/personalstaff"
             element={
@@ -274,7 +287,30 @@ function App() {
               </>
             }
           />
-          <Route path="/polls" element={<Navbar />} />
+          <Route path="/polls"
+            element={
+              <>
+                <Navbar />
+                <Polls />
+              </>
+            }
+          />
+          <Route path="/polls/vote/:id"
+            element={
+              <>
+                <Navbar />
+                <Vote />
+              </>
+            }
+          />
+          <Route path="/polls/add"
+            element={
+              <>
+                <Navbar />
+                <AddPoll />
+              </>
+            }
+          />
           <Route
             path="/complaint"
             element={

@@ -56,7 +56,7 @@ class Announcement(models.Model):
     date = models.DateTimeField(_("Date and Time"), auto_now_add=True)
     author = models.CharField(_("Announcement Made by"), max_length=25)
     category = models.CharField(_("Category"), max_length=25, choices=categories)
-    description = models.TextField(_("Description"), null=True, blank=True)
+    description = models.TextField(_("Description"))
 
     def save(self, *args, **kwargs):
         if not self.description:

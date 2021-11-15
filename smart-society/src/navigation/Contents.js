@@ -22,7 +22,7 @@ function Contents() {
       <ContentLink title="Society Staff" slug="societystaff" />
       <ContentLink title="Personal Staff" slug="personalstaff" />
       <ContentLink title="Polls" slug="polls" />
-      <ContentLink title="Complaint" slug="complaint" />
+      {/* <ContentLink title="Complaint" slug="complaint" /> */}
     </div>
   );
 }

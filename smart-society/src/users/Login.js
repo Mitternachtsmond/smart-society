@@ -29,6 +29,7 @@ function Login() {
           setError("");
           localStorage.setItem("username", values.username);
           localStorage.setItem("token", result.token);
+          localStorage.setItem("group", result.group);
           localStorage.setItem("isLoggedIn", "true");
           navigate("/");
         } else {

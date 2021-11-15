@@ -20,7 +20,6 @@ function Announcement({ category, date, description, author }) {
       bgColor = "bg-yellow-50";
       divideColor = "divide-yellow-600";
   }
-
   let text = description.split("\n").map((i, index) => {
     return <p key={index}>{i}</p>;
   });

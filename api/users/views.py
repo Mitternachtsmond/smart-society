@@ -86,6 +86,7 @@ def login(request):
     return Response(
         {
             "token": token.key,
+            "group": user.groups.first().id # 1 - admin, 2 - member, 3 - security
         },
         status=HTTP_200_OK,
     )

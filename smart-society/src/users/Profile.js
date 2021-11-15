@@ -9,12 +9,12 @@ function Profile() {
   const [profile, setProfile] = useState({
     name: "",
     email: "",
-    mobile: "",
-    group: "",
-    property: "",
+    mobile: "-",
+    group: "-",
+    property: "-",
     maintenance: 0,
-    tenantMobile: "",
-    tenantName: "",
+    tenantMobile: "-",
+    tenantName: "-",
     parking: [],
   });
 
@@ -48,10 +48,11 @@ function Profile() {
         setProfile((profile) => ({
           ...profile,
           email: result["email"],
-          group: assignGroup(result["groups"][0]),
+          group: result["groups"][0],
         }));
       } else {
         localStorage.removeItem("token");
+        localStorage.removeItem("group");
         localStorage.removeItem("username");
         localStorage.setItem("isLoggedIn", "false");
         navigate("/login");
@@ -77,12 +78,14 @@ function Profile() {
         }));
       } else {
         localStorage.removeItem("token");
+        localStorage.removeItem("group");
         localStorage.removeItem("username");
         localStorage.setItem("isLoggedIn", "false");
         navigate("/login");
       }
     };
-    fetchMember();
+    if(localStorage.getItem("group")==='2')
+      fetchMember();
     url = `http://127.0.0.1:8000/api/parking_lot/parking/?search=${username}`;
     const fetchParking = async () => {
       const response = await fetch(url, {
@@ -100,6 +103,7 @@ function Profile() {
         }));
       } else {
         localStorage.removeItem("token");
+        localStorage.removeItem("group");
         localStorage.removeItem("username");
         localStorage.setItem("isLoggedIn", "false");
         navigate("/login");
@@ -121,12 +125,14 @@ function Profile() {
         }));
       } else {
         localStorage.removeItem("token");
+        localStorage.removeItem("group");
         localStorage.removeItem("username");
         localStorage.setItem("isLoggedIn", "false");
         navigate("/login");
       }
     };
-    fetchMaintenance();
+    if(localStorage.getItem("group")==='2')
+      fetchMaintenance();
   }, [navigate, username]);
   return (
     <div className="h-screen flex">
@@ -179,7 +185,7 @@ function Profile() {
                     Change Password
                   </div>
                 </Link>
-                {profile.maintenance <= 0 ? (
+                {localStorage.getItem("group")==='2'? (profile.maintenance <= 0 ? (
                   <div className="text-center mt-5 bg-green-100 text-xl rounded-lg px-3 py-4">
                     <div className="font-semibold text-green-400">
                       Maintenance
@@ -195,7 +201,7 @@ function Profile() {
                       Due Rs. {profile.maintenance} by the end of this month
                     </div>
                   </div>
-                )}
+                )):<div></div>}
               </div>
               <div className="md:py-8">
                 <div className="text-center my-5 text-2xl font-medium">
@@ -204,7 +210,7 @@ function Profile() {
                 <div className="flex flex-row justify-between">
                   <div className="px-1 md:px-10 text-lg py-2">Category</div>
                   <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.group}
+                    {assignGroup(profile.group)}
                   </div>
                 </div>
                 <div className="flex flex-row justify-between">
@@ -218,7 +224,7 @@ function Profile() {
                   <div className="px-1 md:px-10 text-lg py-2">
                     {profile.parking.length > 0
                       ? profile.parking.join(", ")
-                      : "No Parking"}
+                      : "-"}
                   </div>
                 </div>
                 <div className="flex flex-row justify-between">
@@ -230,7 +236,7 @@ function Profile() {
                 <div className="flex flex-row justify-between">
                   <div className="px-1 md:px-10 text-lg py-2">Tenant</div>
                   <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.tenantName ? profile.tenantName : "-"}
+                    {profile.tenantName}
                   </div>
                 </div>
                 <div className="flex flex-row justify-between">
@@ -238,7 +244,7 @@ function Profile() {
                     Tenant Mobile
                   </div>
                   <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.tenantMobile ? profile.tenantMobile : "-"}
+                    {profile.tenantMobile}
                   </div>
                 </div>
                 <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
