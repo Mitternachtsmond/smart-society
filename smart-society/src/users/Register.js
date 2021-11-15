@@ -107,6 +107,9 @@ function Register() {
                           value={formik.values.username}
                           required
                         />
+                        <label htmlFor="username">
+                          <p className="text-red-500">Once set, cannot be changed later.</p>  
+                        </label>
                       </div>
 
                       <div className="md:col-span-1">

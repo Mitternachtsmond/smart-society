@@ -2,44 +2,34 @@ import TableMobileCell from "../basicComponents/TableMobileCell";
 import TableMobileHeader from "../basicComponents/TableMobileHeader";
 import PropTypes from "prop-types";
 
-function SocietyStaffMobileTable({name, occupation, salary, worksIn, image,aadhaar,comesFrom,number}) {
+function SocietyStaffMobileTable({ name, occupation, salary, worksIn, image }) {
   return (
     <div className="py-3 align-middle inline-block min-w-full px-5">
       <div className="shadow overflow-hidden border-b border-gray-200 rounded-lg">
         <table className="min-w-full">
           <tbody className="bg-white ">
             <tr className="even:bg-gray-100">
+              <TableMobileHeader value="Occupation" />
+              <TableMobileCell
+                value={occupation}
+                link={`/societystaff/change/${occupation}`}
+              />
+            </tr>
+            <tr className="even:bg-gray-100">
               <TableMobileHeader value="Name" />
               <TableMobileCell value={name} />
             </tr>
-
             <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Occupation" />
-              <TableMobileCell value={occupation} />
-            </tr>
-            {/* <tr className="even:bg-gray-100">
               <TableMobileHeader value="Salary" />
               <TableMobileCell value={salary} />
             </tr>
-            <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Aadhaar" />
-              <TableMobileCell value={aadhaar} />
-            </tr> */}
 
             <tr className="even:bg-gray-100">
               <TableMobileHeader value="Works In" />
               <TableMobileCell value={worksIn} />
             </tr>
-            {/* <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Comes From" />
-              <TableMobileCell value={comesFrom} />
-            </tr> */}
             <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Mobile No" />
-              <TableMobileCell value={number} />
-            </tr>
-            <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Photo" />
+              <TableMobileHeader value="Image" />
               <td className="px-3 py-3 md:py-4 whitespace-normal">
                 <img
                   src={image}

@@ -7,7 +7,6 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
-
 function PersonalStaff() {
   const [personalStaff, setPersonalStaff] = useState([]);
   let navigate = useNavigate();
@@ -128,19 +127,22 @@ function PersonalStaff() {
                       <tr>
                         <TableHeader title="Name" />
                         <TableHeader title="Occupation" />
-                        <TableHeader title="Photo" />
+                        <TableHeader title="Image" />
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {personalStaff &&
                         personalStaff.map((element) => {
+
                           return (
                             <tr
                               key={element.s_no}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
-                              <TableCell value={element.s_no} 
-                              link={`/societystaff/change/${element.s_no}`}/>
+                              <TableCell
+                                value={element.name}
+                                link={`/personalstaff/change/${element.s_no.toString()}`}
+                              />
                               <TableCell value={element.occupation} />
                               <td className="px-3 py-3 md:py-4 whitespace-normal">
                                 <img
@@ -209,6 +211,7 @@ function PersonalStaff() {
                         name={element.name}
                         occupation={element.occupation}
                         image={element.image}
+                        s_no={element.s_no.toString()}
                       />
                     </div>
                   );

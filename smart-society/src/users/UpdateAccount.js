@@ -9,7 +9,7 @@ function UpdateAccount() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [email, setEmail] = useState("");
-  const [group, setGroup] = useState(2);
+  const [group, setGroup] = useState("");
   const [count, setCount] = useState(0);
   const categoryOptions = [
     { value: "Member", label: "Member" },
@@ -87,7 +87,7 @@ function UpdateAccount() {
       case 3:
         return "Security";
       default:
-        return "Member";
+        return "";
     }
   };
 
@@ -99,6 +99,7 @@ function UpdateAccount() {
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
+      console.log(values.group);
       const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
       const fetchData = async () => {
         const response = await fetch(url, {
@@ -161,7 +162,7 @@ function UpdateAccount() {
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="username">
-                    Property Address or Staff Occupation*
+                    Property Address or Staff Occupation
                   </label>
                   <input
                     type="text"
@@ -175,10 +176,8 @@ function UpdateAccount() {
                       py-2
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
-                    onChange={formik.handleChange}
                     value={formik.values.username}
-                    placeholder="Enter Username"
-                    required
+                    readonly
                   />
                   <label htmlFor="email" className="pt-4">
                     Email*
@@ -204,13 +203,20 @@ function UpdateAccount() {
 
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="group">Category*</label>
-                  <Select
-                    options={categoryOptions}
-                    onChange={(element) => {
-                      formik.values.group = element.value;
-                    }}
-                    placeholder="Select Category"
-                  />
+                  {assignGroup(group) && (
+                    <Select
+                      options={categoryOptions}
+                      onChange={(element) => {
+                        formik.values.group = element.value;
+                      }}
+                      defaultValue={{
+                        value: assignGroup(group),
+                        label: assignGroup(group),
+                      }}
+                      placeholder="Select Category"
+                      name="group"
+                    />
+                  )}
                 </div>
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row justify-between">

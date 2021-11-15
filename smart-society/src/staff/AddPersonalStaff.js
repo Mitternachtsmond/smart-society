@@ -8,9 +8,11 @@ function AddPersonalStaff() {
   const [name, setName] = useState("");
   const [occupation, setOccupation] = useState("");
   const [image, setImage] = useState("");
+
   const isFormInvalid = () => {
     return !(name && occupation && image);
   };
+
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
@@ -19,7 +21,6 @@ function AddPersonalStaff() {
 
   const handleSubmit = () => {
     if (isFormInvalid()) {
-      console.log(isFormInvalid)
       return;
     }
     const formData = new FormData();
@@ -35,7 +36,6 @@ function AddPersonalStaff() {
         method: "POST",
         body: formData,
         headers: {
-          // "content-type": "multipart/form-data",
           authorization: `Token ${localStorage.getItem("token")}`,
         },
       });
@@ -52,14 +52,11 @@ function AddPersonalStaff() {
           localStorage.setItem("isLoggedIn", "false");
           navigate("/login");
         }
-        setMsg(Object.values(result)[0].join(" "));
+        setMsg(Object.values(result)[0]);
       }
     };
     fetchData();
   };
-  const isFormInValid = () => {
-    return !(name && occupation && image)
-}
 
   return (
     <div className="h-screen flex">
