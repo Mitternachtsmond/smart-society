@@ -7,7 +7,8 @@ from .models import Question, Voting
 from .serializers import Question_Serializer, Voting_Serializer
 from users.models import Member
 from django.db import IntegrityError
-from django.db.models.base import ObjectDoesNotExist 
+from django.db.models.base import ObjectDoesNotExist
+
 
 class Polls(generics.ListCreateAPIView):
     queryset = Question.objects.all()
@@ -32,11 +33,21 @@ class Vote(generics.CreateAPIView):
 
         if serializer.is_valid():
             try:
-                serializer.save(property_no=Member.objects.get(property_no=request.user.username),
-                                question=Question.objects.get(s_no=s_no))
-                return Response({'status':'Successfully casted the vote'},status=status.HTTP_201_CREATED)
+                serializer.save(
+                    property_no=Member.objects.get(property_no=request.user.username),
+                    question=Question.objects.get(s_no=s_no),
+                )
+                return Response(
+                    {"status": "Successfully casted the vote"},
+                    status=status.HTTP_201_CREATED,
+                )
             except IntegrityError:
-                return Response({'status': 'You have already voted!'},status=status.HTTP_409_CONFLICT)
+                return Response(
+                    {"status": "You have already voted!"},
+                    status=status.HTTP_409_CONFLICT,
+                )
             except ObjectDoesNotExist:
-                return Response({'status':'You cannot vote'},status=status.HTTP_403_FORBIDDEN)
-        return Response({'status': 'error'},status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"status": "You cannot vote"}, status=status.HTTP_403_FORBIDDEN
+                )
+        return Response({"status": "error"}, status=status.HTTP_400_BAD_REQUEST)

@@ -9,7 +9,9 @@ import ResetPassword from "./users/ResetPassword";
 import ChangePassword from "./users/ChangePassword";
 import Maintenance from "./payments/Maintenance";
 import Transaction from "./payments/Transaction";
+import AddTransaction from "./payments/AddTransaction";
 import PayMaintenance from "./payments/PayMaintenance";
+import PenaltyRate from "./payments/PenaltyRate";
 import PersonalStaff from "./staff/PersonalStaff";
 import SocietyStaff from "./staff/SocietyStaff";
 import Profile from "./users/Profile";
@@ -29,12 +31,22 @@ import AddPersonalStaff from "./staff/AddPersonalStaff";
 import AddSocietyStaff from "./staff/AddSocietyStaff";
 import UpdateSocietyStaff from "./staff/UpdatePersonalStaff";
 import UpdatePersonalStaff from "./staff/UpdateSocietyStaff";
+import Error from "./basicComponents/Error";
+import ViewTransaction from "./payments/ViewTransaction";
 
 function App() {
   return (
     <Router>
       <div className="bg-green-300 dark:bg-gray-800 min-h-screen font-sans">
         <Routes>
+          <Route
+            path="/404"
+            element={
+              <>
+                <Error />
+              </>
+            }
+          />
           <Route
             path="/"
             element={
@@ -162,6 +174,24 @@ function App() {
             }
           />
           <Route
+            path="maintenance/pay"
+            element={
+              <>
+                <Navbar />
+                <PayMaintenance />
+              </>
+            }
+          />
+          <Route
+            path="maintenance/penalty"
+            element={
+              <>
+                <Navbar />
+                <PenaltyRate />
+              </>
+            }
+          />
+          <Route
             path="/transactions"
             element={
               <>
@@ -170,7 +200,24 @@ function App() {
               </>
             }
           />
-          <Route path="/pay" element={<PayMaintenance />} />
+          <Route
+            path="/transactions/add"
+            element={
+              <>
+                <Navbar />
+                <AddTransaction />
+              </>
+            }
+          />
+          <Route
+            path="/transactions/view/:sno"
+            element={
+              <>
+                <Navbar />
+                <ViewTransaction />
+              </>
+            }
+          />
           <Route path="/parking" element={<Navbar />} />
           <Route path="/gatelog" element={<Navbar />} />
           <Route

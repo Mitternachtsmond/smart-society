@@ -126,7 +126,7 @@ function UpdateInventory() {
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="item">Item</label>
+                  <label htmlFor="item">Item*</label>
                   <input
                     type="text"
                     name="item"
@@ -141,10 +141,11 @@ function UpdateInventory() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.item}
+                    placeholder="Enter Item"
                     required
                   />
                   <label htmlFor="quantity" className="pt-4">
-                    Quantity
+                    Quantity*
                   </label>
                   <input
                     type="number"
@@ -160,6 +161,7 @@ function UpdateInventory() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.quantity}
+                    placeholder="Enter Quantity"
                     required
                   />
                 </div>

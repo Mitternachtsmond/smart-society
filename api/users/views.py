@@ -56,7 +56,7 @@ class Member_Viewset(viewsets.ModelViewSet):
     serializer_class = Member_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ("property_no", "name")
+    search_fields = ("property_no__username", "name")
 
     def get_queryset(self):
         return Member.objects.all()
@@ -75,7 +75,7 @@ def login(request):
     )
     if not user:
         return Response(
-            {"detail": "Invalid Credentials"},
+            {"error": "Invalid Credentials. Try Again"},
             status=HTTP_404_NOT_FOUND,
         )
 
@@ -120,8 +120,7 @@ class Change_Password_View(generics.UpdateAPIView):
                 serializer.validated_data.get("old_password")
             ):
                 return Response(
-                    {"old_password": [
-                        "Wrong password. Enter Correct Password"]},
+                    {"error": ["Wrong password. Enter Correct Password"]},
                     status=HTTP_400_BAD_REQUEST,
                 )
             new_password = serializer.validated_data.get("new_password1")
@@ -135,7 +134,7 @@ class Change_Password_View(generics.UpdateAPIView):
 
                 return Response(response)
             except ValidationError as exception:
-                response = {"messages": exception.messages}
+                response = {"error": exception.messages}
                 return Response(response, status=HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
@@ -159,7 +158,8 @@ class Reset_Password(generics.CreateAPIView):
                 relative_link = reverse(
                     "reset_password", kwargs={"uidb64": uidb64, "token": token}
                 )
-                absurl = "http://" + current_site + relative_link
+                # absurl = "http://" + current_site + relative_link
+                absurl = "http://localhost:3000" + relative_link
                 email_body = (
                     "Hello "
                     + str(user)
@@ -183,7 +183,7 @@ class Reset_Password(generics.CreateAPIView):
                     status=HTTP_200_OK,
                 )
             return Response(
-                {"failed": "Email not found, try a different email."},
+                {"error": "Email not found, try a different email."},
                 status=HTTP_400_BAD_REQUEST,
             )
 
@@ -213,7 +213,8 @@ class Password_Token_API(generics.ListAPIView):
                     "message": "Valid Credentials",
                     "uidb64": uidb64,
                     "token": token,
-                }
+                },
+                status=HTTP_200_OK,
             )
 
         except:
@@ -221,7 +222,8 @@ class Password_Token_API(generics.ListAPIView):
             return Response(
                 {
                     "error": "URL is not valid, either check your URL or request for a new one."
-                }
+                },
+                status=HTTP_404_NOT_FOUND,
             )
 
 
@@ -233,7 +235,10 @@ class Set_Password_API(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             return Response(
-                {"success": True, "message": "Password reset success"},
+                {
+                    "success": True,
+                    "message": "Password reset success, you can now login using this password",
+                },
                 status=HTTP_200_OK,
             )
         else:

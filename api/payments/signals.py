@@ -1,19 +1,19 @@
-from datetime import datetime
-from typing import Sequence
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from society_info.models import Announcement
-
+from django.utils import timezone
 from .models import Maintenance, Transaction, Penalty
 
 
 @receiver(post_save, sender=Penalty)
 def save_penalty(sender, instance, **kwargs):
-    Announcement.objects.create(
-        author="Admin",
-        category="Notification",
-        description=f"The penalty has been changed to {instance.penalty}% per month."
-    )
+    changed_penalty = instance.penalty != instance._Penalty__original_penalty
+    if changed_penalty:
+        Announcement.objects.create(
+            author="Admin",
+            category="Notification",
+            description=f"The penalty has been changed to {instance.penalty}% per month.",
+        )
 
 
 @receiver(pre_save, sender=Maintenance)
@@ -41,7 +41,7 @@ def save_maintenance(sender, instance, **kwargs):
                 to=instance.property_no,
                 amount=net_amount_paid,
                 description=description,
-                date=datetime.now()
+                date=timezone.now()
             )
 
 

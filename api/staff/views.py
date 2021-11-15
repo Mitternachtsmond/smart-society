@@ -20,7 +20,7 @@ class Society_Staff_Viewset(viewsets.ModelViewSet):
     serializer_class = Society_Staff_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["occupation", "name"]
+    search_fields = ["occupation__username", "name"]
 
     def get_queryset(self):
         return Society_Staff.objects.all()

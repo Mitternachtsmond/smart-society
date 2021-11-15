@@ -10,7 +10,7 @@ class Parking_Viewset(viewsets.ModelViewSet):
     serializer_class = Parking_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["parking_id", "property_no"]
+    search_fields = ["parking_id", "property_no__property_no__username"]
 
     def get_queryset(self):
         return Parking.objects.all()
@@ -20,7 +20,8 @@ class Gate_Log_Viewset(viewsets.ModelViewSet):
     serializer_class = Gate_Log_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["s_no", "parking_id", "name", "property_no", "vehicle_type"]
+    search_fields = ["s_no", "parking_id", "name",
+                     "property_no__property_no__username", "vehicle_type"]
 
     def get_queryset(self):
         return Gate_Log.objects.all()

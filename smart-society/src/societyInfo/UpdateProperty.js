@@ -132,7 +132,7 @@ function UpdateProperty() {
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="propertyType">Property Type</label>
+                  <label htmlFor="propertyType">Property Type*</label>
                   <input
                     type="text"
                     name="propertyType"
@@ -147,10 +147,11 @@ function UpdateProperty() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.propertyType}
+                    placeholder="Enter Property Type"
                     required
                   />
                   <label htmlFor="maintenance" className="pt-4">
-                    Maintenance
+                    Maintenance*
                   </label>
                   <input
                     type="number"
@@ -166,10 +167,11 @@ function UpdateProperty() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.maintenance}
+                    placeholder="Enter Maintenance Amount"
                     required
                   />
                   <label htmlFor="coveredArea" className="pt-4">
-                    Covered Area
+                    Covered Area*
                   </label>
                   <input
                     type="number"
@@ -185,6 +187,7 @@ function UpdateProperty() {
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
                     value={formik.values.coveredArea}
+                    placeholder="Enter Covered Area"
                     required
                   />
                 </div>

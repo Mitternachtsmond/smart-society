@@ -13,7 +13,7 @@ class Transaction_Viewset(viewsets.ModelViewSet):
     serializer_class = Transaction_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["to", "s_no"]
+    search_fields = ["to", "option", "date", "amount", "description"]
 
     def get_queryset(self):
         return Transaction.objects.all()

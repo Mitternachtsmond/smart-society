@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 function Transaction() {
   const [transaction, setTransaction] = useState([]);
-  
+
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -142,13 +142,14 @@ function Transaction() {
                               key={element.s_no}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
-                              <TableCell value={element.to} />
                               <TableCell
                                 value={new Date(element.date).toLocaleString(
                                   "en-in"
                                 )}
+                                link={`/transactions/view/${element.s_no}`}
                               />
-                              <TableCell value={element.option} />
+                              <TableCell value={element.option.toUpperCase()} />
+                              <TableCell value={element.to} />
                               <TableCell value={element.amount.toString()} />
                             </tr>
                           );
@@ -163,7 +164,7 @@ function Transaction() {
             <div className="overflow-x-auto py-5">
               <div className="flex px-5">
                 <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                + Add
+                  + Add
                 </div>
                 <div className="flex-grow px-2 text-center uppercase font-semibold text-xl dark:text-white">
                   Transactions
@@ -207,8 +208,9 @@ function Transaction() {
                   return (
                     <div key={element.s_no}>
                       <TransactionsMobileTable
-                        to={element.to}
+                        s_no={element.s_no.toString()}
                         date={new Date(element.date).toLocaleString("en-in")}
+                        to={element.to}
                         option={element.option}
                         amount={element.amount.toString()}
                       />
