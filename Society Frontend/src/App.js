@@ -1,6 +1,7 @@
 import Dashboard from "./components/Dashboard";
 import Inventory from "./components/Inventory";
 import Maintenance from "./components/payments/Maintenance";
+import GateLogs from "./components/GateLogs"
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Transactions from "./components/payments/Transaction";
@@ -10,12 +11,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PersonalStaff from "./components/PersonalStaff";
 import SocietyStaff from "./components/SocietyStaff";
 import Funds from "./components/payments/Funds";
-import PenaltyRate from "./components/payments/PenaltyRate";
-import AddTransaction from "./components/payments/AddTransaction";
+import GateLogForm from "./components/GateLogForm";
+import ReadGateLog from "./components/ReadGateLog";
+import ReadParking from "./components/ReadParking";
 // eslint-disable-next-line
 
 function App() {
   return (
+    
     <Router>
       <div className="bg-green-100 dark:bg-gray-800 min-h-screen font-sans">
         <Switch>
@@ -46,21 +49,29 @@ function App() {
             <Navbar />
             <Transactions />
           </Route>
-          <Route exact path="/addTransaction">
-            <Navbar />
-            <AddTransaction />
-          </Route>
           <Route exact path="/funds">
             <Navbar />
             <Funds />
           </Route>
-          <Route exact path="/penalty">
-            <Navbar />
-            <PenaltyRate />
-          </Route>
           <Route exact path="/">
             <Navbar />
             <Dashboard />
+          </Route>
+          <Route exact path="/gate_log">
+            <Navbar />
+            <GateLogs />
+          </Route>
+          <Route exact path="/gate_form">
+            <Navbar />
+            <GateLogForm />
+          </Route>
+          <Route exact path="/read_logs">
+            <Navbar />
+            <ReadGateLog />
+          </Route>
+          <Route exact path="/read_parking">
+            <Navbar />
+            <ReadParking />
           </Route>
           <Route exact path="/members">
             <Navbar />
