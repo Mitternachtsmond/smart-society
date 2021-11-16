@@ -45,7 +45,9 @@ function AddSocietyStaff() {
                 },
             });
             const result = await response.json();
+            console.log(response);
             if (response.ok) {
+                
                 navigate("/societystaff");
             } else {
                 if (
@@ -64,12 +66,6 @@ function AddSocietyStaff() {
     };
     const isFormInValid = () => {
         return !(name && occupation && salary && work_place && from_place && mobile_no && image)
-    }
-    function check() {
-        var aadhaarlength = document.getElementById('aadhaar').value.length;
-        if (aadhaarlength !== 12) {
-            console.warn("Invalid aadhaar number");
-        }
     }
 
     // else if (aadhaarlength === 12 ) {

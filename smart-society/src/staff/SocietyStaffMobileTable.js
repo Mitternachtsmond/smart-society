@@ -2,7 +2,7 @@ import TableMobileCell from "../basicComponents/TableMobileCell";
 import TableMobileHeader from "../basicComponents/TableMobileHeader";
 import PropTypes from "prop-types";
 
-function SocietyStaffMobileTable({name, occupation, salary, worksIn, image,aadhaar,comesFrom,number}) {
+function SocietyStaffMobileTable({name, occupation, comesFrom, image,number}) {
   return (
     <div className="py-3 align-middle inline-block min-w-full px-5">
       <div className="shadow overflow-hidden border-b border-gray-200 rounded-lg">
@@ -27,8 +27,8 @@ function SocietyStaffMobileTable({name, occupation, salary, worksIn, image,aadha
             </tr> */}
 
             <tr className="even:bg-gray-100">
-              <TableMobileHeader value="Works In" />
-              <TableMobileCell value={worksIn} />
+              <TableMobileHeader value="ComesFrom" />
+              <TableMobileCell value={comesFrom} />
             </tr>
             {/* <tr className="even:bg-gray-100">
               <TableMobileHeader value="Comes From" />
@@ -58,8 +58,6 @@ function SocietyStaffMobileTable({name, occupation, salary, worksIn, image,aadha
 SocietyStaffMobileTable.propTypes = {
   name: PropTypes.string.isRequired,
   occupation: PropTypes.string.isRequired,
-  salary: PropTypes.string.isRequired,
-  worksIn: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
 };
 
