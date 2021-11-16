@@ -12,7 +12,11 @@ function SocietyStaffMobileTable({ name, occupation, salary, worksIn, image }) {
               <TableMobileHeader value="Occupation" />
               <TableMobileCell
                 value={occupation}
-                link={`/societystaff/change/${occupation}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/societystaff/change/${occupation}`
+                    : 0
+                }
               />
             </tr>
             <tr className="even:bg-gray-100">

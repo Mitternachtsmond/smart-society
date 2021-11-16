@@ -76,9 +76,15 @@ function Member() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Members
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/members/add">+ Add Member</Link>
-                </div>
+                <Link to="/members/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Member
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -140,7 +146,11 @@ function Member() {
                             >
                               <TableCell
                                 value={element.property_no}
-                                link={`/members/change/${element.property_no}`}
+                                link={
+                                  localStorage.getItem("group") === "1"
+                                    ? `/members/change/${element.propertyNo}`
+                                    : 0
+                                }
                               />
                               <TableCell value={element.property_type} />
                               <TableCell value={element.name} />
@@ -163,9 +173,15 @@ function Member() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Members
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/members/add">+ Add</Link>
-                </div>
+                <Link to="/members/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex mx-5 my-3"

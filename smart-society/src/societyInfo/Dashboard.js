@@ -105,9 +105,11 @@ function Dashboard() {
               <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold  text-xl md:text-3xl">
                 Announcements
               </div>
-              <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                <Link to="/announcements/add">+ Add</Link>
-              </div>
+              <Link to="/announcements/add">
+                <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                  + Add
+                </button>
+              </Link>
             </div>
             <form
               className="border rounded flex mt-5"

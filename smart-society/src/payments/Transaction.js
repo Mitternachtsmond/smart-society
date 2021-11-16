@@ -80,9 +80,15 @@ function Transaction() {
                 <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Transactions
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/transactions/add">+ Add Transaction</Link>
-                </div>
+                <Link to="/transactions/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Transaction
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -169,9 +175,15 @@ function Transaction() {
                 <div className="flex-grow px-2 text-center uppercase font-semibold text-xl dark:text-white">
                   Transactions
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/transactions/add">+ Add</Link>
-                </div>
+                <Link to="/transactions/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"

@@ -55,20 +55,22 @@ function AddPoll() {
                       <Form>
                         <div className="grid gap-4 gap-y-4 grid-cols-1 md:grid-cols-2">
                           <div className="md:col-span-1">
-                            <label htmlFor="title">Title</label>
+                            <label htmlFor="title">Title*</label>
                             <Field
                               name="title"
                               className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 mb-4"
                               placeholder="Enter Title"
+                              required
                             />
 
-                            <label htmlFor="description">Description</label>
+                            <label htmlFor="description">Description*</label>
                             <Field
                               name="description"
                               placeholder="Enter Description"
                               component="textarea"
                               className="bg-gray-50 mt-1 w-full border rounded form-textarea px-4 py-2"
                               rows="9"
+                              required
                             />
                           </div>
 
@@ -80,7 +82,7 @@ function AddPoll() {
                                     <div className="row" key={index}>
                                       <div className="md:col-span-1">
                                         <label htmlFor={`options.${index}`}>
-                                          Option {index + 1}
+                                          Option {index + 1}*
                                         </label>
                                         <Field
                                           name={`options.${index}`}

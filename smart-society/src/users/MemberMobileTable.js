@@ -12,7 +12,11 @@ function MemberMobileTable({ propertyNo, propertyType, name, mobile }) {
               <TableMobileHeader value="Property No." />
               <TableMobileCell
                 value={propertyNo}
-                link={`/members/change/${propertyNo}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/members/change/${propertyNo}`
+                    : 0
+                }
               />
             </tr>
 

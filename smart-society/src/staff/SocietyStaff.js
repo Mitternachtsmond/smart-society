@@ -77,9 +77,15 @@ function SocietyStaff() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Society Staff
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/societystaff/add">+ Add Staff</Link>
-                </div>
+                <Link to="/societystaff/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Staff
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -142,7 +148,11 @@ function SocietyStaff() {
                             >
                               <TableCell
                                 value={element.occupation}
-                                link={`/societystaff/change/${element.occupation}`}
+                                link={
+                                  localStorage.getItem("group") === "1"
+                                    ? `/societystaff/change/${element.occupation}`
+                                    : 0
+                                }
                               />
                               <TableCell value={element.name} />
                               <TableCell value={element.salary.toString()} />
@@ -172,9 +182,15 @@ function SocietyStaff() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Society Staff
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/societystaff/add">+ Add</Link>
-                </div>
+                <Link to="/societystaff/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
