@@ -192,7 +192,7 @@ function UpdateMember() {
                         <Select
                           options={accountOptions}
                           onChange={(element) => {
-                            formik.values.propertyNo = element.value;
+                            formik.setFieldValue("propertyNo", element.value)
                           }}
                           defaultValue={{
                             label: propertyNo,
@@ -215,7 +215,7 @@ function UpdateMember() {
                           <Select
                             options={propertyOptions}
                             onChange={(element) => {
-                              formik.values.propertyType = element.value;
+                              formik.setFieldValue("propertyType",element.value);
                             }}
                             defaultValue={{
                               value: propertyType,

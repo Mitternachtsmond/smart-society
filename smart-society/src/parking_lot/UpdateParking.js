@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Contents from '../navigation/Contents';
-import Select from 'react-select';
 import { useNavigate, useParams } from 'react-router';
 import { useFormik } from 'formik';
+import Select from 'react-select';
 
-function UpdateAccount() {
-  const { username } = useParams();
+function UpdateParking() {
+  const { parkingId } = useParams();
   const navigate = useNavigate();
   const [msg, setMsg] = useState('');
-  const [email, setEmail] = useState('');
-  const [group, setGroup] = useState('');
+  const [propertyNo, setPropertyNo] = useState(0);
   const [count, setCount] = useState(0);
-  const categoryOptions = [
-    { value: 'Member', label: 'Member' },
-    { value: 'Admin', label: 'Admin' },
-    { value: 'Security', label: 'Security' },
-  ];
+  const [members, setMembers] = useState([]);
+  const options = [];
+
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
       setMsg('Are you sure you want to delete this record permanently?');
     } else {
-      const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+      const url = `http://127.0.0.1:8000/api/parking_lot/parking/${parkingId}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: 'DELETE',
@@ -30,7 +27,7 @@ function UpdateAccount() {
           },
         });
         if (response.ok) {
-          navigate('/accounts');
+          navigate('/parking');
         } else {
           localStorage.removeItem('token');
           localStorage.removeItem('username');
@@ -45,7 +42,31 @@ function UpdateAccount() {
     if (localStorage.getItem('isLoggedIn') === 'false') {
       navigate('/login');
     }
-    const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+    let url = 'http://127.0.0.1:8000/api/users/members/';
+    const fetchMembers = async () => {
+      const response = await fetch(url, {
+        headers: {
+          authorization: `Token ${localStorage.getItem('token')}`,
+        },
+      });
+      const array = await response.json();
+      if (response.ok) {
+        setMembers(array.results);
+      } else {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.setItem('isLoggedIn', 'false');
+        navigate('/login');
+      }
+    };
+    fetchMembers();
+  }, [navigate]);
+
+  useEffect(() => {
+    if (localStorage.getItem('isLoggedIn') === 'false') {
+      navigate('/login');
+    }
+    const url = `http://127.0.0.1:8000/api/parking_lot/parking/${parkingId}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -54,8 +75,7 @@ function UpdateAccount() {
       });
       const result = await response.json();
       if (response.ok) {
-        setEmail(result.email);
-        setGroup(result.groups[0]);
+        setPropertyNo(result.property_no);
       } else {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
@@ -64,50 +84,22 @@ function UpdateAccount() {
       }
     };
     fetchData();
-  }, [navigate, username]);
-
-  const assignCategory = (value) => {
-    switch (value) {
-      case 'Admin':
-        return 1;
-      case 'Member':
-        return 2;
-      case 'Security':
-        return 3;
-      default:
-        return 2;
-    }
-  };
-  const assignGroup = (value) => {
-    switch (value) {
-      case 1:
-        return 'Admin';
-      case 2:
-        return 'Member';
-      case 3:
-        return 'Security';
-      default:
-        return '';
-    }
-  };
+  }, [navigate, parkingId]);
 
   const formik = useFormik({
     initialValues: {
-      username: `${username}`,
-      email: `${email}`,
-      group: assignGroup(group),
+      parkingId: `${parkingId}`,
+      propertyNo: `${propertyNo}`,
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      console.log(values.group);
-      const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+      const url = `http://127.0.0.1:8000/api/parking_lot/parking/${parkingId}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: 'PUT',
           body: JSON.stringify({
-            username: values.username,
-            email: values.email,
-            groups: [assignCategory(values.group)],
+            parking_id: values.parkingId,
+            property_no: values.propertyNo,
           }),
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -117,7 +109,7 @@ function UpdateAccount() {
         const result = await response.json();
         if (response.ok) {
           resetForm({ values: '' });
-          navigate('/accounts');
+          navigate('/parking');
         } else {
           if (
             Object.values(result)[0] === 'Invalid Token' ||
@@ -143,7 +135,7 @@ function UpdateAccount() {
       <div className="flex-1 flex overflow-hidden">
         <div className="flex-1 overflow-y-scroll">
           <div className="md:py-5 flex-grow py-3 text-center dark:text-white uppercase tracking-wider font-semibold text-xl md:text-3xl">
-            Update Account
+            Update Parking
           </div>
           <div
             className="
@@ -158,34 +150,14 @@ function UpdateAccount() {
               space-y-8
             "
           >
-            <form onSubmit={formik.handleSubmit}>
+            <form>
               <div className="flex flex-col bg-white p-10 rounded-lg shadow space-y-6">
                 <div className="flex flex-col space-y-1">
-                  <label htmlFor="username">
-                    Property Address or Staff Occupation
-                  </label>
+                  <label htmlFor="parkingId">Parking Id*</label>
                   <input
                     type="text"
-                    name="username"
-                    id="username"
-                    className="
-                    bg-gray-50
-                      border-2
-                      rounded
-                      px-3
-                      py-2
-                      w-full
-                      focus:outline-none focus:border-blue-400 focus:shadow"
-                    value={formik.values.username}
-                    readonly
-                  />
-                  <label htmlFor="email" className="pt-4">
-                    Email*
-                  </label>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
+                    name="parkingId"
+                    id="parkingId"
                     className="
                     bg-gray-50
                       border-2
@@ -195,29 +167,33 @@ function UpdateAccount() {
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     onChange={formik.handleChange}
-                    value={formik.values.email}
-                    placeholder="email@domain.com"
+                    value={formik.values.parkingId}
+                    placeholder="Enter Parking ID"
                     required
                   />
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                  <label htmlFor="group">Category*</label>
-                  {assignGroup(group) && (
+                  <label htmlFor="propertyNo">Property No.*</label>
+                  {members &&
+                    members.forEach((element) => {
+                      options.push({
+                        label: element.property_no,
+                        value: element.property_no,
+                      });
+                    })}
+                  {propertyNo && (
                     <Select
-                      options={categoryOptions}
+                      options={options}
                       onChange={(element) => {
-                        formik.setFieldValue('group', element.value);
+                        formik.setFieldValue("propertyNo", element.value)
                       }}
                       defaultValue={{
-                        value: assignGroup(group),
-                        label: assignGroup(group),
+                        value: propertyNo,
+                        label: propertyNo,
                       }}
-                      placeholder="Select Category"
-                      name="group"
+                      placeholder="Select Property"
                     />
                   )}
                 </div>
+
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row justify-between">
                   <button
@@ -229,6 +205,7 @@ function UpdateAccount() {
                   </button>
                   <button
                     type="submit"
+                    onClick={formik.handleSubmit}
                     className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
                   >
                     Save
@@ -243,4 +220,4 @@ function UpdateAccount() {
   );
 }
 
-export default UpdateAccount;
+export default UpdateParking;

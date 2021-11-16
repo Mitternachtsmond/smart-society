@@ -38,11 +38,11 @@ import ViewMember from "./users/ViewMember";
 import Polls from "./polls/Polls";
 import AddPoll from "./polls/AddPoll";
 import Vote from "./polls/Vote";
-import ReadParking from "./parking/ReadParking";
-import AddParking from "./parking/AddParking";
+import Parking from "./parking_lot/Parking";
+import AddParking from "./parking_lot/AddParking";
 import GateLogForm from "./GateLogs/GateLogForm";
 import GateLogs from "./GateLogs/GateLogs";
-import UpdateParking from "./parking/UpdateParking";
+import UpdateParking from "./parking_lot/UpdateParking";
 
 
 
@@ -253,7 +253,7 @@ function App() {
           element={
           <>
           <Navbar />
-          <ReadParking />
+          <Parking />
           </>
           } 
           />
@@ -267,7 +267,7 @@ function App() {
           } 
           />
           <Route 
-          path="/parking/change/:parking_id"
+          path="/parking/change/:parkingId"
           element={
           <>
           <Navbar />
