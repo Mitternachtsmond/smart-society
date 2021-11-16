@@ -48,7 +48,7 @@ function SocietyStaffMobileTable({ name, occupation, salary, worksIn, image }) {
 SocietyStaffMobileTable.propTypes = {
   name: PropTypes.string.isRequired,
   occupation: PropTypes.string.isRequired,
-  salary: PropTypes.string.isRequired,
+  salary: PropTypes.number.isRequired,
   worksIn: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
 };

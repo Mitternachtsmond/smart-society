@@ -17,7 +17,6 @@ function UpdateSocietyStaff() {
   const [imageURL, setImageURL] = useState("");
   const [count, setCount] = useState(0);
 
-
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
@@ -43,6 +42,7 @@ function UpdateSocietyStaff() {
       fetchData();
     }
   };
+
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
@@ -105,7 +105,7 @@ function UpdateSocietyStaff() {
     const url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
 
     const fetchData = async () => {
-      console.log(formData)
+      console.log(formData);
       const response = await fetch(url, {
         method: "PUT",
         body: formData,

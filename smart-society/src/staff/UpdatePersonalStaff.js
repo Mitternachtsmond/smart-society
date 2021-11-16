@@ -105,7 +105,6 @@ function UpdatePersonalStaff() {
     };
     fetchData();
   };
-  console.log(imageURL);
   return (
     <div className="h-screen flex">
       <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
