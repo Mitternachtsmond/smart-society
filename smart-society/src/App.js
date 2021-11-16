@@ -37,6 +37,13 @@ import ViewTransaction from "./payments/ViewTransaction";
 import Polls from "./polls/Polls";
 import AddPoll from "./polls/AddPoll";
 import Vote from "./polls/Vote";
+import ReadParking from "./parking/ReadParking";
+import AddParking from "./parking/AddParking";
+import GateLogForm from "./GateLogs/GateLogForm";
+import GateLogs from "./GateLogs/GateLogs";
+import UpdateParking from "./parking/UpdateParking";
+
+
 
 function App() {
   return (
@@ -231,7 +238,33 @@ function App() {
               </>
             }
           />
-          <Route path="/parking" element={<Navbar />} />
+          <Route 
+          path="/parking"
+          element={
+          <>
+          <Navbar />
+          <ReadParking />
+          </>
+          } 
+          />
+          <Route 
+          path="/parking/add"
+          element={
+          <>
+          <Navbar />
+          <AddParking />
+          </>
+          } 
+          />
+          <Route 
+          path="/parking/change/:parking_id"
+          element={
+          <>
+          <Navbar />
+          <UpdateParking />
+          </>
+          } 
+          />
           <Route path="/gatelog" element={<Navbar />} />
           <Route
             path="/societystaff"
