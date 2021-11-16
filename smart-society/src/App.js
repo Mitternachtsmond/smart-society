@@ -34,6 +34,7 @@ import UpdatePersonalStaff from "./staff/UpdatePersonalStaff";
 import UpdateSocietyStaff from "./staff/UpdateSocietyStaff";
 import Error from "./basicComponents/Error";
 import ViewTransaction from "./payments/ViewTransaction";
+import ViewMember from "./users/ViewMember";
 import Polls from "./polls/Polls";
 import AddPoll from "./polls/AddPoll";
 import Vote from "./polls/Vote";
@@ -118,6 +119,15 @@ function App() {
               <>
                 <Navbar />
                 <AddMember />
+              </>
+            }
+          />
+          <Route
+            path="/members/view/:propertyNo"
+            element={
+              <>
+                <Navbar />
+                <ViewMember />
               </>
             }
           />

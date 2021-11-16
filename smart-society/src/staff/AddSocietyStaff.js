@@ -1,24 +1,52 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
 import { useNavigate } from "react-router";
+import Select from "react-select";
 
 function AddSocietyStaff() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [name, setName] = useState("");
-  const [occupation, setOccupation] = useState("");
+  const [occupation, setOccupation] = useState([]);
   const [aadhaar, setAadhaar] = useState("");
   const [salary, setSalary] = useState("");
   const [worksIn, setWorksIn] = useState("");
   const [comesFrom, setComesFrom] = useState("");
   const [mobile, setMobile] = useState("");
   const [image, setImage] = useState("");
+  const [account, setAccount] = useState([]);
+  const options = [];
 
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
+    const url = "http://127.0.0.1:8000/api/users/accounts/";
+    const fetchOccupation = async () => {
+      const response = await fetch(url, {
+        headers: {
+          authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setAccount(result.results);
+      } else {
+        if (
+          Object.values(result)[0] === "Invalid Token" ||
+          Object.values(result)[0] === "The Token is expired"
+        ) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.setItem("isLoggedIn", "false");
+          navigate("/login");
+        }
+        setMsg(Object.values(result)[0]);
+      }
+    };
+    fetchOccupation();
   }, [navigate]);
+
   const handleSubmit = () => {
     if (isFormInvalid()) {
       return;
@@ -104,13 +132,17 @@ function AddSocietyStaff() {
 
                       <div className="md:col-span-1">
                         <label htmlFor="occupation">Occupation*</label>
-                        <input
-                          type="text"
-                          name="occupation"
-                          id="occupation"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        {account &&
+                          account.forEach((element) => {
+                            options.push({
+                              label: element.username,
+                              value: element.username,
+                            });
+                          })}
+                        <Select
+                          options={options}
                           placeholder="Enter Occupation"
-                          onChange={(e) => setOccupation(e.target.value)}
+                          onChange={(option) => setOccupation(option.value)}
                           required
                         />
                       </div>

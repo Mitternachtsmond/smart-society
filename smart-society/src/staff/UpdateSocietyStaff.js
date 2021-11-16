@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
 import { useNavigate, useParams } from "react-router";
+import Select from "react-select";
 
 function UpdateSocietyStaff() {
   const { occupation } = useParams();
@@ -16,6 +17,8 @@ function UpdateSocietyStaff() {
   const [image, setImage] = useState("");
   const [imageURL, setImageURL] = useState("");
   const [count, setCount] = useState(0);
+  const [account, setAccount] = useState([]);
+  const options = [];
 
   const deleteRecord = () => {
     if (count === 0) {
@@ -47,7 +50,7 @@ function UpdateSocietyStaff() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
+    let url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -72,6 +75,24 @@ function UpdateSocietyStaff() {
       }
     };
     fetchData();
+    url = "http://127.0.0.1:8000/api/users/accounts/";
+    const fetchAccounts = async () => {
+      const response = await fetch(url, {
+        headers: {
+          authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      const array = await response.json();
+      if (response.ok) {
+        setAccount(array.results);
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
+      }
+    };
+    fetchAccounts();
   }, [navigate, occupation]);
 
   const isFormInvalid = () => {
@@ -105,7 +126,6 @@ function UpdateSocietyStaff() {
     const url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
 
     const fetchData = async () => {
-      console.log(formData);
       const response = await fetch(url, {
         method: "PUT",
         body: formData,
@@ -163,14 +183,21 @@ function UpdateSocietyStaff() {
 
                       <div className="md:col-span-1">
                         <label htmlFor="occupation">Occupation*</label>
-                        <input
-                          type="text"
-                          name="occupation"
-                          id="occupation"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        {account &&
+                          account.forEach((element) => {
+                            options.push({
+                              label: element.username,
+                              value: element.username,
+                            });
+                          })}
+                        <Select
+                          options={options}
                           placeholder="Enter Occupation"
-                          onChange={(e) => setOccupation(e.target.value)}
-                          value={newOccupation}
+                          onChange={(option) => setOccupation(option.value)}
+                          defaultValue={{
+                            value: occupation,
+                            label: occupation,
+                          }}
                           required
                         />
                       </div>

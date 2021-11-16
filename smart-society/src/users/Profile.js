@@ -190,7 +190,7 @@ function Profile() {
                     <div className="font-semibold text-green-400">
                       Maintenance
                     </div>
-                    <div className="mx-3">All you dues are clear</div>
+                    <div className="mx-3">All your dues are clear</div>
                   </div>
                 ) : (
                   <div className="text-center mt-5 bg-red-100 text-xl rounded-lg px-3 py-4">
