@@ -30,8 +30,8 @@ import AddMember from "./users/AddMember";
 import UpdateMember from "./users/UpdateMember";
 import AddPersonalStaff from "./staff/AddPersonalStaff";
 import AddSocietyStaff from "./staff/AddSocietyStaff";
-import UpdateSocietyStaff from "./staff/UpdateSocietyStaff";
 import UpdatePersonalStaff from "./staff/UpdatePersonalStaff";
+import UpdateSocietyStaff from "./staff/UpdateSocietyStaff";
 import Error from "./basicComponents/Error";
 import ViewTransaction from "./payments/ViewTransaction";
 import Polls from "./polls/Polls";
@@ -242,24 +242,24 @@ function App() {
               </>
             }
           />
-            <Route
-              path="/societystaff/add"
-              element={
-                <>
-                  <Navbar />
-                  <AddSocietyStaff />
-                </>
-              }
-            />
-            <Route
-              path="/societystaff/change/:occu"
-              element={
-                <>
-                  <Navbar />
-                  <UpdateSocietyStaff />
-                </>
-              }
-            />
+          <Route
+            path="/societystaff/add"
+            element={
+              <>
+                <Navbar />
+                <AddSocietyStaff />
+              </>
+            }
+          />
+          <Route
+            path="/societystaff/change/:occupation"
+            element={
+              <>
+                <Navbar />
+                <UpdateSocietyStaff />
+              </>
+            }
+          />
           <Route
             path="/personalstaff"
             element={
@@ -279,7 +279,7 @@ function App() {
             }
           />
           <Route
-            path="/personalstaff/change/:s_no"
+            path="/personalstaff/change/:sno"
             element={
               <>
                 <Navbar />
