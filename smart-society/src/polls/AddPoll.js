@@ -58,7 +58,7 @@ function AddPoll() {
                             <label htmlFor="title">Title</label>
                             <Field
                               name="title"
-                              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 mb-4"
                               placeholder="Enter Title"
                             />
 
@@ -136,11 +136,13 @@ function AddPoll() {
                   </Formik>
                 </div>
               </div>
+              <div className="text-center text-black dark:text-white">
+                {msg}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="text-center text-black dark:text-white">{msg}</div>
     </div>
   );
 }
