@@ -14,7 +14,7 @@ function AddSocietyStaff() {
   const [comesFrom, setComesFrom] = useState("");
   const [mobile, setMobile] = useState("");
   const [image, setImage] = useState("");
-  const [account, setAccount] = useState([])
+  const [account, setAccount] = useState([]);
   const options = [];
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function AddSocietyStaff() {
         }
         setMsg(Object.values(result)[0]);
       }
-    }
+    };
     fetchOccupation();
   }, [navigate]);
 
@@ -142,9 +142,7 @@ function AddSocietyStaff() {
                         <Select
                           options={options}
                           placeholder="Enter Occupation"
-                          onChange={(option) =>
-                            setOccupation(option.value)
-                          }
+                          onChange={(option) => setOccupation(option.value)}
                           required
                         />
                       </div>
