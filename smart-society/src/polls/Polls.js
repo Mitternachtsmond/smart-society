@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Poll from "./Poll"
+import Poll from "./Poll";
 import Contents from "../navigation/Contents";
 import { useFormik } from "formik";
-
-
+import { useNavigate } from "react-router";
 
 function Polls() {
   const [polls, setPolls] = useState([]);
   const url = "http://127.0.0.1:8000/api/polls";
 
+  let navigate = useNavigate();
   const fetchData = async (url) => {
     try {
       const response = await fetch(url, {
@@ -18,8 +18,15 @@ function Polls() {
         },
       });
       const array = await response.json();
-      setPolls(array.results);
-      console.log(array);
+      if (response.ok) {
+        setPolls(array.results);
+        console.log(array);
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -27,10 +34,10 @@ function Polls() {
 
   async function endPoll(id) {
     await fetch(`${url}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Token ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+        authorization: `Token ${localStorage.getItem("token")}`,
       },
     });
     await fetchData(url);
@@ -49,9 +56,7 @@ function Polls() {
     },
   });
 
-
   return (
-
     <div className="h-screen flex">
       <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
         <Contents />
@@ -123,7 +128,6 @@ function Polls() {
       </div>
     </div>
   );
-
 }
 export default Polls;
 

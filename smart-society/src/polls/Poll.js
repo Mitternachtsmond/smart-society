@@ -17,13 +17,13 @@ function Poll(props) {
         <div className="md:col-span-2 text-right md:row-start-5">
           <div className="flex flex-row justify-between">
             <button
-              className="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 mb-2 rounded float-right mr-10"
+              className="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 mb-3 rounded float-right mr-10"
               onClick={() => props.handler(props.id)}
             >
               End Poll
             </button>
             <Link to={`/polls/vote/${props.id}`}>
-              <button className="bg-green-400 hover:bg-green-600 text-white font-bold mb-2 py-2 px-4 rounded float-right">
+              <button className="bg-green-400 hover:bg-green-600 text-white font-bold mb-3 py-2 px-4 rounded float-right">
                 Vote
               </button>
             </Link>
