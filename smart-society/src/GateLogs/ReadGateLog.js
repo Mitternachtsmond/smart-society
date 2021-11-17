@@ -202,7 +202,13 @@ function ReadGateLogs() {
                                 value={moment(element.exit_time).format('LLL')}
                               />
                             )}
-                            <TableCell value={element.parking_id} />
+                            {element.parking_id !== null ? (
+                              <TableCell
+                                value={moment(element.parking_id).format('LLL')}
+                              />
+                            ) : (
+                              <TableCell value={'Two Wheeler Space'} />
+                            )}
                           </tr>
                         );
                       })}
@@ -280,19 +286,41 @@ function ReadGateLogs() {
                               </tr>
                               <tr className="even:bg-gray-100">
                                 <TableMobileHeader value="Exit Time" />
-                                <TableMobileCell
-                                  value={moment(element.exit_time).format(
-                                    'LLL'
-                                  )}
-                                />
+                                {element.exit_time == null ? (
+                                  <td className="whitespace-normal py-2">
+                                    <div className="font-medium text-gray-900 text-right px-4 tracking-wide">
+                                      <button
+                                        value={element.s_no}
+                                        name={element.name}
+                                        id={element.property_no}
+                                        onClick={handleExit}
+                                        className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
+                                      >
+                                        Exit
+                                      </button>
+                                    </div>
+                                  </td>
+                                ) : (
+                                  <TableCell
+                                    value={moment(element.exit_time).format(
+                                      'LLL'
+                                    )}
+                                  />
+                                )}
                               </tr>
                               <tr className="even:bg-gray-100">
                                 <TableMobileHeader value="Parking" />
-                                <TableMobileCell
-                                  value={moment(element.parking_id).format(
-                                    'LLL'
-                                  )}
-                                />
+                                {element.parking_id !== null ? (
+                                  <TableMobileCell
+                                    value={moment(element.parking_id).format(
+                                      'LLL'
+                                    )}
+                                  />
+                                ) : (
+                                  <TableMobileCell
+                                    value={'Two Wheeler Space'}
+                                  />
+                                )}
                               </tr>
                             </tbody>
                           </table>
