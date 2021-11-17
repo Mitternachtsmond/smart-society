@@ -15,7 +15,7 @@ function MemberMobileTable({ propertyNo, propertyType, name, mobile }) {
                 link={
                   localStorage.getItem("group") === "1"
                     ? `/members/change/${propertyNo}`
-                    : 0
+                    : `/members/view/${propertyNo}`
                 }
               />
             </tr>

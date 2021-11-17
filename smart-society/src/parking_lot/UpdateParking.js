@@ -16,7 +16,7 @@ function UpdateParking() {
     label: "Visitor",
     value: "",
   });
-  
+
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
@@ -33,10 +33,7 @@ function UpdateParking() {
         if (response.ok) {
           navigate("/parking");
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -57,10 +54,7 @@ function UpdateParking() {
       if (response.ok) {
         setMembers(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchMembers();
@@ -83,10 +77,7 @@ function UpdateParking() {
           result.property_no === null ? "Visitor" : result.property_no
         );
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -121,10 +112,7 @@ function UpdateParking() {
             Object.values(result)[0] === "Invalid Token" ||
             Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(Object.values(result)[0]);
         }

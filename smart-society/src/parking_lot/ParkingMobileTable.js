@@ -1,6 +1,6 @@
-import TableMobileCell from '../basicComponents/TableMobileCell';
-import TableMobileHeader from '../basicComponents/TableMobileHeader';
-import PropTypes from 'prop-types';
+import TableMobileCell from "../basicComponents/TableMobileCell";
+import TableMobileHeader from "../basicComponents/TableMobileHeader";
+import PropTypes from "prop-types";
 
 function ParkingMobileTable({ parkingId, propertyNo }) {
   return (
@@ -12,7 +12,11 @@ function ParkingMobileTable({ parkingId, propertyNo }) {
               <TableMobileHeader value="Parking Id" />
               <TableMobileCell
                 value={parkingId}
-                link={`/parking/change/${parkingId}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/parking/change/${parkingId}`
+                    : 0
+                }
               />
             </tr>
 

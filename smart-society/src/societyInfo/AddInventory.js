@@ -40,10 +40,7 @@ function AddInventory() {
             Object.values(result)[0] === "Invalid Token" ||
             Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(Object.values(result)[0].join(" "));
         }

@@ -16,7 +16,9 @@ function AddAnnouncement() {
         const response = await fetch(url, {
           method: "POST",
           body: JSON.stringify({
-            description: values.description ? values.description : JSON.parse(null),
+            description: values.description
+              ? values.description
+              : JSON.parse(null),
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -33,10 +35,7 @@ function AddAnnouncement() {
             values[0] === "Invalid Token" ||
             values[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(values[0]);
         }

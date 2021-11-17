@@ -2,7 +2,6 @@ import Navbar from "./navigation/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./societyInfo/Dashboard";
 import AddAnnouncement from "./societyInfo/AddAnouncement";
-import Complaint from "./societyInfo/Complaint";
 import Login from "./users/Login";
 import Logout from "./users/Logout";
 import ForgotPassword from "./users/ForgotPassword";
@@ -46,6 +45,7 @@ import RegisterEntry from "./parking_lot/RegisterEntry";
 import ViewEntry from "./parking_lot/ViewEntry";
 
 function App() {
+  const group = localStorage.getItem("group");
   return (
     <Router>
       <div className="bg-green-300 dark:bg-gray-800 min-h-screen font-sans">
@@ -59,335 +59,11 @@ function App() {
             }
           />
           <Route
-            path="/"
-            element={
-              <>
-                <Navbar />
-                <Dashboard />
-              </>
-            }
-          />
-          <Route
-            path="/announcements/add"
-            element={
-              <>
-                <Navbar />
-                <AddAnnouncement />
-              </>
-            }
-          />
-          <Route
-            path="/accounts"
-            element={
-              <>
-                <Navbar />
-                <Account />
-              </>
-            }
-          />
-          <Route
-            path="/accounts/:username"
-            element={
-              <>
-                <Navbar />
-                <AccountUpdate />
-              </>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <>
-                <Navbar />
-                <Register />
-              </>
-            }
-          />
-          <Route
-            path="/members"
-            element={
-              <>
-                <Navbar />
-                <Member />
-              </>
-            }
-          />
-          <Route
-            path="/members/add"
-            element={
-              <>
-                <Navbar />
-                <AddMember />
-              </>
-            }
-          />
-          <Route
-            path="/members/view/:propertyNo"
-            element={
-              <>
-                <Navbar />
-                <ViewMember />
-              </>
-            }
-          />
-          <Route
-            path="/members/change/:propertyNo"
-            element={
-              <>
-                <Navbar />
-                <UpdateMember />
-              </>
-            }
-          />
-          <Route
-            path="/properties"
-            element={
-              <>
-                <Navbar />
-                <Property />
-              </>
-            }
-          />
-          <Route
-            path="/properties/add"
-            element={
-              <>
-                <Navbar />
-                <AddProperty />
-              </>
-            }
-          />
-          <Route
-            path="/properties/change/:propertyType"
-            element={
-              <>
-                <Navbar />
-                <UpdateProperty />
-              </>
-            }
-          />
-          <Route
-            path="/inventory"
-            element={
-              <>
-                <Navbar />
-                <Inventory />
-              </>
-            }
-          />
-          <Route
-            path="/inventory/add"
-            element={
-              <>
-                <Navbar />
-                <AddInventory />
-              </>
-            }
-          />
-          <Route
-            path="/inventory/change/:item"
-            element={
-              <>
-                <Navbar />
-                <UpdateInventory />
-              </>
-            }
-          />
-          <Route
-            path="/maintenance"
-            element={
-              <>
-                <Navbar />
-                <Maintenance />
-              </>
-            }
-          />
-          <Route
-            path="maintenance/pay"
-            element={
-              <>
-                <Navbar />
-                <PayMaintenance />
-              </>
-            }
-          />
-          <Route
-            path="maintenance/penalty"
-            element={
-              <>
-                <Navbar />
-                <PenaltyRate />
-              </>
-            }
-          />
-          <Route
-            path="/transactions"
-            element={
-              <>
-                <Navbar />
-                <Transaction />
-              </>
-            }
-          />
-          <Route
-            path="/transactions/add"
-            element={
-              <>
-                <Navbar />
-                <AddTransaction />
-              </>
-            }
-          />
-          <Route
-            path="/transactions/view/:sno"
-            element={
-              <>
-                <Navbar />
-                <ViewTransaction />
-              </>
-            }
-          />
-          <Route
             path="/parking"
             element={
               <>
                 <Navbar />
                 <Parking />
-              </>
-            }
-          />
-          <Route
-            path="/parking/add"
-            element={
-              <>
-                <Navbar />
-                <AddParking />
-              </>
-            }
-          />
-          <Route
-            path="/parking/change/:parkingId"
-            element={
-              <>
-                <Navbar />
-                <UpdateParking />
-              </>
-            }
-          />
-          <Route
-            path="/gatelog"
-            element={
-              <>
-                <Navbar />
-                <GateLog />
-              </>
-            }
-          />
-          <Route
-            path="/gatelog/register"
-            element={
-              <>
-                <Navbar />
-                <RegisterEntry />
-              </>
-            }
-          />
-          <Route
-            path="/gatelog/view/:sNo"
-            element={
-              <>
-                <Navbar />
-                <ViewEntry />
-              </>
-            }
-          />
-          <Route
-            path="/societystaff"
-            element={
-              <>
-                <Navbar />
-                <SocietyStaff />
-              </>
-            }
-          />
-          <Route
-            path="/societystaff/add"
-            element={
-              <>
-                <Navbar />
-                <AddSocietyStaff />
-              </>
-            }
-          />
-          <Route
-            path="/societystaff/change/:occupation"
-            element={
-              <>
-                <Navbar />
-                <UpdateSocietyStaff />
-              </>
-            }
-          />
-          <Route
-            path="/personalstaff"
-            element={
-              <>
-                <Navbar />
-                <PersonalStaff />
-              </>
-            }
-          />
-          <Route
-            path="/personalstaff/add"
-            element={
-              <>
-                <Navbar />
-                <AddPersonalStaff />
-              </>
-            }
-          />
-          <Route
-            path="/personalstaff/change/:sno"
-            element={
-              <>
-                <Navbar />
-                <UpdatePersonalStaff />
-              </>
-            }
-          />
-          <Route
-            path="/polls"
-            element={
-              <>
-                <Navbar />
-                <Polls />
-              </>
-            }
-          />
-          <Route
-            path="/polls/vote/:id"
-            element={
-              <>
-                <Navbar />
-                <Vote />
-              </>
-            }
-          />
-          <Route
-            path="/polls/add"
-            element={
-              <>
-                <Navbar />
-                <AddPoll />
-              </>
-            }
-          />
-          <Route
-            path="/complaint"
-            element={
-              <>
-                <Navbar />
-                <Complaint />
               </>
             }
           />
@@ -403,11 +79,348 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
           <Route
             path="/resetpassword/:uidb64/:token"
             element={<ResetPassword />}
           />
-          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <Dashboard />
+              </>
+            }
+          />
+          <Route
+            path="/gatelog"
+            element={
+              <>
+                <Navbar />
+                <GateLog />
+              </>
+            }
+          />
+          {group === "3" ? (
+            <>
+              {console.log("sec login")}
+              <Route
+                path="/gatelog/register"
+                element={
+                  <>
+                    <Navbar />
+                    <RegisterEntry />
+                  </>
+                }
+              />
+            </>
+          ) : (
+            <>
+              {console.log("admin/member login")}
+              <Route
+                path="/announcements/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddAnnouncement />
+                  </>
+                }
+              />
+              <Route
+                path="/accounts"
+                element={
+                  <>
+                    <Navbar />
+                    <Account />
+                  </>
+                }
+              />
+              <Route
+                path="/societystaff"
+                element={
+                  <>
+                    <Navbar />
+                    <SocietyStaff />
+                  </>
+                }
+              />
+              <Route
+                path="/members"
+                element={
+                  <>
+                    <Navbar />
+                    <Member />
+                  </>
+                }
+              />
+              <Route
+                path="/personalstaff"
+                element={
+                  <>
+                    <Navbar />
+                    <PersonalStaff />
+                  </>
+                }
+              />
+              <Route
+                path="/members/view/:propertyNo"
+                element={
+                  <>
+                    <Navbar />
+                    <ViewMember />
+                  </>
+                }
+              />
+              <Route
+                path="/properties"
+                element={
+                  <>
+                    <Navbar />
+                    <Property />
+                  </>
+                }
+              />
+              <Route
+                path="/inventory"
+                element={
+                  <>
+                    <Navbar />
+                    <Inventory />
+                  </>
+                }
+              />
+              <Route
+                path="/maintenance"
+                element={
+                  <>
+                    <Navbar />
+                    <Maintenance />
+                  </>
+                }
+              />
+              <Route
+                path="/polls"
+                element={
+                  <>
+                    <Navbar />
+                    <Polls />
+                  </>
+                }
+              />
+            </>
+          )}
+
+          {group === "1" ? (
+            <>
+              <Route
+                path="/accounts/:username"
+                element={
+                  <>
+                    <Navbar />
+                    <AccountUpdate />
+                  </>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <>
+                    <Navbar />
+                    <Register />
+                  </>
+                }
+              />
+              <Route
+                path="/members/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddMember />
+                  </>
+                }
+              />
+              <Route
+                path="/members/change/:propertyNo"
+                element={
+                  <>
+                    <Navbar />
+                    <UpdateMember />
+                  </>
+                }
+              />
+
+              <Route
+                path="/properties/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddProperty />
+                  </>
+                }
+              />
+              <Route
+                path="/properties/change/:propertyType"
+                element={
+                  <>
+                    <Navbar />
+                    <UpdateProperty />
+                  </>
+                }
+              />
+
+              <Route
+                path="/inventory/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddInventory />
+                  </>
+                }
+              />
+              <Route
+                path="/inventory/change/:item"
+                element={
+                  <>
+                    <Navbar />
+                    <UpdateInventory />
+                  </>
+                }
+              />
+
+              <Route
+                path="maintenance/pay"
+                element={
+                  <>
+                    <Navbar />
+                    <PayMaintenance />
+                  </>
+                }
+              />
+              <Route
+                path="maintenance/penalty"
+                element={
+                  <>
+                    <Navbar />
+                    <PenaltyRate />
+                  </>
+                }
+              />
+              <Route
+                path="/transactions"
+                element={
+                  <>
+                    <Navbar />
+                    <Transaction />
+                  </>
+                }
+              />
+              <Route
+                path="/transactions/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddTransaction />
+                  </>
+                }
+              />
+              <Route
+                path="/transactions/view/:sno"
+                element={
+                  <>
+                    <Navbar />
+                    <ViewTransaction />
+                  </>
+                }
+              />
+
+              <Route
+                path="/parking/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddParking />
+                  </>
+                }
+              />
+              <Route
+                path="/parking/change/:parkingId"
+                element={
+                  <>
+                    <Navbar />
+                    <UpdateParking />
+                  </>
+                }
+              />
+              <Route
+                path="/gatelog"
+                element={
+                  <>
+                    <Navbar />
+                    <GateLog />
+                  </>
+                }
+              />
+
+              <Route
+                path="/societystaff/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddSocietyStaff />
+                  </>
+                }
+              />
+              <Route
+                path="/societystaff/change/:s_no"
+                element={
+                  <>
+                    <Navbar />
+                    <UpdateSocietyStaff />
+                  </>
+                }
+              />
+
+              <Route
+                path="/personalstaff/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddPersonalStaff />
+                  </>
+                }
+              />
+              <Route
+                path="/personalstaff/change/:sno"
+                element={
+                  <>
+                    <Navbar />
+                    <UpdatePersonalStaff />
+                  </>
+                }
+              />
+
+              <Route
+                path="/polls/add"
+                element={
+                  <>
+                    <Navbar />
+                    <AddPoll />
+                  </>
+                }
+              />
+            </>
+          ) : (
+            <Route
+              path="/polls/vote/:id"
+              element={
+                <>
+                  <Navbar />
+                  <Vote />
+                </>
+              }
+            />
+          )}
         </Routes>
       </div>
     </Router>

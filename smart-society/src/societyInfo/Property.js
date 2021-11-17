@@ -28,10 +28,7 @@ function Property() {
         if (response.ok) {
           setProperty(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -52,10 +49,7 @@ function Property() {
       if (response.ok) {
         setProperty(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -76,15 +70,17 @@ function Property() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Properties
                 </div>
-                <Link to="/properties/add">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/properties/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add Property
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add Property
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -147,7 +143,7 @@ function Property() {
                                 value={element.property_type}
                                 link={
                                   localStorage.getItem("group") === "1"
-                                    ? `/properties/change/${element.propertyType}`
+                                    ? `/properties/change/${element.property_type}`
                                     : 0
                                 }
                               />
@@ -175,15 +171,17 @@ function Property() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Properties
                 </div>
-                <Link to="/properties/add">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/properties/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex mx-5 my-3"

@@ -1,58 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
 import { useNavigate } from "react-router";
-import Select from "react-select";
 
 function AddSocietyStaff() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [name, setName] = useState("");
-  const [occupation, setOccupation] = useState([]);
+  const [occupation, setOccupation] = useState("");
   const [aadhaar, setAadhaar] = useState("");
   const [salary, setSalary] = useState("");
   const [worksIn, setWorksIn] = useState("");
   const [comesFrom, setComesFrom] = useState("");
   const [mobile, setMobile] = useState("");
   const [image, setImage] = useState("");
-  const [account, setAccount] = useState([]);
-  const options = [];
 
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/users/accounts/";
-    const fetchOccupation = async () => {
-      const response = await fetch(url, {
-        headers: {
-          authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      });
-      const result = await response.json();
-      if (response.ok) {
-        setAccount(result.results);
-      } else {
-        if (
-          Object.values(result)[0] === "Invalid Token" ||
-          Object.values(result)[0] === "The Token is expired"
-        ) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
-        }
-        setMsg(Object.values(result)[0]);
-      }
-    };
-    fetchOccupation();
   }, [navigate]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (isFormInvalid()) {
+      setMsg("All required fields must be filled!");
       return;
     }
     const formData = new FormData();
-    formData.append("image", image, image.name);
+    formData.append("image", image);
     formData.append("name", name);
     formData.append("occupation", occupation);
     formData.append("aadhaar", aadhaar);
@@ -79,10 +54,7 @@ function AddSocietyStaff() {
           Object.values(result)[0] === "Invalid Token" ||
           Object.values(result)[0] === "The Token is expired"
         ) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
         setMsg(Object.values(result)[0]);
       }
@@ -129,20 +101,15 @@ function AddSocietyStaff() {
                           required
                         />
                       </div>
-
                       <div className="md:col-span-1">
                         <label htmlFor="occupation">Occupation*</label>
-                        {account &&
-                          account.forEach((element) => {
-                            options.push({
-                              label: element.username,
-                              value: element.username,
-                            });
-                          })}
-                        <Select
-                          options={options}
+                        <input
+                          type="text"
+                          name="occupation"
+                          id="occupation"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder="Enter Occupation"
-                          onChange={(option) => setOccupation(option.value)}
+                          onChange={(e) => setOccupation(e.target.value)}
                           required
                         />
                       </div>
@@ -163,7 +130,9 @@ function AddSocietyStaff() {
                       <div className="md:col-span-1">
                         <label htmlFor="mobile_no">Mobile No*</label>
                         <input
-                          type="text"
+                          type="tel"
+                          pattern="[0-9]{10}"
+                          title="Enter 10 digits"
                           name="mobile_no"
                           id="mobile_no"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -175,7 +144,9 @@ function AddSocietyStaff() {
                       <div className="md:col-span-1">
                         <label htmlFor="aadhaar">Aadhaar No</label>
                         <input
-                          type="text"
+                          type="tel"
+                          pattern="[1-9]{1}[0-9]{11}"
+                          title="Enter valid aadhar number"
                           name="aadhaar"
                           id="aadhaar"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -190,7 +161,7 @@ function AddSocietyStaff() {
                           name="from_place"
                           id="from_place"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="Staff comes from place"
+                          placeholder="Staff Agency"
                           onChange={(e) => setComesFrom(e.target.value)}
                           required
                         />
@@ -229,7 +200,7 @@ function AddSocietyStaff() {
                           <button
                             type="button"
                             className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
-                            onClick={handleSubmit}
+                            onSubmit={handleSubmit}
                           >
                             Submit
                           </button>

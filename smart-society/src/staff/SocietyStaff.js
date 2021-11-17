@@ -29,10 +29,7 @@ function SocietyStaff() {
         if (response.ok) {
           setSocietyStaff(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -53,10 +50,7 @@ function SocietyStaff() {
       if (response.ok) {
         setSocietyStaff(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -77,15 +71,17 @@ function SocietyStaff() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Society Staff
                 </div>
-                <Link to="/societystaff/add">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/societystaff/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add Staff
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add Staff
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -131,8 +127,8 @@ function SocietyStaff() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-white ">
                       <tr>
-                        <TableHeader title="Occupation" />
                         <TableHeader title="Name" />
+                        <TableHeader title="Occupation" />
                         <TableHeader title="Salary" />
                         <TableHeader title="Works In" />
                         <TableHeader title="Image" />
@@ -143,18 +139,18 @@ function SocietyStaff() {
                         societyStaff.map((element) => {
                           return (
                             <tr
-                              key={element.occupation}
+                              key={element.s_no}
                               className="divide-x-2 divide-gray-200 even:bg-gray-100"
                             >
                               <TableCell
-                                value={element.occupation}
+                                value={element.name}
                                 link={
                                   localStorage.getItem("group") === "1"
-                                    ? `/societystaff/change/${element.occupation}`
+                                    ? `/societystaff/change/${element.s_no}`
                                     : 0
                                 }
                               />
-                              <TableCell value={element.name} />
+                              <TableCell value={element.occupation} />
                               <TableCell value={element.salary.toString()} />
                               <TableCell value={element.work_place} />
                               <td className="px-3 py-3 md:py-4 whitespace-normal">
@@ -182,15 +178,17 @@ function SocietyStaff() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Society Staff
                 </div>
-                <Link to="/societystaff/add">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/societystaff/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -225,8 +223,9 @@ function SocietyStaff() {
               {societyStaff &&
                 societyStaff.map((element) => {
                   return (
-                    <div key={element.occupation}>
+                    <div key={element.s_no}>
                       <SocietyStaffMobileTable
+                        s_no={element.s_no}
                         name={element.name}
                         occupation={element.occupation}
                         salary={element.salary.toString()}

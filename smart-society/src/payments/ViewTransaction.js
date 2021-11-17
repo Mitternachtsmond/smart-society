@@ -30,10 +30,7 @@ function ViewTransaction() {
         setDate(result.date);
         setDescription(result.description);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();

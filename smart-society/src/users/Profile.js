@@ -49,11 +49,7 @@ function Profile() {
           email: result["email"],
         }));
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("group");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchAccount();
@@ -75,11 +71,7 @@ function Profile() {
           tenantMobile: result["tenant_mobile"],
         }));
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("group");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     if (localStorage.getItem("group") === "2") fetchMember();
@@ -99,11 +91,7 @@ function Profile() {
             .map((element) => element["parking_id"]),
         }));
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("group");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchParking();
@@ -121,11 +109,7 @@ function Profile() {
           maintenance: result.results[0]["amount_due"],
         }));
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("group");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     if (localStorage.getItem("group") === "2") fetchMaintenance();

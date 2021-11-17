@@ -28,7 +28,7 @@ class Personal_Staff(models.Model):
         return self.name
 
     class Meta:
-        verbose_name="Personal"
+        verbose_name = "Personal"
         verbose_name_plural = "Personal Staff"
         ordering = ["s_no"]
 
@@ -36,20 +36,17 @@ class Personal_Staff(models.Model):
     def image_preview(self):
         if self.image:
             return mark_safe(
-                '<img src="{}" width="100" height="100" />'.format(self.image.url)
+                '<img src="{}" width="100" height="100" />'.format(
+                    self.image.url)
             )
         return ""
 
 
 class Society_Staff(models.Model):
-    occupation = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        verbose_name=_("Occupation"),
-    )
+    s_no = models.AutoField(primary_key=True)
+    occupation = models.CharField(_("Occupation"), max_length=50)
     aadhaar = models.CharField(
-        _("Aadhaar No."), max_length=14, unique=True, blank=True, null=True
+        _("Aadhaar No."), max_length=12, unique=True, blank=True, null=True
     )
     name = models.CharField(_("Name"), max_length=50)
     salary = models.IntegerField(
@@ -69,14 +66,15 @@ class Society_Staff(models.Model):
         super(Society_Staff, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name="Society"
+        verbose_name = "Society"
         verbose_name_plural = "Society Staff"
-        ordering = ["occupation"]
+        ordering = ["s_no"]
 
     @property
     def image_preview(self):
         if self.image:
             return mark_safe(
-                '<img src="{}" width="100" height="100" />'.format(self.image.url)
+                '<img src="{}" width="100" height="100" />'.format(
+                    self.image.url)
             )
         return ""

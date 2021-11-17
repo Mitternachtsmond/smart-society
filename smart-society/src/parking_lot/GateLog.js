@@ -33,10 +33,7 @@ function GateLog() {
         if (response.ok) {
           setGateLogs(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -64,10 +61,7 @@ function GateLog() {
         setValue(value + 1);
         navigate("/gatelog");
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     putExit();
@@ -88,10 +82,7 @@ function GateLog() {
       if (response.ok) {
         setGateLogs(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -113,9 +104,17 @@ function GateLog() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Gate Logs
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/gatelog/register">+ Register Entry</Link>
-                </div>
+                {localStorage.getItem("group") === "3" ? (
+                  <Link to="/gatelog/register">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Register Entry
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                    + Register Entry
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"

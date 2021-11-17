@@ -125,74 +125,87 @@ function Navbar() {
         `}
       >
         <NavbarMobileLink
-          activeState={location.pathname === "/"}
-          title="Home"
-          slug=""
+          activeState={location.pathname === "/profile"}
+          title="Profile"
+          slug="profile"
         />
-        <NavbarMobileLink
-          activeState={location.pathname === "/accounts"}
-          title="Accounts"
-          slug="accounts"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/members"}
-          title="Members"
-          slug="members"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/properties"}
-          title="Properties"
-          slug="properties"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/inventory"}
-          title="Inventory"
-          slug="inventory"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/maintenance"}
-          title="Maintenance"
-          slug="maintenance"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/transactions"}
-          title="Transactions"
-          slug="transactions"
-        />
+
+        {localStorage.getItem("group") === "3" ? (
+          <>
+            <NavbarMobileLink
+              activeState={location.pathname === "/gatelog"}
+              title="Home"
+              slug="gatelog"
+            />
+          </>
+        ) : (
+          <>
+            <NavbarMobileLink
+              activeState={location.pathname === "/"}
+              title="Home"
+              slug=""
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/accounts"}
+              title="Accounts"
+              slug="accounts"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/members"}
+              title="Members"
+              slug="members"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/properties"}
+              title="Properties"
+              slug="properties"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/inventory"}
+              title="Inventory"
+              slug="inventory"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/maintenance"}
+              title="Maintenance"
+              slug="maintenance"
+            />
+
+            <NavbarMobileLink
+              activeState={location.pathname === "/societystaff"}
+              title="Society Staff"
+              slug="societystaff"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/personalstaff"}
+              title="Personal Staff"
+              slug="personalstaff"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/polls"}
+              title="Polls"
+              slug="polls"
+            />
+          </>
+        )}
+        {localStorage.getItem("group") === "1" && (
+          <>
+            <NavbarMobileLink
+              activeState={location.pathname === "/transactions"}
+              title="Transactions"
+              slug="transactions"
+            />
+            <NavbarMobileLink
+              activeState={location.pathname === "/gatelog"}
+              title="Gate Log"
+              slug="gatelog"
+            />
+          </>
+        )}
         <NavbarMobileLink
           activeState={location.pathname === "/parking"}
           title="Parking"
           slug="parking"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/gatelog"}
-          title="Gate Log"
-          slug="gatelog"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/societystaff"}
-          title="Society Staff"
-          slug="societystaff"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/personalstaff"}
-          title="Personal Staff"
-          slug="personalstaff"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/polls"}
-          title="Polls"
-          slug="polls"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/complaint"}
-          title="Complaint"
-          slug="complaint"
-        />
-        <NavbarMobileLink
-          activeState={location.pathname === "/profile"}
-          title="Profile"
-          slug="profile"
         />
       </div>
     </>

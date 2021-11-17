@@ -30,10 +30,7 @@ function Parking() {
         if (response.ok) {
           setParking(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -54,10 +51,7 @@ function Parking() {
       if (response.ok) {
         setParking(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -79,9 +73,17 @@ function Parking() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Parking
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/parking/add">+ Add Space</Link>
-                </div>
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/parking/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add Space
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                    + Add Space
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -140,9 +142,19 @@ function Parking() {
                           >
                             <TableCell
                               value={element.parking_id}
-                              link={`/parking/change/${element.parking_id}`}
+                              link={
+                                localStorage.getItem("group") === "1"
+                                  ? `/parking/change/${element.parking_id}`
+                                  : 0
+                              }
                             />
-                            <TableCell value={element.property_no ? element.property_no : 'Visitor'} />
+                            <TableCell
+                              value={
+                                element.property_no
+                                  ? element.property_no
+                                  : "Visitor"
+                              }
+                            />
                           </tr>
                         );
                       })}
@@ -161,9 +173,17 @@ function Parking() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Parking
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/parking/add">+ Add</Link>
-                </div>
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/parking/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                    + Add
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -201,7 +221,9 @@ function Parking() {
                     <div key={element.parking_id}>
                       <ParkingMobileTable
                         parkingId={element.parking_id}
-                        propertyNo={element.property_no ? element.property_no : 'Visitor'}
+                        propertyNo={
+                          element.property_no ? element.property_no : "Visitor"
+                        }
                       />
                     </div>
                   );

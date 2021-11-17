@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Contents from "../navigation/Contents";
 import { useNavigate, useParams } from "react-router";
-import Select from "react-select";
 
 function UpdateSocietyStaff() {
-  const { occupation } = useParams();
+  const { s_no } = useParams();
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [name, setName] = useState("");
@@ -17,15 +16,13 @@ function UpdateSocietyStaff() {
   const [image, setImage] = useState("");
   const [imageURL, setImageURL] = useState("");
   const [count, setCount] = useState(0);
-  const [account, setAccount] = useState([]);
-  const options = [];
 
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
       setMsg("Are you sure you want to delete this record permanently?");
     } else {
-      const url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
+      const url = `http://127.0.0.1:8000/api/staff/society_staff/${s_no}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "DELETE",
@@ -36,10 +33,7 @@ function UpdateSocietyStaff() {
         if (response.ok) {
           navigate("/societystaff");
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -50,7 +44,7 @@ function UpdateSocietyStaff() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    let url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
+    let url = `http://127.0.0.1:8000/api/staff/society_staff/${s_no}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -68,32 +62,11 @@ function UpdateSocietyStaff() {
         setImageURL(result.image);
         setOccupation(result.occupation);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
-    url = "http://127.0.0.1:8000/api/users/accounts/";
-    const fetchAccounts = async () => {
-      const response = await fetch(url, {
-        headers: {
-          authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      });
-      const array = await response.json();
-      if (response.ok) {
-        setAccount(array.results);
-      } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
-      }
-    };
-    fetchAccounts();
-  }, [navigate, occupation]);
+  }, [navigate, s_no]);
 
   const isFormInvalid = () => {
     return !(
@@ -114,7 +87,7 @@ function UpdateSocietyStaff() {
     }
     const formData = new FormData();
 
-    formData.append("image", image, image.name);
+    formData.append("image", image);
     formData.append("name", name);
     formData.append("occupation", newOccupation);
     formData.append("aadhaar", aadhaar);
@@ -123,7 +96,7 @@ function UpdateSocietyStaff() {
     formData.append("from_place", comesFrom);
     formData.append("mobile_no", mobile);
 
-    const url = `http://127.0.0.1:8000/api/staff/society_staff/${occupation}/`;
+    const url = `http://127.0.0.1:8000/api/staff/society_staff/${s_no}/`;
 
     const fetchData = async () => {
       const response = await fetch(url, {
@@ -141,10 +114,7 @@ function UpdateSocietyStaff() {
           Object.values(result)[0] === "Invalid Token" ||
           Object.values(result)[0] === "The Token is expired"
         ) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
         setMsg(Object.values(result)[0]);
       }
@@ -159,7 +129,7 @@ function UpdateSocietyStaff() {
       <div className="flex-1 flex overflow-hidden">
         <div className="flex-1 overflow-y-scroll">
           <div className="md:py-5 flex-grow py-3 text-center dark:text-white uppercase tracking-wider font-semibold text-xl md:text-3xl">
-            Add Staff
+            Update Staff
           </div>
           <div className="mx-3 lg:mx-10 border rounded bg-black flex items-center justify-center">
             <div className="bg-white w-full rounded shadow-lg pt-8 pb-4 px-6 md:p-8">
@@ -180,8 +150,21 @@ function UpdateSocietyStaff() {
                           required
                         />
                       </div>
-
                       <div className="md:col-span-1">
+                        <label htmlFor="occupation">Occupation*</label>
+                        <input
+                          type="text"
+                          name="occupation"
+                          id="occupation"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="Enter Occupation"
+                          onChange={(e) => setOccupation(e.target.value)}
+                          value={newOccupation}
+                          required
+                        />
+                      </div>
+
+                      {/* <div className="md:col-span-1">
                         <label htmlFor="occupation">Occupation*</label>
                         {account &&
                           account.forEach((element) => {
@@ -200,7 +183,7 @@ function UpdateSocietyStaff() {
                           }}
                           required
                         />
-                      </div>
+                      </div> */}
 
                       <div className="md:col-span-1">
                         <label htmlFor="name">Salary*</label>
@@ -219,7 +202,9 @@ function UpdateSocietyStaff() {
                       <div className="md:col-span-1">
                         <label htmlFor="mobile_no">Mobile No*</label>
                         <input
-                          type="text"
+                          type="tel"
+                          pattern="[0-9]{10}"
+                          title="Enter 10 digits"
                           name="mobile_no"
                           id="mobile_no"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -232,7 +217,9 @@ function UpdateSocietyStaff() {
                       <div className="md:col-span-1">
                         <label htmlFor="aadhaar">Aadhaar No</label>
                         <input
-                          type="text"
+                          type="tel"
+                          pattern="[1-9]{1}[0-9]{11}"
+                          title="Enter valid aadhar number"
                           name="aadhaar"
                           id="aadhaar"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"

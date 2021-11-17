@@ -28,10 +28,7 @@ function Member() {
         if (response.ok) {
           setMember(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -52,10 +49,7 @@ function Member() {
       if (response.ok) {
         setMember(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -76,15 +70,17 @@ function Member() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Members
                 </div>
-                <Link to="/members/add">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/members/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add Member
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add Member
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -148,8 +144,8 @@ function Member() {
                                 value={element.property_no}
                                 link={
                                   localStorage.getItem("group") === "1"
-                                    ? `/members/change/${element.propertyNo}`
-                                    : 0
+                                    ? `/members/change/${element.property_no}`
+                                    : `/members/view/${element.property_no}`
                                 }
                               />
                               <TableCell value={element.property_type} />
@@ -173,15 +169,17 @@ function Member() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Members
                 </div>
-                <Link to="/members/add">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/members/add">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex mx-5 my-3"

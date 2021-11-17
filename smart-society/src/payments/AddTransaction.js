@@ -43,10 +43,7 @@ function AddTransaction() {
             values[0] === "Invalid Token" ||
             values[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(values[0]);
         }

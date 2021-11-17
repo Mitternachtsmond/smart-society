@@ -26,10 +26,7 @@ function UpdateInventory() {
         if (response.ok) {
           navigate("/inventory");
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -50,10 +47,7 @@ function UpdateInventory() {
       if (response.ok) {
         setQuantity(result.quantity);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -88,10 +82,7 @@ function UpdateInventory() {
             Object.values(result)[0] === "Invalid Token" ||
             Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(Object.values(result)[0]);
         }

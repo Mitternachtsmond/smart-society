@@ -31,10 +31,7 @@ function Maintenance() {
         if (response.ok) {
           setMaintenance(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -61,10 +58,7 @@ function Maintenance() {
       if (response.ok) {
         setMaintenance(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -80,10 +74,7 @@ function Maintenance() {
       if (response.ok) {
         setPenalty(result["penalty"]);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchPenalty();
@@ -112,15 +103,17 @@ function Maintenance() {
                 <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Maintenance
                 </div>
-                <Link to="/maintenance/pay">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/maintenance/pay">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add Payment
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add Payment
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -232,15 +225,17 @@ function Maintenance() {
                 <div className="flex-grow px-3 text-center dark:text-white uppercase font-semibold text-xl">
                   Maintenance
                 </div>
-                <Link to="/maintenance/pay">
-                  <button
-                    className={`${
-                      localStorage.getItem("group") === "1" || "invisible"
-                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                  >
+                {localStorage.getItem("group") === "1" ? (
+                  <Link to="/maintenance/pay">
+                    <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                      + Add Payment
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     + Add Payment
-                  </button>
-                </Link>
+                  </div>
+                )}
               </div>
               <form
                 className="border rounded flex my-3 mx-5"

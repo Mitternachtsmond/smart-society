@@ -29,10 +29,7 @@ function Dashboard() {
         if (response.ok) {
           setAnnouncement(array.results);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -54,10 +51,7 @@ function Dashboard() {
       if (response.ok) {
         setAnnouncement(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -72,10 +66,7 @@ function Dashboard() {
       if (response.ok) {
         setFunds(result.funds);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchFunds();

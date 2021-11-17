@@ -31,7 +31,11 @@ function Login() {
           localStorage.setItem("token", result.token);
           localStorage.setItem("group", result.group);
           localStorage.setItem("isLoggedIn", "true");
-          navigate("/");
+          if (result.group === 3) {
+            navigate("/gatelog");
+          } else {
+            navigate("/");
+          }
         } else {
           setError(result.error);
         }
@@ -41,7 +45,10 @@ function Login() {
     },
   });
 
-  if (localStorage.getItem("isLoggedIn")==="true") {
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    if (localStorage.getItem("group") === "3") {
+      return <Navigate to="/gatelog" />;
+    }
     return <Navigate to="/" />;
   } else {
     return (

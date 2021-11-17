@@ -22,10 +22,7 @@ function Polls() {
         setPolls(array.results);
         console.log(array);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     } catch (err) {
       console.log(err);
@@ -77,15 +74,17 @@ function Polls() {
               <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold  text-xl md:text-3xl">
                 Polls
               </div>
-              <Link to="/polls/add">
-                <button
-                  className={`${
-                    localStorage.getItem("group") === "1" || "invisible"
-                  } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
-                >
+              {localStorage.getItem("group") === "1" ? (
+                <Link to="/polls/add">
+                  <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                    + Add Poll
+                  </button>
+                </Link>
+              ) : (
+                <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                   + Add Poll
-                </button>
-              </Link>
+                </div>
+              )}
             </div>
             <form
               className="border rounded flex mt-5"

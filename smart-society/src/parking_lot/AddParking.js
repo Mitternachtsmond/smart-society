@@ -28,10 +28,7 @@ function AddParking() {
       if (response.ok) {
         setMembers(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchMembers();
@@ -65,10 +62,7 @@ function AddParking() {
             Object.values(result)[0] === "Invalid Token" ||
             Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(Object.values(result)[0]);
         }
@@ -139,7 +133,6 @@ function AddParking() {
                     }}
                     placeholder="Select Property"
                   />
-                  
                 </div>
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row-reverse">

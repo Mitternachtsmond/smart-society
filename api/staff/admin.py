@@ -17,14 +17,16 @@ class Personal_Staff_Admin(admin.ModelAdmin):
     image_preview.short_description = "Image Preview"
     image_preview.allow_tags = True
 
-    fieldsets = ((None, {"fields": ("name", "occupation", "image", "image_preview")}),)
+    fieldsets = (
+        (None, {"fields": ("name", "occupation", "image", "image_preview")}),)
 
 
 class Society_Staff_Admin(admin.ModelAdmin):
     model = Society_Staff
-    ordering = ("occupation",)
+    ordering = ("s_no",)
     search_fields = ("name", "occupation")
-    list_display = ("name", "occupation", "salary", "work_place", "image_preview")
+    list_display = ("name", "occupation", "salary",
+                    "work_place", "image_preview")
     list_filter = ("work_place",)
     filter_horizontal = ()
     readonly_fields = ("image_preview",)

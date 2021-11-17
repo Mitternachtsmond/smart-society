@@ -26,10 +26,7 @@ function UpdateAccount() {
         if (response.ok) {
           navigate("/accounts");
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       };
       fetchData();
@@ -51,10 +48,7 @@ function UpdateAccount() {
         setEmail(result.email);
         setGroup(result.groups[0]);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -117,10 +111,7 @@ function UpdateAccount() {
             Object.values(result)[0] === "Invalid Token" ||
             Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(Object.values(result)[0]);
         }

@@ -55,10 +55,7 @@ function Vote() {
         if (response.ok) {
           setPoll(obj);
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+          navigate("/logout");
         }
       } catch (err) {
         console.log(err);

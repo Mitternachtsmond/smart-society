@@ -31,10 +31,7 @@ function ViewMember() {
         setTenantName(result.tenant_name);
         setTenantMobile(result.tenant_mobile);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();

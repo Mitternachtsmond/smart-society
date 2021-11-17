@@ -26,10 +26,7 @@ function AddMember() {
       if (response.ok) {
         setAccounts(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchAccounts();
@@ -44,10 +41,7 @@ function AddMember() {
       if (response.ok) {
         setProperties(array.results);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchProperties();
@@ -94,10 +88,7 @@ function AddMember() {
             values[0] === "Invalid Token" ||
             values[0] === "The Token is expired"
           ) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.setItem("isLoggedIn", "false");
-            navigate("/login");
+            navigate("/logout");
           }
           setMsg(values[0]);
         }
