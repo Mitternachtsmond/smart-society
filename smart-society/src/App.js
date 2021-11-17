@@ -40,11 +40,9 @@ import AddPoll from "./polls/AddPoll";
 import Vote from "./polls/Vote";
 import Parking from "./parking_lot/Parking";
 import AddParking from "./parking_lot/AddParking";
-import GateLogForm from "./GateLogs/GateLogForm";
-import GateLogs from "./GateLogs/GateLogs";
 import UpdateParking from "./parking_lot/UpdateParking";
 import ReadGateLogs from "./GateLogs/ReadGateLog";
-
+import RegisterEntry from "./GateLogs/RegisterEntry";
 
 
 function App() {
@@ -282,6 +280,15 @@ function App() {
             <>
             <Navbar />
             <ReadGateLogs />
+            </>
+          } 
+          />
+          <Route 
+          path="/gatelog/register" 
+          element={
+            <>
+            <Navbar />
+            <RegisterEntry />
             </>
           } 
           />

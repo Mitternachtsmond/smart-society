@@ -4,96 +4,14 @@ import TableHeader from '../basicComponents/TableHeader';
 import Contents from '../navigation/Contents';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import TableMobileCell from '../basicComponents/TableMobileCell';
 import TableMobileHeader from '../basicComponents/TableMobileHeader';
-
-// function ReadGateLog(){
-//     const [ data , setData] = useState([])
-//     const url = "http://127.0.0.1:8000/api/parking_lot/gate_log"
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch(url, {
-//           headers: {
-//             authorization: "Token 62466cb3721792673088f4ac75187f89e31e1686",
-//           },
-//         });
-//         const array = await response.json();
-//         setData(array.results);
-//         console.log(array.results);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     }
-//     useEffect(()=>{
-//         fetchData()
-//         console.log(data)
-//     },)
-//     return(
-//       <div className="flex-col hidden sm:flex">
-//         <div className="overflow-x-auto py-5">
-//           <div className="text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
-//             Gate Logs
-//           </div>
-//           <div
-//             className="
-//               py-3
-//               align-middle
-//               inline-block
-//               min-w-full
-//               px-5
-//               sm:px-16
-//               md:px-20
-//               lg:px-44
-//               xl:px-64
-//               md:py-5
-//             "
-//           >
-//             <div className="shadow overflow-hidden border-b border-gray-200 rounded-lg">
-//               <table className="min-w-full divide-y divide-gray-200">
-//                 <thead className="bg-white ">
-//                   <tr>
-//                     <TableHeader title="Name" />
-//                     <TableHeader title="Propery Number" />
-//                     <TableHeader title="Vehicle Type" />
-//                     <TableHeader title="Vehicle Number" />
-//                     <TableHeader title="Entry Time" />
-//                     <TableHeader title="Exit Time" />
-//                     <TableHeader title="Parking" />
-//                   </tr>
-//                 </thead>
-//                 <tbody className="bg-white divide-y divide-gray-200">
-//                   {data.map((element) => {
-//                     return (
-//                       <tr
-//                         key={element.s_no}
-//                         className="divide-x-2 divide-gray-200 even:bg-gray-100"
-//                       >
-
-//                         <TableCell value={element.name} />
-//                         <TableCell value={element.property_no} />
-//                         <TableCell value={element.vehicle_type} />
-//                         <TableCell value={element.vehicle_number} />
-//                         <TableCell value={moment(element.entry_time).format("LLL")} />
-//                         <TableCell value={moment(element.exit_time).format("LLL")} />
-//                         <TableCell value={element.parking_id} />
-//                       </tr>
-//                     );
-//                   })}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     )
-// }
-
-// export default ReadGateLog
+import { Link } from 'react-router-dom';
 
 function ReadGateLogs() {
   const [gatelogs, setGateLogs] = useState([]);
+  const [value, setValue] = useState(0);
 
   let navigate = useNavigate();
   const formik = useFormik({
@@ -124,6 +42,36 @@ function ReadGateLogs() {
       fetchData();
     },
   });
+  function handleExit(element) {
+    let updates = {
+      s_no: element.target.value,
+      name: element.target.name,
+      exited: true,
+      property_no: element.target.id,
+    };
+    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${updates.s_no}/`;
+    const putExit = async () => {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Token ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(updates),
+      });
+      if (response.ok) {
+        setValue(value + 1);
+        navigate('/gatelog');
+      } else {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.setItem('isLoggedIn', 'false');
+        navigate('/login');
+      }
+    };
+    putExit();
+  }
+
   useEffect(() => {
     if (localStorage.getItem('isLoggedIn') === 'false') {
       navigate('/login');
@@ -146,7 +94,7 @@ function ReadGateLogs() {
       }
     };
     fetchData();
-  }, [navigate]);
+  }, [navigate, value]);
 
   return (
     <div className="h-screen flex">
@@ -157,6 +105,17 @@ function ReadGateLogs() {
         <div className="flex-1 overflow-y-scroll">
           <div className="flex-col hidden sm:flex">
             <div className="overflow-x-auto py-5">
+              <div className="flex px-5">
+                <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                  + Register Entry
+                </div>
+                <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
+                  Gate Logs
+                </div>
+                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                  <Link to="/gatelog/register">+ Register Entry</Link>
+                </div>
+              </div>
               <form
                 className="border rounded flex my-3 mx-5"
                 onSubmit={formik.handleSubmit}
@@ -224,9 +183,25 @@ function ReadGateLogs() {
                             <TableCell
                               value={moment(element.entry_time).format('LLL')}
                             />
-                            <TableCell
-                              value={moment(element.exit_time).format('LLL')}
-                            />
+                            {element.exit_time == null ? (
+                              <td className="px-3 py-3 md:py-4 whitespace-normal">
+                                <div className="text-base font-medium text-gray-900 tracking-wide text-center">
+                                  <button
+                                    value={element.s_no}
+                                    name={element.name}
+                                    id={element.property_no}
+                                    onClick={handleExit}
+                                    className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
+                                  >
+                                    Exit
+                                  </button>
+                                </div>
+                              </td>
+                            ) : (
+                              <TableCell
+                                value={moment(element.exit_time).format('LLL')}
+                              />
+                            )}
                             <TableCell value={element.parking_id} />
                           </tr>
                         );
