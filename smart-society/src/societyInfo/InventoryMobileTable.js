@@ -12,7 +12,11 @@ function InventoryMobileTable({ item, quantity }) {
               <TableMobileHeader value="Item" />
               <TableMobileCell
                 value={item}
-                link={`/inventory/change/${item}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/inventory/change/${item}`
+                    : 0
+                }
               />
             </tr>
 

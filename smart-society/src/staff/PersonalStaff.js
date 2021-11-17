@@ -77,9 +77,15 @@ function PersonalStaff() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Personal Staff
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/personalstaff/add">+ Add Staff</Link>
-                </div>
+                <Link to="/personalstaff/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Staff
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -133,7 +139,6 @@ function PersonalStaff() {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {personalStaff &&
                         personalStaff.map((element) => {
-
                           return (
                             <tr
                               key={element.s_no}
@@ -141,7 +146,11 @@ function PersonalStaff() {
                             >
                               <TableCell
                                 value={element.name}
-                                link={`/personalstaff/change/${element.s_no.toString()}`}
+                                link={
+                                  localStorage.getItem("group") === "1"
+                                    ? `/personalstaff/change/${element.s_no}`
+                                    : 0
+                                }
                               />
                               <TableCell value={element.occupation} />
                               <td className="px-3 py-3 md:py-4 whitespace-normal">
@@ -169,9 +178,15 @@ function PersonalStaff() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Personal Staff
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/personalstaff/add">+ Add</Link>
-                </div>
+                <Link to="/personalstaff/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex mx-5 my-3"

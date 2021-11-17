@@ -76,9 +76,15 @@ function Property() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Properties
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/properties/add">+ Add Property</Link>
-                </div>
+                <Link to="/properties/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Property
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -139,7 +145,11 @@ function Property() {
                             >
                               <TableCell
                                 value={element.property_type}
-                                link={`/properties/change/${element.property_type}`}
+                                link={
+                                  localStorage.getItem("group") === "1"
+                                    ? `/properties/change/${element.propertyType}`
+                                    : 0
+                                }
                               />
                               <TableCell
                                 value={element.maintenance.toString()}
@@ -165,9 +175,15 @@ function Property() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Properties
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/properties/add">+ Add</Link>
-                </div>
+                <Link to="/properties/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex mx-5 my-3"

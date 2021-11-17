@@ -12,7 +12,11 @@ function PersonalStaffMobileTable({ s_no, name, occupation, image }) {
               <TableMobileHeader value="Name" />
               <TableMobileCell
                 value={name}
-                link={`/personalstaff/change/${s_no}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/personalstaff/change/${s_no}`
+                    : 0
+                }
               />
             </tr>
 

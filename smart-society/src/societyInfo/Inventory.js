@@ -79,9 +79,15 @@ function Inventory() {
                 <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Inventory
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/inventory/add">+ Add Item</Link>
-                </div>
+                <Link to="/inventory/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Item
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -140,7 +146,11 @@ function Inventory() {
                           >
                             <TableCell
                               value={element.item}
-                              link={`/inventory/change/${element.item}`}
+                              link={
+                                localStorage.getItem("group") === "1"
+                                  ? `/inventory/change/${element.item}`
+                                  : 0
+                              }
                             />
                             <TableCell value={element.quantity.toString()} />
                           </tr>
@@ -161,9 +171,15 @@ function Inventory() {
                 <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
                   Inventory
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/inventory/add">+ Add</Link>
-                </div>
+                <Link to="/inventory/add">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"

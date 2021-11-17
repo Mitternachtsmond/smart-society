@@ -43,29 +43,36 @@ function Vote() {
     },
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/polls/${id}`, {
-          headers: {
-            authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        });
-        const obj = await response.json();
-        if (response.ok) {
-          setPoll(obj);
-        } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `http://127.0.0.1:8000/api/polls/${id}`,
+            {
+              headers: {
+                authorization: `Token ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          const obj = await response.json();
+          if (response.ok) {
+            setPoll(obj);
+          } else {
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/login");
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [id]);
+      };
+      fetchData();
+    },
+    [id],
+    [navigate]
+  );
 
   console.log(poll);
   return (
@@ -86,28 +93,28 @@ function Vote() {
               <div className="grid gap-4 gap-y-2 grid-cols-1 lg:grid-cols-2">
                 <div className="lg:col-span-2">
                   <form onSubmit={formik.handleSubmit}>
-                    <div class="block">
-                      <span class="text-gray-700">
+                    <div className="block">
+                      <span className="text-gray-700">
                         {poll.question &&
                           poll.question.split("\n") &&
                           poll.question.split("\n").map((i, index) => {
                             return <p key={index}>{i}</p>;
                           })}
                       </span>
-                      <div class="mt-2">
+                      <div className="mt-2">
                         {poll.options &&
                           poll.options.split(";").map((option, index) => {
                             return (
                               <div key={index}>
-                                <label class="inline-flex items-center">
+                                <label className="inline-flex items-center">
                                   <input
                                     type="radio"
-                                    class="form-radio"
+                                    className="form-radio"
                                     name="decision"
                                     value={option}
                                     onChange={formik.handleChange}
                                   />
-                                  <span class="ml-2">{option}</span>
+                                  <span className="ml-2">{option}</span>
                                 </label>
                               </div>
                             );

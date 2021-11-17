@@ -61,9 +61,8 @@ function ViewTransaction() {
                         id="option"
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                         value={option.toUpperCase()}
-                        readonly
-                      >
-                      </input>
+                        readOnly
+                      ></input>
                     </div>
 
                     <div className="md:col-span-1">
@@ -74,7 +73,7 @@ function ViewTransaction() {
                         id="amount"
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                         value={amount}
-                        readonly
+                        readOnly
                       />
                     </div>
 
@@ -86,6 +85,7 @@ function ViewTransaction() {
                         id="to"
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                         value={to}
+                        readOnly
                       />
                     </div>
 
@@ -97,7 +97,7 @@ function ViewTransaction() {
                         id="date"
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                         value={new Date(date).toLocaleString("en-in")}
-                        readonly
+                        readOnly
                       />
                     </div>
 
@@ -109,7 +109,7 @@ function ViewTransaction() {
                         rows="7"
                         className="bg-gray-50 mt-1 w-full border rounded form-textarea px-4 py-2"
                         value={description}
-                        readonly
+                        readOnly
                       />
                     </div>
                   </div>

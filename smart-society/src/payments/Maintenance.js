@@ -94,17 +94,29 @@ function Maintenance() {
           <div className="flex-col hidden sm:flex">
             <div className="overflow-x-auto py-5">
               <div className="flex px-5">
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/maintenance/penalty">
+                <Link
+                  to={
+                    localStorage.getItem("group") === "1"
+                      ? "/maintenance/penalty"
+                      : ""
+                  }
+                >
+                  <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
                     Monthly Penalty: {penalty}%
-                  </Link>
-                </div>
+                  </button>
+                </Link>
                 <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
                   Maintenance
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/maintenance/pay">+ Add Payment</Link>
-                </div>
+                <Link to="/maintenance/pay">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Payment
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"
@@ -202,15 +214,29 @@ function Maintenance() {
           <div className="flex-col flex sm:hidden">
             <div className="overflow-x-auto py-5">
               <div className="flex px-5">
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/maintenance/penalty">Penalty: {penalty}%</Link>
-                </div>
+                <Link
+                  to={
+                    localStorage.getItem("group") === "1"
+                      ? "/maintenance/penalty"
+                      : ""
+                  }
+                >
+                  <button className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                    Penalty: {penalty}%
+                  </button>
+                </Link>
                 <div className="flex-grow px-3 text-center dark:text-white uppercase font-semibold text-xl">
                   Maintenance
                 </div>
-                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                  <Link to="/maintenance/pay">+ Pay</Link>
-                </div>
+                <Link to="/maintenance/pay">
+                  <button
+                    className={`${
+                      localStorage.getItem("group") === "1" || "invisible"
+                    } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                  >
+                    + Add Payment
+                  </button>
+                </Link>
               </div>
               <form
                 className="border rounded flex my-3 mx-5"

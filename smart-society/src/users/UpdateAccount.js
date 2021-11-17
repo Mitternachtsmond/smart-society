@@ -1,55 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import Contents from '../navigation/Contents';
-import Select from 'react-select';
-import { useNavigate, useParams } from 'react-router';
-import { useFormik } from 'formik';
+import React, { useEffect, useState } from "react";
+import Contents from "../navigation/Contents";
+import { useNavigate, useParams } from "react-router";
+import { useFormik } from "formik";
 
 function UpdateAccount() {
   const { username } = useParams();
   const navigate = useNavigate();
-  const [msg, setMsg] = useState('');
-  const [email, setEmail] = useState('');
-  const [group, setGroup] = useState('');
+  const [msg, setMsg] = useState("");
+  const [email, setEmail] = useState("");
+  const [group, setGroup] = useState("");
   const [count, setCount] = useState(0);
-  const categoryOptions = [
-    { value: 'Member', label: 'Member' },
-    { value: 'Admin', label: 'Admin' },
-    { value: 'Security', label: 'Security' },
-  ];
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
-      setMsg('Are you sure you want to delete this record permanently?');
+      setMsg("Are you sure you want to delete this record permanently?");
     } else {
       const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
       const fetchData = async () => {
         const response = await fetch(url, {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            authorization: `Token ${localStorage.getItem('token')}`,
+            authorization: `Token ${localStorage.getItem("token")}`,
           },
         });
         if (response.ok) {
-          navigate('/accounts');
+          navigate("/accounts");
         } else {
-          localStorage.removeItem('token');
-          localStorage.removeItem('username');
-          localStorage.setItem('isLoggedIn', 'false');
-          navigate('/login');
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.setItem("isLoggedIn", "false");
+          navigate("/login");
         }
       };
       fetchData();
     }
   };
   useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-      navigate('/login');
+    if (localStorage.getItem("isLoggedIn") === "false") {
+      navigate("/login");
     }
     const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
-          authorization: `Token ${localStorage.getItem('token')}`,
+          authorization: `Token ${localStorage.getItem("token")}`,
         },
       });
       const result = await response.json();
@@ -57,10 +51,10 @@ function UpdateAccount() {
         setEmail(result.email);
         setGroup(result.groups[0]);
       } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/login');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
       }
     };
     fetchData();
@@ -68,11 +62,11 @@ function UpdateAccount() {
 
   const assignCategory = (value) => {
     switch (value) {
-      case 'Admin':
+      case "Admin":
         return 1;
-      case 'Member':
+      case "Member":
         return 2;
-      case 'Security':
+      case "Security":
         return 3;
       default:
         return 2;
@@ -81,13 +75,13 @@ function UpdateAccount() {
   const assignGroup = (value) => {
     switch (value) {
       case 1:
-        return 'Admin';
+        return "Admin";
       case 2:
-        return 'Member';
+        return "Member";
       case 3:
-        return 'Security';
+        return "Security";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -103,30 +97,30 @@ function UpdateAccount() {
       const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
       const fetchData = async () => {
         const response = await fetch(url, {
-          method: 'PUT',
+          method: "PUT",
           body: JSON.stringify({
             username: values.username,
             email: values.email,
             groups: [assignCategory(values.group)],
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            authorization: `Token ${localStorage.getItem('token')}`,
+            "Content-type": "application/json; charset=UTF-8",
+            authorization: `Token ${localStorage.getItem("token")}`,
           },
         });
         const result = await response.json();
         if (response.ok) {
-          resetForm({ values: '' });
-          navigate('/accounts');
+          resetForm({ values: "" });
+          navigate("/accounts");
         } else {
           if (
-            Object.values(result)[0] === 'Invalid Token' ||
-            Object.values(result)[0] === 'The Token is expired'
+            Object.values(result)[0] === "Invalid Token" ||
+            Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            localStorage.setItem('isLoggedIn', 'false');
-            navigate('/login');
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/login");
           }
           setMsg(Object.values(result)[0]);
         }
@@ -143,7 +137,7 @@ function UpdateAccount() {
       <div className="flex-1 flex overflow-hidden">
         <div className="flex-1 overflow-y-scroll">
           <div className="md:py-5 flex-grow py-3 text-center dark:text-white uppercase tracking-wider font-semibold text-xl md:text-3xl">
-            Update Account
+            Update Email
           </div>
           <div
             className="
@@ -177,7 +171,7 @@ function UpdateAccount() {
                       w-full
                       focus:outline-none focus:border-blue-400 focus:shadow"
                     value={formik.values.username}
-                    readonly
+                    readOnly
                   />
                   <label htmlFor="email" className="pt-4">
                     Email*
@@ -201,23 +195,6 @@ function UpdateAccount() {
                   />
                 </div>
 
-                <div className="flex flex-col space-y-1">
-                  <label htmlFor="group">Category*</label>
-                  {assignGroup(group) && (
-                    <Select
-                      options={categoryOptions}
-                      onChange={(element) => {
-                        formik.setFieldValue('group', element.value);
-                      }}
-                      defaultValue={{
-                        value: assignGroup(group),
-                        label: assignGroup(group),
-                      }}
-                      placeholder="Select Category"
-                      name="group"
-                    />
-                  )}
-                </div>
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row justify-between">
                   <button

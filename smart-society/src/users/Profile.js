@@ -10,7 +10,6 @@ function Profile() {
     name: "",
     email: "",
     mobile: "-",
-    group: "-",
     property: "-",
     maintenance: 0,
     tenantMobile: "-",
@@ -19,7 +18,7 @@ function Profile() {
   });
 
   const assignGroup = (value) => {
-    switch (value) {
+    switch (parseInt(value)) {
       case 1:
         return "Admin";
       case 2:
@@ -48,7 +47,6 @@ function Profile() {
         setProfile((profile) => ({
           ...profile,
           email: result["email"],
-          group: result["groups"][0],
         }));
       } else {
         localStorage.removeItem("token");
@@ -84,8 +82,7 @@ function Profile() {
         navigate("/login");
       }
     };
-    if(localStorage.getItem("group")==='2')
-      fetchMember();
+    if (localStorage.getItem("group") === "2") fetchMember();
     url = `http://127.0.0.1:8000/api/parking_lot/parking/?search=${username}`;
     const fetchParking = async () => {
       const response = await fetch(url, {
@@ -131,8 +128,7 @@ function Profile() {
         navigate("/login");
       }
     };
-    if(localStorage.getItem("group")==='2')
-      fetchMaintenance();
+    if (localStorage.getItem("group") === "2") fetchMaintenance();
   }, [navigate, username]);
   return (
     <div className="h-screen flex">
@@ -185,76 +181,116 @@ function Profile() {
                     Change Password
                   </div>
                 </Link>
-                {localStorage.getItem("group")==='2'? (profile.maintenance <= 0 ? (
-                  <div className="text-center mt-5 bg-green-100 text-xl rounded-lg px-3 py-4">
-                    <div className="font-semibold text-green-400">
-                      Maintenance
+                {localStorage.getItem("group") === "2" ? (
+                  profile.maintenance === 0 ? (
+                    <div className="text-center mt-5 bg-blue-100 text-xl rounded-lg px-3 py-4">
+                      <div className="font-semibold text-blue-400">
+                        Maintenance
+                      </div>
+                      <div className="mx-3">All dues clear</div>
                     </div>
-                    <div className="mx-3">All your dues are clear</div>
-                  </div>
+                  ) : profile.maintenance < 0 ? (
+                    <div className="text-center mt-5 bg-green-100 text-xl rounded-lg px-3 py-4">
+                      <div className="font-semibold text-green-500">
+                        Maintenance
+                      </div>
+                      <div className="mx-3">
+                        Advance of ₹{Math.abs(profile.maintenance)} already paid
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center mt-5  text-xl rounded-lg px-3 py-4">
+                      <div className="font-semibold text-red-500">
+                        Maintenance
+                      </div>
+                      <div className="mx-3">
+                        Due ₹{profile.maintenance} by the end of this month
+                      </div>
+                    </div>
+                  )
                 ) : (
-                  <div className="text-center mt-5 bg-red-100 text-xl rounded-lg px-3 py-4">
-                    <div className="font-semibold text-red-500">
-                      Maintenance
-                    </div>
-                    <div className="mx-3">
-                      Due Rs. {profile.maintenance} by the end of this month
-                    </div>
-                  </div>
-                )):<div></div>}
+                  <div></div>
+                )}
               </div>
-              <div className="md:py-8">
-                <div className="text-center my-5 text-2xl font-medium">
-                  Property Information
-                </div>
-                <div className="flex flex-row justify-between">
-                  <div className="px-1 md:px-10 text-lg py-2">Category</div>
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    {assignGroup(profile.group)}
+              {localStorage.getItem("group") === "2" ? (
+                <div className="md:py-8">
+                  <div className="text-center my-5 text-2xl font-medium">
+                    Property Information
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Category</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {assignGroup(localStorage.getItem("group"))}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Mobile</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {profile.mobile}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Parking</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {profile.parking.length > 0
+                        ? profile.parking.join(", ")
+                        : "-"}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Property</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {profile.property}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Tenant</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {profile.tenantName}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      Tenant Mobile
+                    </div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {profile.tenantMobile}
+                    </div>
+                  </div>
+                  <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
+                    <Link to="/logout">
+                      <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
+                        Logout
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <div className="flex flex-row justify-between">
-                  <div className="px-1 md:px-10 text-lg py-2">Mobile</div>
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.mobile}
+              ) : (
+                <div className="md:py-8">
+                  <div className="text-center my-5 text-2xl font-medium">
+                    Profile Information
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Category</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {assignGroup(localStorage.getItem("group"))}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between">
+                    <div className="px-1 md:px-10 text-lg py-2">Mobile</div>
+                    <div className="px-1 md:px-10 text-lg py-2">
+                      {profile.mobile}
+                    </div>
+                  </div>
+                  <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
+                    <Link to="/logout">
+                      <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
+                        Logout
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <div className="flex flex-row justify-between">
-                  <div className="px-1 md:px-10 text-lg py-2">Parking</div>
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.parking.length > 0
-                      ? profile.parking.join(", ")
-                      : "-"}
-                  </div>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <div className="px-1 md:px-10 text-lg py-2">Property</div>
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.property}
-                  </div>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <div className="px-1 md:px-10 text-lg py-2">Tenant</div>
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.tenantName}
-                  </div>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    Tenant Mobile
-                  </div>
-                  <div className="px-1 md:px-10 text-lg py-2">
-                    {profile.tenantMobile}
-                  </div>
-                </div>
-                <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
-                  <Link to="/logout">
-                    <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
-                      Logout
-                    </button>
-                  </Link>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

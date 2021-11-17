@@ -12,7 +12,11 @@ function AccountMobileTable({ username, email, category }) {
               <TableMobileHeader value="Username" />
               <TableMobileCell
                 value={username}
-                link={`/accounts/${username}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/accounts/${username}`
+                    : 0
+                }
               />
             </tr>
 

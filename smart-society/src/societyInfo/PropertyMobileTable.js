@@ -12,7 +12,11 @@ function PropertyMobileTable({ propertyType, maintenance, coveredArea }) {
               <TableMobileHeader value="Property Type" />
               <TableMobileCell
                 value={propertyType}
-                link={`/properties/change/${propertyType}`}
+                link={
+                  localStorage.getItem("group") === "1"
+                    ? `/properties/change/${propertyType}`
+                    : 0
+                }
               />
             </tr>
 

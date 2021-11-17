@@ -77,9 +77,15 @@ function Polls() {
               <div className="flex-grow px-3 text-center dark:text-white uppercase tracking-wider font-semibold  text-xl md:text-3xl">
                 Polls
               </div>
-              <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
-                <Link to="/polls/add">+ Add</Link>
-              </div>
+              <Link to="/polls/add">
+                <button
+                  className={`${
+                    localStorage.getItem("group") === "1" || "invisible"
+                  } flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500`}
+                >
+                  + Add Poll
+                </button>
+              </Link>
             </div>
             <form
               className="border rounded flex mt-5"
