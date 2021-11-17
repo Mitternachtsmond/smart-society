@@ -43,6 +43,7 @@ import AddParking from "./parking_lot/AddParking";
 import GateLogForm from "./GateLogs/GateLogForm";
 import GateLogs from "./GateLogs/GateLogs";
 import UpdateParking from "./parking_lot/UpdateParking";
+import ReadGateLogs from "./GateLogs/ReadGateLog";
 
 
 
@@ -269,13 +270,21 @@ function App() {
           <Route 
           path="/parking/change/:parkingId"
           element={
-          <>
-          <Navbar />
-          <UpdateParking />
-          </>
+            <>
+            <Navbar />
+            <UpdateParking />
+            </>
           } 
           />
-          <Route path="/gatelog" element={<Navbar />} />
+          <Route 
+          path="/gatelog" 
+          element={
+            <>
+            <Navbar />
+            <ReadGateLogs />
+            </>
+          } 
+          />
           <Route
             path="/societystaff"
             element={
