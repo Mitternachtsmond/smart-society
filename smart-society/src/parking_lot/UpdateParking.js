@@ -1,86 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import Contents from '../navigation/Contents';
-import { useNavigate, useParams } from 'react-router';
-import { useFormik } from 'formik';
-import Select from 'react-select';
+import React, { useEffect, useState } from "react";
+import Contents from "../navigation/Contents";
+import { useNavigate, useParams } from "react-router";
+import { useFormik } from "formik";
+import Select from "react-select";
 
 function UpdateParking() {
   const { parkingId } = useParams();
   const navigate = useNavigate();
-  const [msg, setMsg] = useState('');
-  const [propertyNo, setPropertyNo] = useState(0);
+  const [msg, setMsg] = useState("");
+  const [propertyNo, setPropertyNo] = useState("");
   const [count, setCount] = useState(0);
   const [members, setMembers] = useState([]);
   const options = [];
-
+  options.push({
+    label: "Visitor",
+    value: "",
+  });
+  
   const deleteRecord = () => {
     if (count === 0) {
       setCount(1);
-      setMsg('Are you sure you want to delete this record permanently?');
+      setMsg("Are you sure you want to delete this record permanently?");
     } else {
       const url = `http://127.0.0.1:8000/api/parking_lot/parking/${parkingId}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            authorization: `Token ${localStorage.getItem('token')}`,
+            authorization: `Token ${localStorage.getItem("token")}`,
           },
         });
         if (response.ok) {
-          navigate('/parking');
+          navigate("/parking");
         } else {
-          localStorage.removeItem('token');
-          localStorage.removeItem('username');
-          localStorage.setItem('isLoggedIn', 'false');
-          navigate('/login');
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.setItem("isLoggedIn", "false");
+          navigate("/login");
         }
       };
       fetchData();
     }
   };
   useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-      navigate('/login');
+    if (localStorage.getItem("isLoggedIn") === "false") {
+      navigate("/login");
     }
-    let url = 'http://127.0.0.1:8000/api/users/members/';
+    let url = "http://127.0.0.1:8000/api/users/members/";
     const fetchMembers = async () => {
       const response = await fetch(url, {
         headers: {
-          authorization: `Token ${localStorage.getItem('token')}`,
+          authorization: `Token ${localStorage.getItem("token")}`,
         },
       });
       const array = await response.json();
       if (response.ok) {
         setMembers(array.results);
       } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/login');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
       }
     };
     fetchMembers();
   }, [navigate]);
 
   useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-      navigate('/login');
+    if (localStorage.getItem("isLoggedIn") === "false") {
+      navigate("/login");
     }
     const url = `http://127.0.0.1:8000/api/parking_lot/parking/${parkingId}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
-          authorization: `Token ${localStorage.getItem('token')}`,
+          authorization: `Token ${localStorage.getItem("token")}`,
         },
       });
       const result = await response.json();
       if (response.ok) {
-        setPropertyNo(result.property_no);
+        setPropertyNo(
+          result.property_no === null ? "Visitor" : result.property_no
+        );
       } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/login');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
       }
     };
     fetchData();
@@ -89,36 +95,36 @@ function UpdateParking() {
   const formik = useFormik({
     initialValues: {
       parkingId: `${parkingId}`,
-      propertyNo: `${propertyNo}`,
+      propertyNo: `${propertyNo === "Visitor" ? "" : propertyNo}`,
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
       const url = `http://127.0.0.1:8000/api/parking_lot/parking/${parkingId}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
-          method: 'PUT',
+          method: "PUT",
           body: JSON.stringify({
             parking_id: values.parkingId,
             property_no: values.propertyNo,
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            authorization: `Token ${localStorage.getItem('token')}`,
+            "Content-type": "application/json; charset=UTF-8",
+            authorization: `Token ${localStorage.getItem("token")}`,
           },
         });
         const result = await response.json();
         if (response.ok) {
-          resetForm({ values: '' });
-          navigate('/parking');
+          resetForm({ values: "" });
+          navigate("/parking");
         } else {
           if (
-            Object.values(result)[0] === 'Invalid Token' ||
-            Object.values(result)[0] === 'The Token is expired'
+            Object.values(result)[0] === "Invalid Token" ||
+            Object.values(result)[0] === "The Token is expired"
           ) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            localStorage.setItem('isLoggedIn', 'false');
-            navigate('/login');
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/login");
           }
           setMsg(Object.values(result)[0]);
         }
@@ -171,7 +177,9 @@ function UpdateParking() {
                     placeholder="Enter Parking ID"
                     required
                   />
-                  <label htmlFor="propertyNo">Property No.*</label>
+                  <label htmlFor="propertyNo" className="pt-2">
+                    Property No.*
+                  </label>
                   {members &&
                     members.forEach((element) => {
                       options.push({
@@ -183,10 +191,10 @@ function UpdateParking() {
                     <Select
                       options={options}
                       onChange={(element) => {
-                        formik.setFieldValue("propertyNo", element.value)
+                        formik.setFieldValue("propertyNo", element.value);
                       }}
                       defaultValue={{
-                        value: propertyNo,
+                        value: propertyNo === "Visitor" ? "" : propertyNo,
                         label: propertyNo,
                       }}
                       placeholder="Select Property"

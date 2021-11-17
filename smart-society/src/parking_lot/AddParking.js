@@ -9,28 +9,32 @@ function AddParking() {
   const [msg, setMsg] = useState("");
   const [members, setMembers] = useState([]);
   const options = [];
+  options.push({
+    label: "Visitor",
+    value: "",
+  });
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
     const url = "http://127.0.0.1:8000/api/users/members/";
     const fetchMembers = async () => {
-        const response = await fetch(url, {
-          headers: {
-            authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        });
-        const array = await response.json();
-        if (response.ok) {
-          setMembers(array.results);
-        } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          localStorage.setItem("isLoggedIn", "false");
-          navigate("/login");
-        }
-      };
-      fetchMembers();
+      const response = await fetch(url, {
+        headers: {
+          authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      const array = await response.json();
+      if (response.ok) {
+        setMembers(array.results);
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
+      }
+    };
+    fetchMembers();
   }, [navigate]);
 
   const formik = useFormik({
@@ -117,7 +121,9 @@ function AddParking() {
                     placeholder="Enter Parking Id"
                     required
                   />
-                  <label htmlFor="propertyNo">Property Number*</label>
+                  <label htmlFor="propertyNo" className="pt-2">
+                    Property Number
+                  </label>
                   {members &&
                     members.forEach((element) => {
                       options.push({
@@ -125,6 +131,7 @@ function AddParking() {
                         value: element.property_no,
                       });
                     })}
+
                   <Select
                     options={options}
                     onChange={(element) => {
@@ -132,6 +139,9 @@ function AddParking() {
                     }}
                     placeholder="Select Property"
                   />
+                  <label htmlFor="propertyNo">
+                    Leave blank for visitor Parking
+                  </label>
                 </div>
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row-reverse">
