@@ -88,7 +88,7 @@ import moment from 'moment'
 // export default ReadGateLog
 
 function ReadGateLogs(){
-  console.log('hi')
+  
 }
 
 export default ReadGateLogs
