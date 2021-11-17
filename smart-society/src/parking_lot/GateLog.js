@@ -176,7 +176,11 @@ function GateLog() {
                           >
                             <TableCell
                               value={element.name}
-                              link={`/gatelog/view/${element.s_no}`}
+                              link={
+                                localStorage.getItem("group") === "1"
+                                  ? `/gatelog/view/${element.s_no}`
+                                  : 0
+                              }
                             />
                             <TableCell value={element.property_no} />
                             {element.parking_id === null ? (
@@ -277,7 +281,11 @@ function GateLog() {
                                 <TableMobileHeader value="Name" />
                                 <TableMobileCell
                                   value={element.name}
-                                  link={`/gatelog/view/${element.s_no}`}
+                                  link={
+                                    localStorage.getItem("group") === "1"
+                                      ? `/gatelog/view/${element.s_no}`
+                                      : 0
+                                  }
                                 />
                               </tr>
                               <tr className="even:bg-gray-100">

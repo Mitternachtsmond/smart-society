@@ -114,6 +114,15 @@ function App() {
                   </>
                 }
               />
+              <Route
+                path="/gatelog/view/:sno"
+                element={
+                  <>
+                    <Navbar />
+                    <ViewEntry />
+                  </>
+                }
+              />
             </>
           ) : (
             <>
