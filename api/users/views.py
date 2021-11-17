@@ -18,6 +18,7 @@ from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_401_UNAUTHORIZED,
     HTTP_404_NOT_FOUND,
+    HTTP_403_FORBIDDEN,
 )
 from .authentication import token_expire_handler
 from .email import send_email
@@ -82,14 +83,21 @@ def login(request):
     token, _ = Token.objects.get_or_create(user=user)
 
     is_expired, token = token_expire_handler(token)
-
-    return Response(
-        {
-            "token": token.key,
-            "group": user.groups.first().id # 1 - admin, 2 - member, 3 - security
-        },
-        status=HTTP_200_OK,
-    )
+    try:
+        return Response(
+            {
+                "token": token.key,
+                "group": user.groups.first().id  # 1 - admin, 2 - member, 3 - security
+            },
+            status=HTTP_200_OK,
+        )
+    except AttributeError:
+        return Response(
+            {
+                'error': 'Superuser can\'t access the site'
+            },
+            status=HTTP_403_FORBIDDEN,
+        )
 
 
 @api_view(["GET"])
