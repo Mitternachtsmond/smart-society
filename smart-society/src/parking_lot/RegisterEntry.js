@@ -9,6 +9,7 @@ function RegisterEntry() {
   const [msg, setMsg] = useState('');
   const [members, setMembers] = useState([]);
   const options = [];
+
   useEffect(() => {
     if (localStorage.getItem('isLoggedIn') === 'false') {
       navigate('/login');
@@ -33,7 +34,7 @@ function RegisterEntry() {
     fetchMembers();
   }, [navigate]);
 
-  let vehicle_types = [
+  let vehicleTypes = [
     {
       label: '2-wheeler',
       value: '2-wheeler',
@@ -47,9 +48,9 @@ function RegisterEntry() {
   const formik = useFormik({
     initialValues: {
       name: '',
-      property_no: '',
-      vehicle_type: '',
-      vehicle_number: '',
+      propertyNo: '',
+      vehicleType: '',
+      vehicleNumber: '',
       exited: false,
     },
     onSubmit: (values, { resetForm }) => {
@@ -58,10 +59,10 @@ function RegisterEntry() {
         const response = await fetch(url, {
           method: 'POST',
           body: JSON.stringify({
-            property_no: values.property_no,
+            property_no: values.propertyNo,
             name: values.name,
-            vehicle_type: values.vehicle_type,
-            vehicle_number: values.vehicle_number,
+            vehicle_type: values.vehicleType,
+            vehicle_number: values.vehicleNumber,
             exited: values.exited,
           }),
           headers: {
@@ -132,34 +133,33 @@ function RegisterEntry() {
                         <Select
                           options={options}
                           onChange={(element) => {
-                            formik.setFieldValue('property_no', element.value);
+                            formik.setFieldValue('propertyNo', element.value);
                           }}
-                          placeholder="Select Property"
+                          placeholder="Select Property No."
                           required
                         />
                       </div>
 
                       <div className="md:col-span-1">
-                        <label htmlFor="Vehicle Type">Vehicle Type*</label>
+                        <label htmlFor="vehicleType">Vehicle Type</label>
                         <Select
-                          options={vehicle_types}
+                          options={vehicleTypes}
                           onChange={(element) => {
-                            formik.setFieldValue('vehicle_type', element.value);
+                            formik.setFieldValue('vehicleType', element.value);
                           }}
                           placeholder="Select Vehicle Type"
                           required  
                         />
                       </div>
                       <div className="md:col-span-1">
-                        <label htmlFor="Vehicle Number">Vehicle Number*</label>
+                        <label htmlFor="vehicleNumber">Vehicle Number</label>
                         <input
                           type="text"
-                          name="vehicle_number"
+                          name="vehicleNumber"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder="Enter Vehicle Number"
                           onChange={formik.handleChange}
-                          value={formik.values.vehicle_number}
-                          required
+                          value={formik.values.vehicleNumber}
                         />
                       </div>
                       <div className="md:col-span-2 text-center md:row-start-4 text-red-500">

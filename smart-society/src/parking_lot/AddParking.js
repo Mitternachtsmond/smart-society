@@ -122,7 +122,7 @@ function AddParking() {
                     required
                   />
                   <label htmlFor="propertyNo" className="pt-2">
-                    Property Number
+                    Property No.*
                   </label>
                   {members &&
                     members.forEach((element) => {
@@ -139,9 +139,7 @@ function AddParking() {
                     }}
                     placeholder="Select Property"
                   />
-                  <label htmlFor="propertyNo">
-                    Leave blank for visitor Parking
-                  </label>
+                  
                 </div>
                 <div className="text-red-500 text-center">{msg}</div>
                 <div className="flex flex-row-reverse">

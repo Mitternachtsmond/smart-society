@@ -1,47 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import TableCell from '../basicComponents/TableCell';
-import TableHeader from '../basicComponents/TableHeader';
-import Contents from '../navigation/Contents';
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router';
-import moment from 'moment';
-import TableMobileCell from '../basicComponents/TableMobileCell';
-import TableMobileHeader from '../basicComponents/TableMobileHeader';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import TableCell from "../basicComponents/TableCell";
+import TableHeader from "../basicComponents/TableHeader";
+import Contents from "../navigation/Contents";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router";
+import moment from "moment";
+import TableMobileCell from "../basicComponents/TableMobileCell";
+import TableMobileHeader from "../basicComponents/TableMobileHeader";
+import { Link } from "react-router-dom";
 
-function ReadGateLogs() {
-  const [gatelogs, setGateLogs] = useState([]);
+function GateLog() {
+  const [gateLogs, setGateLogs] = useState([]);
   const [value, setValue] = useState(0);
 
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      search: '',
+      search: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const searchvalues = values.search.split().join('+');
+      const searchvalues = values.search.split().join("+");
 
       const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
-            authorization: `Token ${localStorage.getItem('token')}`,
+            authorization: `Token ${localStorage.getItem("token")}`,
           },
         });
         const array = await response.json();
-        resetForm({ values: '' });
+        resetForm({ values: "" });
         if (response.ok) {
           setGateLogs(array.results);
         } else {
-          localStorage.removeItem('token');
-          localStorage.removeItem('username');
-          localStorage.setItem('isLoggedIn', 'false');
-          navigate('/login');
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.setItem("isLoggedIn", "false");
+          navigate("/login");
         }
       };
       fetchData();
     },
   });
+
   function handleExit(element) {
     let updates = {
       s_no: element.target.value,
@@ -52,45 +53,45 @@ function ReadGateLogs() {
     const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${updates.s_no}/`;
     const putExit = async () => {
       const response = await fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          authorization: `Token ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          authorization: `Token ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(updates),
       });
       if (response.ok) {
         setValue(value + 1);
-        navigate('/gatelog');
+        navigate("/gatelog");
       } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/login');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
       }
     };
     putExit();
   }
 
   useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-      navigate('/login');
+    if (localStorage.getItem("isLoggedIn") === "false") {
+      navigate("/login");
     }
-    const url = 'http://127.0.0.1:8000/api/parking_lot/gate_log/';
+    const url = "http://127.0.0.1:8000/api/parking_lot/gate_log/";
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
-          authorization: `Token ${localStorage.getItem('token')}`,
+          authorization: `Token ${localStorage.getItem("token")}`,
         },
       });
       const array = await response.json();
       if (response.ok) {
         setGateLogs(array.results);
       } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/login');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
       }
     };
     fetchData();
@@ -161,37 +162,47 @@ function ReadGateLogs() {
                     <thead className="bg-white ">
                       <tr>
                         <TableHeader title="Name" />
-                        <TableHeader title="Propery Number" />
-                        <TableHeader title="Vehicle Type" />
-                        <TableHeader title="Vehicle Number" />
+                        <TableHeader title="Property No." />
+                        <TableHeader title="Parking" />
                         <TableHeader title="Entry Time" />
                         <TableHeader title="Exit Time" />
-                        <TableHeader title="Parking" />
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {gatelogs.map((element) => {
+                      {gateLogs.map((element) => {
                         return (
                           <tr
                             key={element.s_no}
                             className="divide-x-2 divide-gray-200 even:bg-gray-100"
                           >
-                            <TableCell value={element.name} />
-                            <TableCell value={element.property_no} />
-                            <TableCell value={element.vehicle_type} />
-                            <TableCell value={element.vehicle_number} />
                             <TableCell
-                              value={moment(element.entry_time).format('LLL')}
+                              value={element.name}
+                              link={`/gatelog/view/${element.s_no}`}
+                            />
+                            <TableCell value={element.property_no} />
+                            {element.parking_id === null ? (
+                              element.vehicle_type === null ? (
+                                <TableCell value="-" />
+                              ) : (
+                                <TableCell value="Two Wheeler Space" />
+                              )
+                            ) : (
+                              <TableCell
+                                value={moment(element.parking_id).format("LLL")}
+                              />
+                            )}
+                            <TableCell
+                              value={moment(element.entry_time).format("LLL")}
                             />
                             {element.exit_time == null ? (
-                              <td className="px-3 py-3 md:py-4 whitespace-normal">
-                                <div className="text-base font-medium text-gray-900 tracking-wide text-center">
+                              <td>
+                                <div className="text-center">
                                   <button
                                     value={element.s_no}
                                     name={element.name}
                                     id={element.property_no}
                                     onClick={handleExit}
-                                    className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
+                                    className="bg-red-500 hover:bg-red-700 text-white font-bold my-3 py-2 px-6 rounded"
                                   >
                                     Exit
                                   </button>
@@ -199,15 +210,8 @@ function ReadGateLogs() {
                               </td>
                             ) : (
                               <TableCell
-                                value={moment(element.exit_time).format('LLL')}
+                                value={moment(element.exit_time).format("LLL")}
                               />
-                            )}
-                            {element.parking_id !== null ? (
-                              <TableCell
-                                value={moment(element.parking_id).format('LLL')}
-                              />
-                            ) : (
-                              <TableCell value={'Two Wheeler Space'} />
                             )}
                           </tr>
                         );
@@ -220,6 +224,17 @@ function ReadGateLogs() {
           </div>
           <div className="flex-col flex sm:hidden">
             <div className="overflow-x-auto py-5">
+              <div className="flex px-5">
+                <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                  + Add
+                </div>
+                <div className="flex-grow text-center uppercase font-semibold text-xl dark:text-white">
+                  Gate Logs
+                </div>
+                <div className="flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+                  <Link to="/gatelog/register">+ Add</Link>
+                </div>
+              </div>
               <form
                 className="border rounded flex my-3 mx-5"
                 onSubmit={formik.handleSubmit}
@@ -250,8 +265,9 @@ function ReadGateLogs() {
                   </svg>
                 </button>
               </form>
-              {gatelogs &&
-                gatelogs.map((element) => {
+
+              {gateLogs &&
+                gateLogs.map((element) => {
                   return (
                     <div key={element.s_no}>
                       <div className="py-3 align-middle inline-block min-w-full px-5">
@@ -260,65 +276,60 @@ function ReadGateLogs() {
                             <tbody className="bg-white ">
                               <tr className="even:bg-gray-100">
                                 <TableMobileHeader value="Name" />
-                                <TableMobileCell value={element.name} />
+                                <TableMobileCell
+                                  value={element.name}
+                                  link={`/gatelog/view/${element.s_no}`}
+                                />
                               </tr>
                               <tr className="even:bg-gray-100">
-                                <TableMobileHeader value="Property Number" />
+                                <TableMobileHeader value="Property No." />
                                 <TableMobileCell value={element.property_no} />
                               </tr>
                               <tr className="even:bg-gray-100">
-                                <TableMobileHeader value="Vehicle Type" />
-                                <TableMobileCell value={element.vehicle_type} />
-                              </tr>
-                              <tr className="even:bg-gray-100">
-                                <TableMobileHeader value="Vehicle Number" />
-                                <TableMobileCell
-                                  value={element.vehicle_number}
-                                />
+                                <TableMobileHeader value="Parking" />
+                                {element.parking_id === null ? (
+                                  element.vehicle_type === null ? (
+                                    <TableMobileCell value="-" />
+                                  ) : (
+                                    <TableMobileCell value="Two Wheeler Space" />
+                                  )
+                                ) : (
+                                  <TableMobileCell
+                                    value={moment(element.parking_id).format(
+                                      "LLL"
+                                    )}
+                                  />
+                                )}
                               </tr>
                               <tr className="even:bg-gray-100">
                                 <TableMobileHeader value="Entry Time" />
                                 <TableMobileCell
                                   value={moment(element.entry_time).format(
-                                    'LLL'
+                                    "LLL"
                                   )}
                                 />
                               </tr>
                               <tr className="even:bg-gray-100">
                                 <TableMobileHeader value="Exit Time" />
-                                {element.exit_time == null ? (
-                                  <td className="whitespace-normal py-2">
-                                    <div className="font-medium text-gray-900 text-right px-4 tracking-wide">
+                                {element.exit_time === null ? (
+                                  <td>
+                                    <div className="px-4 text-right">
                                       <button
                                         value={element.s_no}
                                         name={element.name}
                                         id={element.property_no}
                                         onClick={handleExit}
-                                        className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold my-2 py-2 px-6 rounded"
                                       >
                                         Exit
                                       </button>
                                     </div>
                                   </td>
                                 ) : (
-                                  <TableCell
+                                  <TableMobileCell
                                     value={moment(element.exit_time).format(
-                                      'LLL'
+                                      "LLL"
                                     )}
-                                  />
-                                )}
-                              </tr>
-                              <tr className="even:bg-gray-100">
-                                <TableMobileHeader value="Parking" />
-                                {element.parking_id !== null ? (
-                                  <TableMobileCell
-                                    value={moment(element.parking_id).format(
-                                      'LLL'
-                                    )}
-                                  />
-                                ) : (
-                                  <TableMobileCell
-                                    value={'Two Wheeler Space'}
                                   />
                                 )}
                               </tr>
@@ -337,4 +348,4 @@ function ReadGateLogs() {
   );
 }
 
-export default ReadGateLogs;
+export default GateLog;

@@ -1,7 +1,7 @@
 import Navbar from "./navigation/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./societyInfo/Dashboard";
-import AddAnnouncement from "./societyInfo/AddAnouncement"
+import AddAnnouncement from "./societyInfo/AddAnouncement";
 import Complaint from "./societyInfo/Complaint";
 import Login from "./users/Login";
 import Logout from "./users/Logout";
@@ -41,9 +41,9 @@ import Vote from "./polls/Vote";
 import Parking from "./parking_lot/Parking";
 import AddParking from "./parking_lot/AddParking";
 import UpdateParking from "./parking_lot/UpdateParking";
-import ReadGateLogs from "./GateLogs/ReadGateLog";
-import RegisterEntry from "./GateLogs/RegisterEntry";
-
+import GateLog from "./parking_lot/GateLog";
+import RegisterEntry from "./parking_lot/RegisterEntry";
+import ViewEntry from "./parking_lot/ViewEntry";
 
 function App() {
   return (
@@ -247,50 +247,59 @@ function App() {
               </>
             }
           />
-          <Route 
-          path="/parking"
-          element={
-          <>
-          <Navbar />
-          <Parking />
-          </>
-          } 
+          <Route
+            path="/parking"
+            element={
+              <>
+                <Navbar />
+                <Parking />
+              </>
+            }
           />
-          <Route 
-          path="/parking/add"
-          element={
-          <>
-          <Navbar />
-          <AddParking />
-          </>
-          } 
+          <Route
+            path="/parking/add"
+            element={
+              <>
+                <Navbar />
+                <AddParking />
+              </>
+            }
           />
-          <Route 
-          path="/parking/change/:parkingId"
-          element={
-            <>
-            <Navbar />
-            <UpdateParking />
-            </>
-          } 
+          <Route
+            path="/parking/change/:parkingId"
+            element={
+              <>
+                <Navbar />
+                <UpdateParking />
+              </>
+            }
           />
-          <Route 
-          path="/gatelog" 
-          element={
-            <>
-            <Navbar />
-            <ReadGateLogs />
-            </>
-          } 
+          <Route
+            path="/gatelog"
+            element={
+              <>
+                <Navbar />
+                <GateLog />
+              </>
+            }
           />
-          <Route 
-          path="/gatelog/register" 
-          element={
-            <>
-            <Navbar />
-            <RegisterEntry />
-            </>
-          } 
+          <Route
+            path="/gatelog/register"
+            element={
+              <>
+                <Navbar />
+                <RegisterEntry />
+              </>
+            }
+          />
+          <Route
+            path="/gatelog/view/:sNo"
+            element={
+              <>
+                <Navbar />
+                <ViewEntry />
+              </>
+            }
           />
           <Route
             path="/societystaff"
@@ -346,7 +355,8 @@ function App() {
               </>
             }
           />
-          <Route path="/polls"
+          <Route
+            path="/polls"
             element={
               <>
                 <Navbar />
@@ -354,7 +364,8 @@ function App() {
               </>
             }
           />
-          <Route path="/polls/vote/:id"
+          <Route
+            path="/polls/vote/:id"
             element={
               <>
                 <Navbar />
@@ -362,7 +373,8 @@ function App() {
               </>
             }
           />
-          <Route path="/polls/add"
+          <Route
+            path="/polls/add"
             element={
               <>
                 <Navbar />
