@@ -74,7 +74,7 @@ function Dashboard() {
 
   return (
     <div className="h-screen flex">
-      <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
+      <div className="bg-white dark:bg-gray-800 w-48 hidden md:flex">
         <Contents />
       </div>
       <div className="flex-1 flex overflow-hidden">

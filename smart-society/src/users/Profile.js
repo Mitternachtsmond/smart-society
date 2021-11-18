@@ -116,7 +116,7 @@ function Profile() {
   }, [navigate, username]);
   return (
     <div className="h-screen flex">
-      <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
+      <div className="bg-white dark:bg-gray-800 w-48 hidden md:flex">
         <Contents />
       </div>
       <div className="flex-1 flex overflow-hidden">
@@ -260,12 +260,7 @@ function Profile() {
                       {assignGroup(localStorage.getItem("group"))}
                     </div>
                   </div>
-                  <div className="flex flex-row justify-between">
-                    <div className="px-1 md:px-10 text-lg py-2">Mobile</div>
-                    <div className="px-1 md:px-10 text-lg py-2">
-                      {profile.mobile}
-                    </div>
-                  </div>
+
                   <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
                     <Link to="/logout">
                       <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">

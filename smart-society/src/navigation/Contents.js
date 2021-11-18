@@ -5,9 +5,8 @@ function Contents() {
   return (
     <div
       className="
-        pb-10
-        pt-10
-        pl-10
+        pt-6
+        pl-2
       "
     >
       {localStorage.getItem("group") === "3" ? (

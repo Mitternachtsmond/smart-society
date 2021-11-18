@@ -3,7 +3,7 @@ from django.core.management import BaseCommand
 
 
 def Admin():
-    admin_body, created = Group.objects.get_or_create(name="Admin_Body")
+    admin_body, created = Group.objects.get_or_create(name="Admin")
     admin_body.permissions.add(
         Permission.objects.get(codename="view_logentry"))
     admin_body.permissions.add(
@@ -85,7 +85,7 @@ def Admin():
 
 
 def Member():
-    member_body, created = Group.objects.get_or_create(name="Member_Body")
+    member_body, created = Group.objects.get_or_create(name="Member")
     member_body.permissions.add(
         Permission.objects.get(codename="view_parking"))
     member_body.permissions.add(
@@ -115,7 +115,7 @@ def Member():
 
 
 def Security():
-    security_body, created = Group.objects.get_or_create(name="Security_Body")
+    security_body, created = Group.objects.get_or_create(name="Security")
     security_body.permissions.add(
         Permission.objects.get(codename="add_gate_log"))
     security_body.permissions.add(

@@ -60,7 +60,7 @@ function Transaction() {
 
   return (
     <div className="h-screen flex">
-      <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
+      <div className="bg-white dark:bg-gray-800 w-48 hidden md:flex">
         <Contents />
       </div>
       <div className="flex-1 flex overflow-hidden">
@@ -130,9 +130,9 @@ function Transaction() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-white ">
                       <tr>
-                        <TableHeader title="To/From" />
                         <TableHeader title="Date and Time" />
                         <TableHeader title="Paid/Received" />
+                        <TableHeader title="To/From" />
                         <TableHeader title="Amount" />
                       </tr>
                     </thead>

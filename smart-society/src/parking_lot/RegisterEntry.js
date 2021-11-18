@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import Contents from '../navigation/Contents';
-import { useNavigate } from 'react-router';
-import { useFormik } from 'formik';
-import Select from 'react-select';
+import React, { useEffect, useState } from "react";
+import Contents from "../navigation/Contents";
+import { useNavigate } from "react-router";
+import { useFormik } from "formik";
+import Select from "react-select";
 
 function RegisterEntry() {
   const navigate = useNavigate();
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
   const [members, setMembers] = useState([]);
   const options = [];
 
   useEffect(() => {
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-      navigate('/login');
+    if (localStorage.getItem("isLoggedIn") === "false") {
+      navigate("/login");
     }
-    const url = 'http://127.0.0.1:8000/api/users/members/';
+    const url = "http://127.0.0.1:8000/api/users/members/";
     const fetchMembers = async () => {
       const response = await fetch(url, {
         headers: {
-          authorization: `Token ${localStorage.getItem('token')}`,
+          authorization: `Token ${localStorage.getItem("token")}`,
         },
       });
       const array = await response.json();
       if (response.ok) {
         setMembers(array.results);
       } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/login');
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
       }
     };
     fetchMembers();
@@ -36,28 +36,28 @@ function RegisterEntry() {
 
   let vehicleTypes = [
     {
-      label: '2-wheeler',
-      value: '2-wheeler',
+      label: "2-wheeler",
+      value: "2-wheeler",
     },
     {
-      label: '4-wheeler',
-      value: '4-wheeler',
+      label: "4-wheeler",
+      value: "4-wheeler",
     },
   ];
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      propertyNo: '',
-      vehicleType: '',
-      vehicleNumber: '',
+      name: "",
+      propertyNo: "",
+      vehicleType: "",
+      vehicleNumber: "",
       exited: false,
     },
     onSubmit: (values, { resetForm }) => {
       const url = `http://localhost:8000/api/parking_lot/gate_log/`;
       const fetchData = async () => {
         const response = await fetch(url, {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify({
             property_no: values.propertyNo,
             name: values.name,
@@ -66,24 +66,24 @@ function RegisterEntry() {
             exited: values.exited,
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            authorization: `Token ${localStorage.getItem('token')}`,
+            "Content-type": "application/json; charset=UTF-8",
+            authorization: `Token ${localStorage.getItem("token")}`,
           },
         });
         const result = await response.json();
         if (response.ok) {
-          resetForm({ values: '' });
-          navigate('/gatelog');
+          resetForm({ values: "" });
+          navigate("/gatelog");
         } else {
           const values = Object.values(result);
           if (
-            values[0] === 'Invalid Token' ||
-            values[0] === 'The Token is expired'
+            values[0] === "Invalid Token" ||
+            values[0] === "The Token is expired"
           ) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            localStorage.setItem('isLoggedIn', 'false');
-            navigate('/login');
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/login");
           }
           setMsg(values[0]);
         }
@@ -94,7 +94,7 @@ function RegisterEntry() {
 
   return (
     <div className="h-screen flex">
-      <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">
+      <div className="bg-white dark:bg-gray-800 w-48 hidden md:flex">
         <Contents />
       </div>
       <div className="flex-1 flex overflow-hidden">
@@ -122,7 +122,9 @@ function RegisterEntry() {
                         />
                       </div>
                       <div className="md:col-span-1">
-                        <label htmlFor="propertyNo" className="mb-2">Property Number*</label>
+                        <label htmlFor="propertyNo" className="mb-2">
+                          Property Number*
+                        </label>
                         {members &&
                           members.forEach((element) => {
                             options.push({
@@ -133,7 +135,7 @@ function RegisterEntry() {
                         <Select
                           options={options}
                           onChange={(element) => {
-                            formik.setFieldValue('propertyNo', element.value);
+                            formik.setFieldValue("propertyNo", element.value);
                           }}
                           placeholder="Select Property No."
                           required
@@ -145,10 +147,10 @@ function RegisterEntry() {
                         <Select
                           options={vehicleTypes}
                           onChange={(element) => {
-                            formik.setFieldValue('vehicleType', element.value);
+                            formik.setFieldValue("vehicleType", element.value);
                           }}
                           placeholder="Select Vehicle Type"
-                          required  
+                          required
                         />
                       </div>
                       <div className="md:col-span-1">

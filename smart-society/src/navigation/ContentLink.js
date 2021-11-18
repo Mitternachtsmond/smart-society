@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-function NavbarMobileLink({slug, title}) {
+function NavbarMobileLink({ slug, title }) {
   return (
     <div>
       <Link
@@ -9,13 +9,13 @@ function NavbarMobileLink({slug, title}) {
         className={`
             font-bold
             block
-            px-4
+            px-6
             py-2
-            bg-green-300
+            bg-white
             dark:bg-gray-800
-            text-md text-black
+            text-md text-gray-600
             dark:text-white
-            hover:bg-green-400 hover:text-white
+            hover:text-green-500
             `}
       >
         {title}
