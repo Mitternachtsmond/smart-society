@@ -1,14 +1,14 @@
 module.exports = {
-    purge: [],
-    darkMode: "media",
-    theme: {
-      extend: {},
+  mode: "jit",
+  purge: ["./public/index.html"],
+  darkMode: "media",
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {
+      backgroundColor: ["even"],
     },
-    variants: {
-      extend: { 
-        backgroundColor: ['even'],
-      },
-    },
-    plugins: [],
-  };
-  
+  },
+  plugins: [],
+};
