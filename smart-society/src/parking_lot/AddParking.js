@@ -17,7 +17,7 @@ function AddParking() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/users/members/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/`;
     const fetchMembers = async () => {
       const response = await fetch(url, {
         headers: {
@@ -40,7 +40,7 @@ function AddParking() {
       propertyNo: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/parking_lot/parking/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/parking/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",

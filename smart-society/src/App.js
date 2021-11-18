@@ -31,7 +31,6 @@ import AddPersonalStaff from "./staff/AddPersonalStaff";
 import AddSocietyStaff from "./staff/AddSocietyStaff";
 import UpdatePersonalStaff from "./staff/UpdatePersonalStaff";
 import UpdateSocietyStaff from "./staff/UpdateSocietyStaff";
-import Error from "./basicComponents/Error";
 import ViewTransaction from "./payments/ViewTransaction";
 import ViewMember from "./users/ViewMember";
 import Polls from "./polls/Polls";
@@ -46,19 +45,10 @@ import ViewEntry from "./parking_lot/ViewEntry";
 
 function App() {
   const group = localStorage.getItem("group");
-  console.log(group);
   return (
     <Router>
       <div className="bg-green-300 dark:bg-gray-800 min-h-screen font-sans">
         <Routes>
-          <Route
-            path="/404"
-            element={
-              <>
-                <Error />
-              </>
-            }
-          />
           <Route
             path="/parking"
             element={

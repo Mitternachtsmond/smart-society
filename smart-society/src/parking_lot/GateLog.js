@@ -21,7 +21,7 @@ function GateLog() {
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
 
-      const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/gate_log/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -47,7 +47,7 @@ function GateLog() {
       exited: true,
       property_no: element.target.id,
     };
-    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${updates.s_no}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/gate_log/${updates.s_no}/`;
     const putExit = async () => {
       const response = await fetch(url, {
         method: "PUT",
@@ -71,7 +71,7 @@ function GateLog() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/parking_lot/gate_log/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/gate_log/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
