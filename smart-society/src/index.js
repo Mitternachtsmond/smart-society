@@ -3,11 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-localStorage.getItem("group");
 
 ReactDOM.render(
   <React.StrictMode>
-    <App group={localStorage.getItem("group")} />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

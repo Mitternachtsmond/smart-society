@@ -1,6 +1,9 @@
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useState } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "../App";
 
 function Login() {
   const [error, setError] = useState("");
@@ -31,6 +34,12 @@ function Login() {
           localStorage.setItem("token", result.token);
           localStorage.setItem("group", result.group);
           localStorage.setItem("isLoggedIn", "true");
+          ReactDOM.render(
+            <React.StrictMode>
+              <App group={localStorage.getItem("group")} />
+            </React.StrictMode>,
+            document.getElementById("root")
+          );
           if (result.group === 3) {
             navigate("/gatelog");
           } else {

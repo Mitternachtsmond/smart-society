@@ -131,6 +131,8 @@ def Security():
         Permission.objects.get(codename="view_society_staff"))
     security_body.permissions.add(
         Permission.objects.get(codename="view_member"))
+    security_body.permissions.add(
+        Permission.objects.get(codename="view_account"))
 
 
 class Command(BaseCommand):

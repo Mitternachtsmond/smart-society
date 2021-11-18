@@ -44,8 +44,9 @@ import GateLog from "./parking_lot/GateLog";
 import RegisterEntry from "./parking_lot/RegisterEntry";
 import ViewEntry from "./parking_lot/ViewEntry";
 
-function App(props) {
-  const group = props.group;
+function App() {
+  const group = localStorage.getItem("group");
+  console.log(group);
   return (
     <Router>
       <div className="bg-green-300 dark:bg-gray-800 min-h-screen font-sans">

@@ -30,7 +30,7 @@ function Navbar() {
       <nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 px-4 ">
         <div className="flex justify-between">
           <div className="flex space-x-7">
-            <Link to="/">
+            <Link to={localStorage.getItem("group") === "3" ? "/gatelog" : "/"}>
               <h2 className="text-green-500 text-2xl md:text-3xl font-bold p-4">
                 Smart Society
                 <svg
