@@ -114,40 +114,63 @@ function Profile() {
     };
     if (localStorage.getItem("group") === "2") fetchMaintenance();
   }, [navigate, username]);
+
   return (
     <div className="h-screen flex">
       <div className="bg-white dark:bg-gray-800 w-48 hidden md:flex">
         <Contents />
       </div>
       <div className="flex-1 flex overflow-hidden">
-        <div className="flex-1  overflow-y-scroll">
-          <h1 className="text-2xl uppercase md:text-4xl font-bold text-center pt-4 md:pt-5 md:pb-1 dark:text-white">
-            Profile
-          </h1>
-          <div className="py-6 px-5 md:px-1 font-sans w-auto flex flex-row justify-evenly">
+        <div className="flex-1 overflow-y-scroll">
+          <div className="flex px-2 sm:px-6 md:px-10 pt-5 pb-2">
+            <div className=" invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+              Logout
+            </div>
+            <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
+              Profile
+            </div>
+            <Link to="/logout">
+              <button className="font-semibold flex-grow-0 px-3 py-2 w-auto border rounded bg-red-500 text-white">
+                Logout
+              </button>
+            </Link>
+          </div>
+          <div className="py-6 px-1 md:px-5 font-sans w-auto flex flex-row justify-evenly">
             <div
-              className="
-                  w-full
-                  mx-auto
+              className={
+                localStorage.getItem("group") === "2"
+                  ? `
                   bg-white
-                  shadow-xl
+                  w-full
+                  sm:mx-5
+                  shadow-lg
                   hover:shadow
-                  px-4
+                  px-8
                   py-6
-                  md:px-8
+                  md:px-10
                   lg:py-10
                   rounded-lg
                   lg:grid lg:grid-cols-2 gap-6
-                "
+                `
+                  : `
+                  bg-white
+                  xl:w-1/2
+                  lg:w-2/3
+                  md:w-3/4
+                  sm:mx-5
+                  w-full
+                  shadow-lg
+                  hover:shadow
+                  px-4
+                  py-6
+                  md:px-10
+                  lg:py-10
+                  rounded-lg
+                  lg:grid lg:grid-cols-1 gap-6`
+              }
             >
               <div>
-                <div className="px-3 text-lg py-2 flex place-content-end lg:hidden">
-                  <Link to="/logout">
-                    <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
-                      Logout
-                    </button>
-                  </Link>
-                </div>
+                
                 <div className="font-medium">
                   <img src={src} alt="User" className="h-40 w-40 mx-auto" />
                 </div>
@@ -193,7 +216,7 @@ function Profile() {
                     </div>
                   )
                 ) : (
-                  <div></div>
+                  <></>
                 )}
               </div>
               {localStorage.getItem("group") === "2" ? (
@@ -241,33 +264,11 @@ function Profile() {
                       {profile.tenantMobile}
                     </div>
                   </div>
-                  <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
-                    <Link to="/logout">
-                      <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
-                        Logout
-                      </button>
-                    </Link>
-                  </div>
+                  
                 </div>
               ) : (
-                <div className="md:py-8">
-                  <div className="text-center my-5 text-2xl font-medium">
-                    Profile Information
-                  </div>
-                  <div className="flex flex-row justify-between">
-                    <div className="px-1 md:px-10 text-lg py-2">Category</div>
-                    <div className="px-1 md:px-10 text-lg py-2">
-                      {assignGroup(localStorage.getItem("group"))}
-                    </div>
-                  </div>
-
-                  <div className="px-1 md:px-10 text-lg py-2 hidden lg:flex place-content-end">
-                    <Link to="/logout">
-                      <button className="px-3 py-2 border rounded font-bold text-white bg-red-500 ">
-                        Logout
-                      </button>
-                    </Link>
-                  </div>
+                <div className="text-center my-5 text-2xl font-medium">
+                  {assignGroup(localStorage.getItem("group"))}
                 </div>
               )}
             </div>
