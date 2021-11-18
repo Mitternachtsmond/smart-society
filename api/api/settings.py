@@ -101,13 +101,15 @@ REST_FRAMEWORK = {
         "users.permissions.CorrectedDjangoModelPermissions",
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 20
+    "PAGE_SIZE": 20,
 }
 
 AUTH_USER_MODEL = "users.Account"
 WSGI_APPLICATION = "api.wsgi.application"
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000"]
+FRONTEND_HOST = "http://localhost:3000"
+
+CORS_ALLOWED_ORIGINS = [FRONTEND_HOST]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

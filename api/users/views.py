@@ -1,9 +1,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
-from django.urls import reverse
 from django.utils.encoding import smart_str, smart_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics, viewsets
@@ -32,6 +30,8 @@ from .serializers import (
     Reset_Password_Serializer,
     Set_Password_Serializer,
 )
+
+from django.conf import settings
 
 
 class Registration_View(generics.CreateAPIView):
@@ -88,15 +88,13 @@ def login(request):
         return Response(
             {
                 "token": token.key,
-                "group": user.groups.first().id  # 1 - admin, 2 - member, 3 - security
+                "group": user.groups.first().id,  # 1 - admin, 2 - member, 3 - security
             },
             status=HTTP_200_OK,
         )
     except AttributeError:
         return Response(
-            {
-                'error': 'Superuser can\'t access the site'
-            },
+            {"error": "Superuser can't access the site"},
             status=HTTP_403_FORBIDDEN,
         )
 
@@ -164,12 +162,7 @@ class Reset_Password(generics.CreateAPIView):
                 user = Account.objects.get(email=email)
                 uidb64 = urlsafe_base64_encode(smart_bytes(user.username))
                 token = PasswordResetTokenGenerator().make_token(user)
-                current_site = get_current_site(request=request).domain
-                relative_link = reverse(
-                    "reset_password", kwargs={"uidb64": uidb64, "token": token}
-                )
-                # absurl = "http://" + current_site + relative_link
-                absurl = "http://localhost:3000" + relative_link
+                absurl = f"{settings.FRONTEND_HOST}/resetpassword/{uidb64}/{token}"
                 email_body = (
                     "Hello "
                     + str(user)
