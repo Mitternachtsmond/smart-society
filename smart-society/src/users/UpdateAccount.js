@@ -87,7 +87,6 @@ function UpdateAccount() {
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      console.log(values.group);
       const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
       const fetchData = async () => {
         const response = await fetch(url, {

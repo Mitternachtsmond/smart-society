@@ -8,7 +8,6 @@ function Vote() {
   let navigate = useNavigate();
   const { id } = useParams();
 
-  // const [msg, setMsg] = useState("");
   const [poll, setPoll] = useState({
     title: "Loading...",
     question: "loading",
@@ -37,7 +36,6 @@ function Vote() {
         }
       );
       const obj = await response.json();
-      console.log(response.ok);
       alert(obj.status);
       navigate("/polls");
     },
@@ -64,7 +62,6 @@ function Vote() {
     fetchData();
   }, [id, navigate]);
 
-  console.log(poll);
   return (
     <div className="h-screen flex">
       <div className="bg-green-300 dark:bg-gray-800 w-64 hidden md:flex">

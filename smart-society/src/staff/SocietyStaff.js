@@ -147,7 +147,7 @@ function SocietyStaff() {
                                 link={
                                   localStorage.getItem("group") === "1"
                                     ? `/societystaff/change/${element.s_no}`
-                                    : 0
+                                    : null
                                 }
                               />
                               <TableCell value={element.occupation} />

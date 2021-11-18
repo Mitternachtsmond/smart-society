@@ -145,7 +145,7 @@ function Parking() {
                               link={
                                 localStorage.getItem("group") === "1"
                                   ? `/parking/change/${element.parking_id}`
-                                  : 0
+                                  : null
                               }
                             />
                             <TableCell

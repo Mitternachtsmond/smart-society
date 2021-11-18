@@ -145,7 +145,7 @@ function Inventory() {
                               link={
                                 localStorage.getItem("group") === "1"
                                   ? `/inventory/change/${element.item}`
-                                  : 0
+                                  : null
                               }
                             />
                             <TableCell value={element.quantity.toString()} />

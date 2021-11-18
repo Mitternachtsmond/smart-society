@@ -43,9 +43,8 @@ function Maintenance() {
       navigate("/login");
     }
     const username = localStorage.getItem("username");
-    const group = localStorage.getItem("group");
     let url = `http://127.0.0.1:8000/api/payments/maintenance/?search=${username}`;
-    if (group === "1") {
+    if (localStorage.getItem("group") === "1") {
       url = "http://127.0.0.1:8000/api/payments/maintenance/";
     }
     const fetchData = async () => {

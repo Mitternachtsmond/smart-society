@@ -176,11 +176,7 @@ function GateLog() {
                           >
                             <TableCell
                               value={element.name}
-                              link={
-                                localStorage.getItem("group") === "1"
-                                  ? `/gatelog/view/${element.s_no}`
-                                  : 0
-                              }
+                              link={`/gatelog/view/${element.s_no}`}
                             />
                             <TableCell value={element.property_no} />
                             {element.parking_id === null ? (
@@ -190,27 +186,29 @@ function GateLog() {
                                 <TableCell value="Two Wheeler Space" />
                               )
                             ) : (
-                              <TableCell
-                                value={moment(element.parking_id).format("LLL")}
-                              />
+                              <TableCell value={element.parking_id} />
                             )}
                             <TableCell
                               value={moment(element.entry_time).format("LLL")}
                             />
                             {element.exit_time == null ? (
-                              <td>
-                                <div className="text-center">
-                                  <button
-                                    value={element.s_no}
-                                    name={element.name}
-                                    id={element.property_no}
-                                    onClick={handleExit}
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold my-3 py-2 px-6 rounded"
-                                  >
-                                    Exit
-                                  </button>
-                                </div>
-                              </td>
+                              localStorage.getItem("group") === "1" ? (
+                                <TableCell value="Pending Exit" />
+                              ) : (
+                                <td>
+                                  <div className="text-center">
+                                    <button
+                                      value={element.s_no}
+                                      name={element.name}
+                                      id={element.property_no}
+                                      onClick={handleExit}
+                                      className="bg-red-500 hover:bg-red-700 text-white font-bold my-3 py-2 px-6 rounded"
+                                    >
+                                      Exit
+                                    </button>
+                                  </div>
+                                </td>
+                              )
                             ) : (
                               <TableCell
                                 value={moment(element.exit_time).format("LLL")}
@@ -281,11 +279,7 @@ function GateLog() {
                                 <TableMobileHeader value="Name" />
                                 <TableMobileCell
                                   value={element.name}
-                                  link={
-                                    localStorage.getItem("group") === "1"
-                                      ? `/gatelog/view/${element.s_no}`
-                                      : 0
-                                  }
+                                  link={`/gatelog/view/${element.s_no}`}
                                 />
                               </tr>
                               <tr className="even:bg-gray-100">
@@ -301,11 +295,7 @@ function GateLog() {
                                     <TableMobileCell value="Two Wheeler Space" />
                                   )
                                 ) : (
-                                  <TableMobileCell
-                                    value={moment(element.parking_id).format(
-                                      "LLL"
-                                    )}
-                                  />
+                                  <TableMobileCell value={element.parking_id} />
                                 )}
                               </tr>
                               <tr className="even:bg-gray-100">
@@ -319,19 +309,23 @@ function GateLog() {
                               <tr className="even:bg-gray-100">
                                 <TableMobileHeader value="Exit Time" />
                                 {element.exit_time === null ? (
-                                  <td>
-                                    <div className="px-4 text-right">
-                                      <button
-                                        value={element.s_no}
-                                        name={element.name}
-                                        id={element.property_no}
-                                        onClick={handleExit}
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold my-2 py-2 px-6 rounded"
-                                      >
-                                        Exit
-                                      </button>
-                                    </div>
-                                  </td>
+                                  localStorage.getItem("group") === "1" ? (
+                                    <TableMobileCell value="Pending Exit" />
+                                  ) : (
+                                    <td>
+                                      <div className="px-4 text-right">
+                                        <button
+                                          value={element.s_no}
+                                          name={element.name}
+                                          id={element.property_no}
+                                          onClick={handleExit}
+                                          className="bg-red-500 hover:bg-red-700 text-white font-bold my-2 py-2 px-6 rounded"
+                                        >
+                                          Exit
+                                        </button>
+                                      </div>
+                                    </td>
+                                  )
                                 ) : (
                                   <TableMobileCell
                                     value={moment(element.exit_time).format(

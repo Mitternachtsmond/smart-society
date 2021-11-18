@@ -37,7 +37,6 @@ function PayMaintenance() {
     },
     onSubmit: (values, { resetForm }) => {
       const url = `http://127.0.0.1:8000/api/payments/maintenance/`;
-      console.log(values);
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "PUT",

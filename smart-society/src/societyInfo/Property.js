@@ -144,7 +144,7 @@ function Property() {
                                 link={
                                   localStorage.getItem("group") === "1"
                                     ? `/properties/change/${element.property_type}`
-                                    : 0
+                                    : null
                                 }
                               />
                               <TableCell

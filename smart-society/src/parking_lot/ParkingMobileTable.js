@@ -15,7 +15,7 @@ function ParkingMobileTable({ parkingId, propertyNo }) {
                 link={
                   localStorage.getItem("group") === "1"
                     ? `/parking/change/${parkingId}`
-                    : 0
+                    : null
                 }
               />
             </tr>

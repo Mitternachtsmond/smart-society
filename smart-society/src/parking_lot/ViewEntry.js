@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import moment from "moment";
 
 function ViewEntry() {
-  const { sNo } = useParams();
+  const { sno } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [propertyNo, setPropertyNo] = useState("");
@@ -18,7 +18,7 @@ function ViewEntry() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${sNo}`;
+    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${sno}`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -37,10 +37,7 @@ function ViewEntry() {
         setEntryTime(result.entry_time);
         setExitTime(result.exit_time);
       } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+        navigate("/logout");
       }
     };
     fetchData();
@@ -48,12 +45,12 @@ function ViewEntry() {
 
   function handleExit(element) {
     let updates = {
-      s_no: sNo,
+      s_no: sno,
       name: name,
       exited: true,
       property_no: propertyNo,
     };
-    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${sNo}/`;
+    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${sno}/`;
     const putExit = async () => {
       const response = await fetch(url, {
         method: "PUT",
@@ -167,14 +164,16 @@ function ViewEntry() {
                     </div>
                     <div className="md:col-span-1 md:row-start-4">
                       {exitTime === null ? (
-                        <div className="text-right">
-                          <button
-                            onClick={handleExit}
-                            className="bg-red-500 hover:bg-red-700 text-white mt-7 font-bold py-2 px-6 rounded"
-                          >
-                            Exit
-                          </button>
-                        </div>
+                        localStorage.getItem("group") === "3" && (
+                          <div className="text-right">
+                            <button
+                              onClick={handleExit}
+                              className="bg-red-500 hover:bg-red-700 text-white mt-7 font-bold py-2 px-6 rounded"
+                            >
+                              Exit
+                            </button>
+                          </div>
+                        )
                       ) : (
                         <>
                           <label htmlFor="exitTime">Exit Time</label>

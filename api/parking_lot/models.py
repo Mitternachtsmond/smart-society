@@ -22,7 +22,8 @@ def ParkingFilling(queryset, property_no):
 
 
 class Parking(models.Model):
-    parking_id = models.CharField(_("Parking ID"), max_length=25, primary_key=True)
+    parking_id = models.CharField(
+        _("Parking ID"), max_length=25, primary_key=True)
     filled = models.BooleanField(null=True, blank=True, editable=False)
     property_no = models.ForeignKey(
         Member,
@@ -101,7 +102,8 @@ class Gate_Log(models.Model):
                 if self.vehicle_type is not None:
                     if self.vehicle_type.lower() == "4-wheeler":
                         self.parking_id = ParkingFilling(
-                            Parking.objects.filter(filled=False), self.property_no
+                            Parking.objects.filter(
+                                filled=False), self.property_no
                         )
         else:
             revert_changes(self)

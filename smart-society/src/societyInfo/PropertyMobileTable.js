@@ -15,7 +15,7 @@ function PropertyMobileTable({ propertyType, maintenance, coveredArea }) {
                 link={
                   localStorage.getItem("group") === "1"
                     ? `/properties/change/${propertyType}`
-                    : 0
+                    : null
                 }
               />
             </tr>

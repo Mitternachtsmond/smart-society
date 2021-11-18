@@ -44,8 +44,8 @@ import GateLog from "./parking_lot/GateLog";
 import RegisterEntry from "./parking_lot/RegisterEntry";
 import ViewEntry from "./parking_lot/ViewEntry";
 
-function App() {
-  const group = localStorage.getItem("group");
+function App(props) {
+  const group = props.group;
   return (
     <Router>
       <div className="bg-green-300 dark:bg-gray-800 min-h-screen font-sans">
@@ -104,7 +104,6 @@ function App() {
           />
           {group === "3" ? (
             <>
-              {console.log("sec login")}
               <Route
                 path="/gatelog/register"
                 element={
@@ -126,7 +125,6 @@ function App() {
             </>
           ) : (
             <>
-              {console.log("admin/member login")}
               <Route
                 path="/announcements/add"
                 element={
@@ -370,7 +368,15 @@ function App() {
                   </>
                 }
               />
-
+              <Route
+                path="/gatelog/view/:sno"
+                element={
+                  <>
+                    <Navbar />
+                    <ViewEntry />
+                  </>
+                }
+              />
               <Route
                 path="/societystaff/add"
                 element={

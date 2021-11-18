@@ -20,7 +20,7 @@ class Gate_Log_Viewset(viewsets.ModelViewSet):
     serializer_class = Gate_Log_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["s_no", "parking_id", "name",
+    search_fields = ["s_no", "parking_id__parking_id", "name",
                      "property_no__property_no__username", "vehicle_type"]
 
     def get_queryset(self):

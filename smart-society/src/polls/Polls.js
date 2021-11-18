@@ -20,7 +20,6 @@ function Polls() {
       const array = await response.json();
       if (response.ok) {
         setPolls(array.results);
-        console.log(array);
       } else {
         navigate("/logout");
       }
@@ -41,15 +40,33 @@ function Polls() {
   }
 
   useEffect(() => {
+    const fetchData = async (url) => {
+      try {
+        const response = await fetch(url, {
+          headers: {
+            authorization: `Token ${localStorage.getItem("token")}`,
+          },
+        });
+        const array = await response.json();
+        if (response.ok) {
+          setPolls(array.results);
+        } else {
+          navigate("/logout");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchData(url);
-  }, []);
+  }, [navigate]);
 
   const formik = useFormik({
     initialValues: {
       search: "",
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       fetchData(`${url}/?search=${values.search}`);
+      resetForm({ values: "" });
     },
   });
 
@@ -135,35 +152,3 @@ function Polls() {
   );
 }
 export default Polls;
-
-/*
-  return (
-      <Link to={'/polls/create'} className="
-            py-2
-            px-2
-            font-medium
-            text-white
-            dark:text-gray-900
-            bg-blue-500
-            rounded
-            hover:bg-blue-400
-            transition
-            duration-300
-            ">
-      Create Poll
-      </Link>
-      {console.log(polls)}
-      {polls && polls.map((element) => {
-        return (
-          <Poll
-            key={element.s_no}
-            id={element.s_no}
-            title={element.title}
-            question={element.question}
-            handler={endPoll}
-          />
-        );
-      })}
-    </div>
-  </div>
-  );*/

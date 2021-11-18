@@ -15,7 +15,7 @@ function AccountMobileTable({ username, email, category }) {
                 link={
                   localStorage.getItem("group") === "1"
                     ? `/accounts/${username}`
-                    : 0
+                    : null
                 }
               />
             </tr>

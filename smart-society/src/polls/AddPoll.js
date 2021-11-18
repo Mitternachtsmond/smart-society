@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { Formik, Field, Form, FieldArray } from "formik";
 import Contents from "../navigation/Contents";
+import { useNavigate } from "react-router";
 
 function AddPoll() {
-  const [msg, setMsg] = useState("");
+  let navigate = useNavigate();
 
   return (
     <div className="h-screen flex">
@@ -45,10 +45,9 @@ function AddPoll() {
                       );
 
                       if (response.ok) {
-                        setMsg("New Poll created");
+                        navigate("/polls");
                       }
                       resetForm();
-                      console.log(values);
                     }}
                   >
                     {({ values }) => (
@@ -137,9 +136,6 @@ function AddPoll() {
                     )}
                   </Formik>
                 </div>
-              </div>
-              <div className="text-center text-black dark:text-white">
-                {msg}
               </div>
             </div>
           </div>

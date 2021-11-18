@@ -15,7 +15,7 @@ function InventoryMobileTable({ item, quantity }) {
                 link={
                   localStorage.getItem("group") === "1"
                     ? `/inventory/change/${item}`
-                    : 0
+                    : null
                 }
               />
             </tr>

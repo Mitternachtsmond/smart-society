@@ -22,7 +22,7 @@ function SocietyStaffMobileTable({
                 link={
                   localStorage.getItem("group") === "1"
                     ? `/societystaff/change/${s_no}`
-                    : 0
+                    : null
                 }
               />
             </tr>

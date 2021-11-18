@@ -155,7 +155,7 @@ function Account() {
                                 link={
                                   localStorage.getItem("group") === "1"
                                     ? `/accounts/${element.username}`
-                                    : 0
+                                    : null
                                 }
                               />
                               <TableCell value={element.email} />
