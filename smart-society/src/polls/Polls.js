@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 
 function Polls() {
   const [polls, setPolls] = useState([]);
-  const url = "http://127.0.0.1:8000/api/polls";
+  const url = `${process.env.REACT_APP_BACKEND_HOST}/api/polls`;
 
   let navigate = useNavigate();
   const fetchData = async (url) => {
@@ -58,7 +58,7 @@ function Polls() {
       }
     };
     fetchData(url);
-  }, [navigate]);
+  }, [navigate, url]);
 
   const formik = useFormik({
     initialValues: {

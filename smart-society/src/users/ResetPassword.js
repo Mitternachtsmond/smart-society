@@ -11,7 +11,7 @@ function ResetPassword() {
   const [error, setError] = useState("");
   const { uidb64, token } = useParams();
   useEffect(() => {
-    const url = `http://127.0.0.1:8000/api/reset_password/${uidb64}/${token}`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/reset_password/${uidb64}/${token}`;
     const fetchData = async () => {
       const response = await fetch(url);
       const result = await response.json();
@@ -42,7 +42,7 @@ function ResetPassword() {
     },
     validate,
     onSubmit: (values, { resetForm }) => {
-      const url = "http://127.0.0.1:8000/api/reset_password_complete/";
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/reset_password_complete/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "PATCH",

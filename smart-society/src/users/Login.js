@@ -5,17 +5,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "../App";
 
+
 function Login() {
   const [error, setError] = useState("");
   let navigate = useNavigate();
-
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = "http://127.0.0.1:8000/api/login/";
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/login/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",

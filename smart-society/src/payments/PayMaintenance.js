@@ -13,7 +13,7 @@ function PayMaintenance() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    let url = "http://127.0.0.1:8000/api/users/members/";
+    let url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/`;
     const fetchMembers = async () => {
       const response = await fetch(url, {
         headers: {
@@ -36,7 +36,7 @@ function PayMaintenance() {
       amount: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/payments/maintenance/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/maintenance/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "PUT",

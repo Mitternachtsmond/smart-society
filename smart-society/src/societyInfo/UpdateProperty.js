@@ -18,7 +18,7 @@ function UpdateProperty() {
         "Are you sure you want to delete this record permanently? All the other associated records in Member table will also get deleted."
       );
     } else {
-      const url = `http://127.0.0.1:8000/api/society_info/properties/${propertyType}/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/${propertyType}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "DELETE",
@@ -39,7 +39,7 @@ function UpdateProperty() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/society_info/properties/${propertyType}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/${propertyType}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -65,7 +65,7 @@ function UpdateProperty() {
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/society_info/properties/${propertyType}/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/${propertyType}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "PUT",

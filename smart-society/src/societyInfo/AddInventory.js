@@ -18,7 +18,7 @@ function AddInventory() {
       quantity: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/society_info/inventory/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/inventory/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",

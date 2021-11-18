@@ -18,7 +18,7 @@ function Inventory() {
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
 
-      const url = `http://127.0.0.1:8000/api/society_info/inventory/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/inventory/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -40,7 +40,7 @@ function Inventory() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/society_info/inventory/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/inventory/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

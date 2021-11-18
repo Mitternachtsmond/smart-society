@@ -35,7 +35,7 @@ function Profile() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    let url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+    let url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/${username}`;
     const fetchAccount = async () => {
       const response = await fetch(url, {
         headers: {
@@ -53,7 +53,7 @@ function Profile() {
       }
     };
     fetchAccount();
-    url = `http://127.0.0.1:8000/api/users/members/${username}/`;
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/${username}/`;
     const fetchMember = async () => {
       const response = await fetch(url, {
         headers: {
@@ -75,7 +75,7 @@ function Profile() {
       }
     };
     if (localStorage.getItem("group") === "2") fetchMember();
-    url = `http://127.0.0.1:8000/api/parking_lot/parking/?search=${username}`;
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/parking/?search=${username}`;
     const fetchParking = async () => {
       const response = await fetch(url, {
         headers: {
@@ -95,7 +95,7 @@ function Profile() {
       }
     };
     fetchParking();
-    url = `http://127.0.0.1:8000/api/payments/maintenance/?search=${username}`;
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/maintenance/?search=${username}`;
     const fetchMaintenance = async () => {
       const response = await fetch(url, {
         headers: {

@@ -16,7 +16,7 @@ function ViewMember() {
       navigate("/login");
     }
 
-    const url = `http://127.0.0.1:8000/api/users/members/${propertyNo}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/${propertyNo}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

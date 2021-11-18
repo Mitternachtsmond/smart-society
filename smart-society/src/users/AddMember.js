@@ -15,7 +15,7 @@ function AddMember() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    let url = "http://127.0.0.1:8000/api/users/accounts/";
+    let url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/`;
     const fetchAccounts = async () => {
       const response = await fetch(url, {
         headers: {
@@ -30,7 +30,7 @@ function AddMember() {
       }
     };
     fetchAccounts();
-    url = "http://127.0.0.1:8000/api/society_info/properties/";
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/`;
     const fetchProperties = async () => {
       const response = await fetch(url, {
         headers: {
@@ -57,7 +57,7 @@ function AddMember() {
       tenantMobile: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/users/members/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",

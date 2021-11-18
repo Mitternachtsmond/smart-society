@@ -19,7 +19,7 @@ function Maintenance() {
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
 
-      const url = `http://127.0.0.1:8000/api/payments/maintenance/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/maintenance/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -43,9 +43,9 @@ function Maintenance() {
       navigate("/login");
     }
     const username = localStorage.getItem("username");
-    let url = `http://127.0.0.1:8000/api/payments/maintenance/?search=${username}`;
+    let url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/maintenance/?search=${username}`;
     if (localStorage.getItem("group") === "1") {
-      url = "http://127.0.0.1:8000/api/payments/maintenance/";
+      url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/maintenance/`;
     }
     const fetchData = async () => {
       const response = await fetch(url, {
@@ -62,7 +62,7 @@ function Maintenance() {
     };
     fetchData();
 
-    url = "http://127.0.0.1:8000/api/payments/penalty/";
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/penalty/`;
     const fetchPenalty = async () => {
       const response = await fetch(url, {
         headers: {

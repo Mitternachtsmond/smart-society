@@ -10,7 +10,7 @@ function ForgotPassword() {
       email: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/reset_password_email/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/reset_password_email/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",

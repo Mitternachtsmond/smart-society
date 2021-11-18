@@ -16,7 +16,7 @@ function Member() {
     },
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
-      const url = `http://127.0.0.1:8000/api/users/members/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -38,7 +38,7 @@ function Member() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/users/members/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

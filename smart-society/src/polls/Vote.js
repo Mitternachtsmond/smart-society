@@ -25,7 +25,7 @@ function Vote() {
       )
         return;
       const response = await fetch(
-        `http://127.0.0.1:8000/api/polls/vote/${id}`,
+        `${process.env.REACT_APP_BACKEND_HOST}/api/polls/vote/${id}`,
         {
           method: "POST",
           headers: {
@@ -44,11 +44,14 @@ function Vote() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/polls/${id}`, {
-          headers: {
-            authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_HOST}/api/polls/${id}`,
+          {
+            headers: {
+              authorization: `Token ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const obj = await response.json();
         if (response.ok) {
           setPoll(obj);

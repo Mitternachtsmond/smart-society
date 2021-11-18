@@ -16,7 +16,7 @@ function UpdatePersonalStaff() {
       setCount(1);
       setMsg("Are you sure you want to delete this record permanently?");
     } else {
-      const url = `http://127.0.0.1:8000/api/staff/personal_staff/${sno}/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/personal_staff/${sno}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "DELETE",
@@ -37,7 +37,7 @@ function UpdatePersonalStaff() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/staff/personal_staff/${sno}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/personal_staff/${sno}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -71,7 +71,7 @@ function UpdatePersonalStaff() {
     formData.append("name", name);
     formData.append("occupation", occupation);
 
-    const url = `http://127.0.0.1:8000/api/staff/personal_staff/${sno}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/personal_staff/${sno}/`;
 
     const fetchData = async () => {
       const response = await fetch(url, {

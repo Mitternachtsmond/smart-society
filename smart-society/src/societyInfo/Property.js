@@ -16,7 +16,7 @@ function Property() {
     },
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
-      const url = `http://127.0.0.1:8000/api/society_info/properties/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -38,7 +38,7 @@ function Property() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/society_info/properties/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

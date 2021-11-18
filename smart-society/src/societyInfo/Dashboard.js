@@ -17,7 +17,7 @@ function Dashboard() {
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
 
-      const url = `http://127.0.0.1:8000/api/society_info/announcements/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/announcements/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -40,7 +40,7 @@ function Dashboard() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    let url = "http://127.0.0.1:8000/api/society_info/announcements/";
+    let url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/announcements/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -55,7 +55,7 @@ function Dashboard() {
       }
     };
     fetchData();
-    url = "http://127.0.0.1:8000/api/payments/funds/";
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/funds/`;
     const fetchFunds = async () => {
       const response = await fetch(url, {
         headers: {

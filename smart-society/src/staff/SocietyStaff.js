@@ -17,7 +17,7 @@ function SocietyStaff() {
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
 
-      const url = `http://127.0.0.1:8000/api/staff/society_staff/?search=${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/society_staff/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -39,7 +39,7 @@ function SocietyStaff() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/staff/society_staff/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/society_staff/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

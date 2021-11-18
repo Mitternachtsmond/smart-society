@@ -15,7 +15,7 @@ function ViewTransaction() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/payments/transactions/${sno}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/payments/transactions/${sno}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

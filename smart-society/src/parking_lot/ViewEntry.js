@@ -18,7 +18,7 @@ function ViewEntry() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${sno}`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/gate_log/${sno}`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -50,7 +50,7 @@ function ViewEntry() {
       exited: true,
       property_no: propertyNo,
     };
-    const url = `http://127.0.0.1:8000/api/parking_lot/gate_log/${sno}/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/gate_log/${sno}/`;
     const putExit = async () => {
       const response = await fetch(url, {
         method: "PUT",

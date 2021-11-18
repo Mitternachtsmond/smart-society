@@ -27,7 +27,7 @@ function Account() {
       search: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/users/accounts/${values}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/${values}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
@@ -49,7 +49,7 @@ function Account() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = "http://127.0.0.1:8000/api/users/accounts/";
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {

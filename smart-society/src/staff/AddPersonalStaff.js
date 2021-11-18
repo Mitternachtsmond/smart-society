@@ -29,7 +29,7 @@ function AddPersonalStaff() {
     formData.append("name", name);
     formData.append("occupation", occupation);
 
-    const url = `http://127.0.0.1:8000/api/staff/personal_staff/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/personal_staff/`;
 
     const fetchData = async () => {
       const response = await fetch(url, {

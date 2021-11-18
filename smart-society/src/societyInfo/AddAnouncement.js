@@ -11,7 +11,7 @@ function AddAnnouncement() {
       description: "",
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/society_info/announcements/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/announcements/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",

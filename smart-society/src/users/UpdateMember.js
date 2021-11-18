@@ -26,7 +26,7 @@ function UpdateMember() {
         "Are you sure you want to delete this record permanently? All associated records in other tables will also get deleted."
       );
     } else {
-      const url = `http://127.0.0.1:8000/api/users/members/${propertyNo}/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/${propertyNo}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "DELETE",
@@ -48,7 +48,7 @@ function UpdateMember() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    let url = "http://127.0.0.1:8000/api/users/accounts/";
+    let url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/`;
     const fetchAccounts = async () => {
       const response = await fetch(url, {
         headers: {
@@ -63,7 +63,7 @@ function UpdateMember() {
       }
     };
     fetchAccounts();
-    url = "http://127.0.0.1:8000/api/society_info/properties/";
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/society_info/properties/`;
     const fetchProperties = async () => {
       const response = await fetch(url, {
         headers: {
@@ -78,7 +78,7 @@ function UpdateMember() {
       }
     };
     fetchProperties();
-    url = `http://127.0.0.1:8000/api/users/members/${propertyNo}/`;
+    url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/${propertyNo}/`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -110,7 +110,7 @@ function UpdateMember() {
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/users/members/${propertyNo}/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/members/${propertyNo}/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "PUT",

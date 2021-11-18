@@ -15,7 +15,7 @@ function UpdateAccount() {
       setCount(1);
       setMsg("Are you sure you want to delete this record permanently?");
     } else {
-      const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/${username}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "DELETE",
@@ -36,7 +36,7 @@ function UpdateAccount() {
     if (localStorage.getItem("isLoggedIn") === "false") {
       navigate("/login");
     }
-    const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/${username}`;
     const fetchData = async () => {
       const response = await fetch(url, {
         headers: {
@@ -87,7 +87,7 @@ function UpdateAccount() {
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      const url = `http://127.0.0.1:8000/api/users/accounts/${username}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/${username}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "PUT",

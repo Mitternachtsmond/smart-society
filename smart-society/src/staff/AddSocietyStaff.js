@@ -36,7 +36,7 @@ function AddSocietyStaff() {
     formData.append("from_place", comesFrom);
     formData.append("mobile_no", mobile);
 
-    const url = `http://127.0.0.1:8000/api/staff/society_staff/`;
+    const url = `${process.env.REACT_APP_BACKEND_HOST}/api/staff/society_staff/`;
 
     const fetchData = async () => {
       const response = await fetch(url, {
