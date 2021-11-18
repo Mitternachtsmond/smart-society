@@ -98,10 +98,11 @@ class Gate_Log(models.Model):
             else:
                 self.entry_time = make_aware(datetime.datetime.now())
                 self.exit_time = None
-                if self.vehicle_type.lower() == "4-wheeler":
-                    self.parking_id = ParkingFilling(
-                        Parking.objects.filter(filled=False), self.property_no
-                    )
+                if self.vehicle_type is not None:
+                    if self.vehicle_type.lower() == "4-wheeler":
+                        self.parking_id = ParkingFilling(
+                            Parking.objects.filter(filled=False), self.property_no
+                        )
         else:
             revert_changes(self)
             if not self.exited:

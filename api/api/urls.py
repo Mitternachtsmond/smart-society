@@ -57,9 +57,9 @@ urlpatterns = [
     path("api/", include(api_patterns)),
 ]
 
-if settings.DEBUG:
-    urlpatterns += (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)[0],)
-    urlpatterns += (static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)[0],)
+# if settings.DEBUG:
+urlpatterns += (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
+urlpatterns += (static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
 
 admin.site.site_header = "Smart Society Admin"
 admin.site.site_title = "Smart Society Admin Portal"

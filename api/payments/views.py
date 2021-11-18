@@ -1,4 +1,4 @@
-from rest_framework import generics, viewsets
+from rest_framework import generics, viewsets, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.pagination import PageNumberPagination
@@ -7,13 +7,13 @@ from rest_framework.response import Response
 from django.utils import timezone
 from .models import Maintenance, Transaction, Penalty
 from .serializers import Maintenance_Serializer, Penalty_Serializer, Transaction_Serializer
-
+from django.db.models.base import ObjectDoesNotExist
 
 class Transaction_Viewset(viewsets.ModelViewSet):
     serializer_class = Transaction_Serializer
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ["to", "s_no"]
+    search_fields = ["to", "option", "date", "amount", "description"]
 
     def get_queryset(self):
         return Transaction.objects.all()
@@ -31,11 +31,16 @@ class Maintenance_Viewset(viewsets.ModelViewSet):
     def put(self, request, *args, **kwargs):
         month = timezone.now().month
         year = timezone.now().year
-        row = Maintenance.objects.get(
-            property_no=request.data['property_no'], month__month=month, month__year=year)
-        row.amount_paid += int(request.data['amount'])
-        row.save()
-        return Response({'status': 'Payment Done'})
+        try:
+            row = Maintenance.objects.get(
+                property_no=request.data['property_no'], month__month=month, month__year=year)
+            row.amount_paid += int(request.data['amount'])
+            row.save()
+            return Response({'status': 'Payment Done'}, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response(
+                {'status': 'Enter a valid property'}, status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 @api_view(["GET"])

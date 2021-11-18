@@ -28,7 +28,7 @@ class Personal_Staff(models.Model):
         return self.name
 
     class Meta:
-        verbose_name="Personal"
+        verbose_name = "Personal Staff"
         verbose_name_plural = "Personal Staff"
         ordering = ["s_no"]
 
@@ -42,12 +42,8 @@ class Personal_Staff(models.Model):
 
 
 class Society_Staff(models.Model):
-    occupation = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        verbose_name=_("Occupation"),
-    )
+    s_no = models.AutoField(primary_key=True)
+    occupation = models.CharField(_("Occupation"), max_length=50)
     aadhaar = models.CharField(
         _("Aadhaar No."), max_length=12, unique=True, blank=True, null=True
     )
@@ -69,9 +65,9 @@ class Society_Staff(models.Model):
         super(Society_Staff, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name="Society"
+        verbose_name = "Society Staff"
         verbose_name_plural = "Society Staff"
-        ordering = ["occupation"]
+        ordering = ["s_no"]
 
     @property
     def image_preview(self):

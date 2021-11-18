@@ -23,6 +23,5 @@ def monthly_maintenance():
 
 def start_scheduler():
     sched = BackgroundScheduler(timezone="Asia/Kolkata")
-    sched.add_job(monthly_maintenance, "cron",
-                  day=1, hour=10, minute=0, second=0)
+    sched.add_job(monthly_maintenance, "cron", day=1, hour=10, minute=0, second=0)
     sched.start()

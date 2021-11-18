@@ -22,7 +22,7 @@ class Personal_Staff_Admin(admin.ModelAdmin):
 
 class Society_Staff_Admin(admin.ModelAdmin):
     model = Society_Staff
-    ordering = ("occupation",)
+    ordering = ("s_no",)
     search_fields = ("name", "occupation")
     list_display = ("name", "occupation", "salary", "work_place", "image_preview")
     list_filter = ("work_place",)

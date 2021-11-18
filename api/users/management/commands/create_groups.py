@@ -33,6 +33,8 @@ def Admin():
     admin_body.permissions.add(
         Permission.objects.get(codename="view_penalty"))
     admin_body.permissions.add(
+        Permission.objects.get(codename="change_penalty"))
+    admin_body.permissions.add(
         Permission.objects.get(codename="change_maintenance"))
     admin_body.permissions.add(
         Permission.objects.get(codename="add_property_info"))
@@ -127,6 +129,8 @@ def Security():
     )
     security_body.permissions.add(
         Permission.objects.get(codename="view_society_staff"))
+    security_body.permissions.add(
+        Permission.objects.get(codename="view_member"))
     security_body.permissions.add(
         Permission.objects.get(codename="view_account"))
 
