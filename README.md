@@ -22,7 +22,7 @@ Why this Tech Stack?
 We wanted to expand our tech stack and explore different frameworks to differentiate amongst them and use them according to our needs in the future.
 
 ### Database Schema
- https://drawsql.app/society-management/diagrams/diagram-1#
+ https://drawsql.app/society-management/diagrams/smart-society
 
 ### Members
 1. Mukul Jain (200001050)
