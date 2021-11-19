@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import Contents from "../navigation/Contents";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
+import Select from "react-select";
 
 function AddTransaction() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const options = [
+    {
+      label: "Paid",
+      value: "paid",
+    },
+    {
+      label: "Received",
+      value: "received",
+    },
+  ];
   const formik = useFormik({
     initialValues: {
       option: "",
@@ -70,18 +81,13 @@ function AddTransaction() {
                     <div className="grid gap-4 gap-y-4 grid-cols-1 md:grid-cols-2">
                       <div className="md:col-span-1">
                         <label htmlFor="option">Option*</label>
-                        <select
-                          name="option"
-                          id="option"
-                          placeholder="paid"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          onChange={formik.handleChange}
-                          value={formik.values.option}
-                          required
-                        >
-                          <option value="paid">Paid</option>
-                          <option value="received">Received</option>
-                        </select>
+                        <Select
+                          options={options}
+                          onChange={(element) => {
+                            formik.values.option = element.value;
+                          }}
+                          placeholder="Select Option"
+                        />
                       </div>
 
                       <div className="md:col-span-1">
