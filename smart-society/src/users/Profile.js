@@ -123,14 +123,14 @@ function Profile() {
       <div className="flex-1 flex overflow-hidden">
         <div className="flex-1 overflow-y-scroll">
           <div className="flex px-2 sm:px-6 md:px-10 pt-5 pb-2">
-            <div className=" invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
+            <div className="invisible flex-grow-0 px-2 py-1 w-auto border rounded bg-blue-100 text-blue-500">
               Logout
             </div>
             <div className="flex-grow text-center dark:text-white uppercase tracking-wider font-semibold text-3xl">
               Profile
             </div>
             <Link to="/logout">
-              <button className="font-semibold flex-grow-0 px-3 py-2 w-auto border rounded bg-red-500 text-white">
+              <button className="bg-red-500 hover:bg-red-700 text-white font-bold my-3 py-2 px-4 rounded">
                 Logout
               </button>
             </Link>
@@ -170,7 +170,6 @@ function Profile() {
               }
             >
               <div>
-                
                 <div className="font-medium">
                   <img src={src} alt="User" className="h-40 w-40 mx-auto" />
                 </div>
@@ -264,7 +263,6 @@ function Profile() {
                       {profile.tenantMobile}
                     </div>
                   </div>
-                  
                 </div>
               ) : (
                 <div className="text-center my-5 text-2xl font-medium">
