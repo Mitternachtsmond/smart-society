@@ -28,7 +28,7 @@ function Account() {
     },
     onSubmit: (values, { resetForm }) => {
       const searchvalues = values.search.split().join("+");
-      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/${searchvalues}`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/users/accounts/?search=${searchvalues}`;
       const fetchData = async () => {
         const response = await fetch(url, {
           headers: {
