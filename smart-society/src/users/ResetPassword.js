@@ -48,8 +48,8 @@ function ResetPassword() {
           method: "PATCH",
           body: JSON.stringify({
             password: values.password,
-            token: { token },
-            uidb64: { uidb64 },
+            token: token ,
+            uidb64: uidb64,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
