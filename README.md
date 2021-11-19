@@ -21,9 +21,6 @@ This project was created during Sep-Oct 2021, for the course, CS-257 Database Ma
 Why this Tech Stack?
 We wanted to expand our tech stack and explore different frameworks to differentiate amongst them and use them according to our needs in the future.
 
-### Database Schema
- https://drawsql.app/society-management/diagrams/smart-society
-
 ### Members
 1. Mukul Jain (200001050)
 2. Gaurav Khushpat Jain (200001023)
@@ -31,6 +28,12 @@ We wanted to expand our tech stack and explore different frameworks to different
 4. Nishit Sushil Singh (200001056)
 5. Vihaan Thora (200001079)
 
-### Documentation
-https://drive.google.com/file/d/1GKu46nh8Qgu4SWw_d-HYCSxw-t6daj8k/view?usp=sharing
+### [Database Schema](https://drawsql.app/society-management/diagrams/smart-society)
 
+### [Documentation](https://drive.google.com/file/d/1GKu46nh8Qgu4SWw_d-HYCSxw-t6daj8k/view?usp=sharing)
+
+#### Frontend
+https://smartsociety.netlify.app
+
+#### Backend
+https://smart-society-api.herokuapp.com
