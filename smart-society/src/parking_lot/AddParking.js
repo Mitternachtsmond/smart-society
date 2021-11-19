@@ -10,7 +10,7 @@ function AddParking() {
   const [members, setMembers] = useState([]);
   const options = [];
   options.push({
-    label: "Visitor",
+    label: "-",
     value: "",
   });
   useEffect(() => {

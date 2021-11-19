@@ -13,7 +13,7 @@ function UpdateParking() {
   const [members, setMembers] = useState([]);
   const options = [];
   options.push({
-    label: "Visitor",
+    label: "-",
     value: "",
   });
 
@@ -74,7 +74,7 @@ function UpdateParking() {
       const result = await response.json();
       if (response.ok) {
         setPropertyNo(
-          result.property_no === null ? "Visitor" : result.property_no
+          result.property_no === null ? "-" : result.property_no
         );
       } else {
         navigate("/logout");
@@ -86,7 +86,7 @@ function UpdateParking() {
   const formik = useFormik({
     initialValues: {
       parkingId: `${parkingId}`,
-      propertyNo: `${propertyNo === "Visitor" ? "" : propertyNo}`,
+      propertyNo: `${propertyNo === "-" ? "" : propertyNo}`,
     },
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
@@ -182,7 +182,7 @@ function UpdateParking() {
                         formik.setFieldValue("propertyNo", element.value);
                       }}
                       defaultValue={{
-                        value: propertyNo === "Visitor" ? "" : propertyNo,
+                        value: propertyNo === "-" ? "" : propertyNo,
                         label: propertyNo,
                       }}
                       placeholder="Select Property"

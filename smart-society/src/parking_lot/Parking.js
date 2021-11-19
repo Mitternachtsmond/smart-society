@@ -152,7 +152,7 @@ function Parking() {
                               value={
                                 element.property_no
                                   ? element.property_no
-                                  : "Visitor"
+                                  : "-"
                               }
                             />
                           </tr>
@@ -222,7 +222,7 @@ function Parking() {
                       <ParkingMobileTable
                         parkingId={element.parking_id}
                         propertyNo={
-                          element.property_no ? element.property_no : "Visitor"
+                          element.property_no ? element.property_no : "-"
                         }
                       />
                     </div>
