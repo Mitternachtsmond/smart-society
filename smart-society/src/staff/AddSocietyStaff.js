@@ -200,7 +200,7 @@ function AddSocietyStaff() {
                           <button
                             type="button"
                             className="bg-green-400 hover:bg-green-600 text-white font-bold my-3 py-2 px-4 rounded"
-                            onSubmit={handleSubmit}
+                            onClick={handleSubmit}
                           >
                             Submit
                           </button>

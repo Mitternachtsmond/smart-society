@@ -164,27 +164,6 @@ function UpdateSocietyStaff() {
                         />
                       </div>
 
-                      {/* <div className="md:col-span-1">
-                        <label htmlFor="occupation">Occupation*</label>
-                        {account &&
-                          account.forEach((element) => {
-                            options.push({
-                              label: element.username,
-                              value: element.username,
-                            });
-                          })}
-                        <Select
-                          options={options}
-                          placeholder="Enter Occupation"
-                          onChange={(option) => setOccupation(option.value)}
-                          defaultValue={{
-                            value: occupation,
-                            label: occupation,
-                          }}
-                          required
-                        />
-                      </div> */}
-
                       <div className="md:col-span-1">
                         <label htmlFor="name">Salary*</label>
                         <input
