@@ -42,7 +42,7 @@ class Registration_View(generics.CreateAPIView):
 class Account_List(generics.ListAPIView):
     filter_backends = (SearchFilter, OrderingFilter)
     pagination_class = PageNumberPagination
-    search_fields = "username"
+    search_fields = ("username",)
     queryset = Account.objects.all()
     serializer_class = Account_Serializer
 
