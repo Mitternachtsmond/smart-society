@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 def ParkingFilling(queryset, property_no):
     for i in queryset:
         if i.parking_id[1] == "V":
-            if i.parking_id.split("-")[0] == str(property_no).split("-")[0]:
+            if i.parking_id[0] == str(property_no)[0]:
                 i.filled = True
                 i.save()
                 return i
