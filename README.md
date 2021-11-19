@@ -32,5 +32,5 @@ We wanted to expand our tech stack and explore different frameworks to different
 5. Vihaan Thora (200001079)
 
 ### Documentation
-link
+https://drive.google.com/file/d/1GKu46nh8Qgu4SWw_d-HYCSxw-t6daj8k/view?usp=sharing
 
