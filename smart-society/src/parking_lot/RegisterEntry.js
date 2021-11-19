@@ -54,7 +54,7 @@ function RegisterEntry() {
       exited: false,
     },
     onSubmit: (values, { resetForm }) => {
-      const url = `http://localhost:8000/api/parking_lot/gate_log/`;
+      const url = `${process.env.REACT_APP_BACKEND_HOST}/api/parking_lot/gate_log/`;
       const fetchData = async () => {
         const response = await fetch(url, {
           method: "POST",
