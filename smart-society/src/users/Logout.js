@@ -16,7 +16,7 @@ function Logout() {
       });
       await response.json();
     };
-    fetchData();
+    localStorage.getItem("token") && fetchData();
   }, [navigate]);
 
   localStorage.removeItem("username");
