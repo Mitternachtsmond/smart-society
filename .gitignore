@@ -1,5 +1,5 @@
 .vscode
 __pycache__/
-.env
+api/api/.env
 node_modules/
 migrations/
