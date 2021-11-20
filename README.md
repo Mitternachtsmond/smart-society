@@ -12,10 +12,10 @@ Hence, the Society Management System seemed to be the best choice.
 This project was created during Sep-Oct 2021, for the course, CS-257 Database Management System, under the guidance of Dr. Nagendra Kumar, Assistant Professor in the Department of Computer Science and Engineering at IIT Indore. We are grateful towards IIT Indore and him for providing us the opportunity to build this amazing project.
 
 ### Tech Stacks
-1. React
-2. CSS
-3. MySQL
-4. Django
+1. React (Frontend)
+2. Tailwind CSS (Design)
+3. SQL (Database)
+4. Django REST Framework (Backend)
 
 ### FAQs
 Why this Tech Stack?
