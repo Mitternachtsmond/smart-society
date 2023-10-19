@@ -30,5 +30,5 @@ sqlparse==0.4.2
 tomli==1.2.1
 typing-extensions==3.10.0.2
 tzlocal==2.1
-urllib3==1.26.7
+urllib3==1.26.18
 whitenoise==5.3.0
